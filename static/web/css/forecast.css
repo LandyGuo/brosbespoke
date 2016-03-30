@@ -1,0 +1,34 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors wangfengquan(you@example.org)
+ * @date    2015-05-19 16:51:36
+ * @version $Id$
+ */
+.requextTit p{width: 195px; text-align: center;}
+.forecast{width: 582px;margin:0 auto;font-size: 12px; font-family:"PingHei-Light","Arial","微软雅黑";}
+.forecastL{width: 264px;}
+.forecastL li{margin-bottom: 30px;}
+.forecastL li:first-child p:first-child{font-size:14px;}
+.forecastL li:first-child  select{outline: none;}
+.forecastL li:first-child p:last-child{font-size:12px;margin-top:0px;color: #777; }
+.forecastL li input{outline: none; border: 1px solid #000;background: #fff;width:260px;height:10px;padding: 5px 0 5px 4px;font-size: 12px;font-family: "PingHei-Light","Arial","微软雅黑"}
+.forecastL li select{width:266px;height:22px;font-size: 12px;font-family: "PingHei-Light","Arial","微软雅黑"}
+.forecastL li:last-child img{ width: 12px; height: 12px;padding: 0;vertical-align: text-top;margin-right: 5px;cursor: pointer;}
+.forecastL li:last-child p{font-weight: bold;}
+.forecastL li:last-child span{color: #777;}
+.forecastL li:nth-child(2) select{width:62px;height:20px;margin-bottom: 12px;outline: none;}
+.forecastL li:nth-child(2) input:last-child{width:260px; margin-bottom:0;}
+.forecastL li:nth-child(3) select{width: 68px;height: 20px; margin-bottom: 12px;outline: none;}
+.forecastL li:nth-child(3) select.lastS{width:264px;margin-bottom: 0px;height:20px;}
+.forecastL li:nth-child(2) span,.forecastL li:nth-child(3) span{padding: 0 4px}
+.forecastL li:nth-child(2),.forecastL li:nth-child(3){position: relative;}
+.forecastL li:nth-child(2) span.cm,.forecastL li:nth-child(3) span.kg{position: absolute;top:22px;right:0px;}
+.forecastL li p{margin-bottom:5px;font-size: 12px;}
+.forecastL li p.must{margin-bottom: 31px;margin-top: -25px;}
+.forecast_submit{width:264px;height:34px; border:1px solid #000;text-align:center; line-height:34px;font-size: 14px;
+margin:24px 0 0px 158px;display: inline-block;font-size: 14px;background: #000;border-radius: 5px;color: #fff;}
+.forecast p:last-child{line-height: 22px;margin-top: 30px;margin-bottom: 40px;}
+.comeIn{color: #898989;}
+.comeIn big{color: #000;line-height: 39px;}
+.foot2{margin-top: 30px;}

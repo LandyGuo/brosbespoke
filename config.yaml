@@ -1,0 +1,16 @@
+name: pylabs
+version: 9
+
+libraries:
+- name: "django"
+  version: "1.7.7"
+
+handlers:
+- url: /foo
+  static_dir: foo
+
+cron:
+- description: cron test
+  url: /wap/cron/
+  schedule: 0 3 * * *
+  timezone: Beijing

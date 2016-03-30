@@ -1,0 +1,210 @@
+{% extends "admin/change_form.html" %} 
+{% block sidebar %}
+
+<script type="text/javascript"> 
+    (function($) { 
+        $(document).ready(function($)
+        { 
+            $.ajaxSetup({ 
+                beforeSend: function(xhr, settings) { 
+                    function getCookie(name) { 
+                    var cookieValue = null; 
+                    if (document.cookie && document.cookie != '') { 
+                    var cookies = document.cookie.split(';'); 
+                    for (var i = 0; i < cookies.length; i++) { 
+                    var cookie = django.jQuery.trim(cookies[i]); 
+                    // Does this cookie string begin with the name we want? 
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) { 
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                        break; 
+                    }
+                }
+            } 
+            return cookieValue; 
+        } 
+        if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) { 
+            // Only send the token to relative URLs i.e. locally. 
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                }
+             } 
+        }); 
+    change_options(); 
+    //change_user(); 
+    var product = $("#id_product"); 
+    var user = $("#id_user"); 
+    var type= $("#id_type"); 
+    //alert(type);
+    window.onfocus = change_options;
+    type.change( function() { 
+        change_options();
+    }); 
+    product.change( function() { 
+        change_options();
+        change_style();
+    }); 
+    
+    
+
+    
+ });
+ var change_style = function() {
+     var product= $("#id_product").val();
+     //alert(product);
+     $.ajax({
+        url: "/order/get_product_name/",
+        data : {
+                    "product" : product,
+            },
+        dataType: 'json',
+        type: 'post',
+
+        success: function(response_data){
+        if (response_data != ""){
+           if (response_data.type =="suit"){
+        //alert(type);
+                $(".field-lingxing_cs").hide();
+                $(".field-xiukou_cs").hide();
+                $(".field-xiabai_cs").hide();
+                $(".field-menjin_cs").hide();
+                $(".field-houbei_cs").hide();
+                $(".field-koudai_cs").hide();
+                $(".field-beizhu_cs").hide();
+
+                $(".field-kouxing_sy").show();
+                 $(".field-lingxing_sy").show();
+                 $(".field-yaodou_sy").show();
+                 $(".field-kaiqi_sy").show();
+                 $(".field-xiukou_sy").show();
+                 $(".field-neibuzaoxing_sy").show();
+                 $(".field-neibudou_sy").show();
+                 $(".field-libu_sy").show();
+                 $(".field-guomian_sy").show();
+                 $(".field-beizhu_sy").show();
+                 $(".field-kuzhe_xk").show();
+                 $(".field-houdou_xk").show();
+                 $(".field-kujiao_xk").show();
+                 $(".field-beizhu_xk").show();
+                 $(".field-add_kuzi").show();
+                 $(".field-add_majia").show();
+                 $(".field-majia_lingxing").show();
+                 $(".field-majia_kouxing").show();
+                 $(".field-beizhu").show();
+                 $(".field-beizhu").show();
+                 $(".field-beizhu").show();
+           }
+            if (response_data.type =="shirt"){
+             //alert(type);
+                 $(".field-kouxing_sy").hide();
+                 $(".field-lingxing_sy").hide();
+                 $(".field-yaodou_sy").hide();
+                 $(".field-kaiqi_sy").hide();
+                 $(".field-xiukou_sy").hide();
+                 $(".field-neibuzaoxing_sy").hide();
+                 $(".field-neibudou_sy").hide();
+                 $(".field-libu_sy").hide();
+                 $(".field-guomian_sy").hide();
+                 $(".field-beizhu_sy").hide();
+                 $(".field-kuzhe_xk").hide();
+                 $(".field-houdou_xk").hide();
+                 $(".field-kujiao_xk").hide();
+                 $(".field-beizhu_xk").hide();
+                $(".field-add_kuzi").hide();
+                $(".field-add_majia").hide();
+                $(".field-majia_lingxing").hide();
+                $(".field-majia_kouxing").hide();
+                $(".field-beizhu").hide();
+                $(".field-beizhu").hide();
+                $(".field-beizhu").hide();
+
+                $(".field-lingxing_cs").show();
+                $(".field-xiukou_cs").show();
+                $(".field-xiabai_cs").show();
+                $(".field-menjin_cs").show();
+                $(".field-houbei_cs").show();
+                $(".field-koudai_cs").show();
+                $(".field-beizhu_cs").show();
+                                }
+        }
+        }})
+
+ }
+ var change_options = function() { 
+    change_style();
+    fabric = $("#id_fabric");
+    address = $("#id_address");
+    //fabric.empty(); 
+    //fabric.append('<option selected="selected" value="">---------</option>'); 
+   
+    var select = $(this); 
+    var product = $("#id_product").val(); 
+    var user = $("#id_user").val(); 
+    var fabri= $("#id_fabric").val(); 
+    var addressi= $("#id_address").val(); 
+    var type= $("#id_type").val();
+    $(".form-row field-user").remove();
+    //var user = $("#id_user").val(); 
+    //var checkValue=$("#select_id").val(); 
+    if (type =="A"){
+        //alert(type);
+        $(".field-start_day").hide();
+        $(".field-end_day").hide();
+        $(".field-start_time").show();
+        $(".field-end_time").show();
+    }
+    if (type =="B"){
+        //alert(type);
+        $(".field-start_time").hide();
+        $(".field-end_time").hide();
+        $(".field-start_day").show();
+        $(".field-end_day").show();
+    }
+    $.ajax({ 
+        url: "/order/order_post/", 
+        
+        data : { 
+                    "product" : product,
+                    "user" : user
+                    
+            }, 
+        dataType: 'json', 
+        type: 'post', 
+
+        success: function(response_data){
+        if (response_data != ""){ 
+            fabric.empty(); 
+            address.empty();
+            //alert(response_data.nam);
+             
+
+            for(i=0; i<response_data.nam.length; i++){ 
+                if (response_data.fabricid[i] == fabri){
+                    option = '<option value="'+ response_data.fabricid[i] + '" selected="selected">'+ response_data.nam[i] + '</option>';
+
+                   }
+                else{
+                    option = '<option value="' + response_data.fabricid[i] + '">' + response_data.nam[i] + '</option>';
+                   }
+                fabric.append(option); 
+                
+            } 
+            address.append('<option selected="selected" value="">---------</option>');
+            for(i=0; i<response_data.addressnam.length; i++){ 
+                if (response_data.addressid[i] == addressi){
+                    
+    addressoption = '<option value="'+ response_data.addressid[i] + '" selected="selected">'+ response_data.addressnam[i] + '</option>';
+                   }
+                   else{
+                     addressoption = '<option value="' + response_data.addressid[i] + '">' + response_data.addressnam[i] + '</option>';
+                   }
+               
+                address.append(addressoption); 
+            } 
+        }document.getElementById('user_name').innerHTML = '<a href="/admin/wap/user/'+ user +'">'+ response_data.username + '</a>';
+        } 
+    });
+ }
+ })(django.jQuery); 
+ </script>
+
+
+ {% endblock %}

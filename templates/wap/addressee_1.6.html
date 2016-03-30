@@ -1,0 +1,306 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}预约量体{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    /*暂时只列出北京市*/
+    var citylist = {
+        "province": [
+            {
+                "name": "",
+                "city": [
+                            {"name": "东城区"},
+                            {"name": "西城区"},
+                            {"name": "朝阳区"},
+                            {"name": "丰台区"},
+//                            {"name": "石景山区"},
+                            {"name": "海淀区"},
+//                            {"name": "门头沟区"},
+//                            {"name": "房山区"},
+//                            {"name": "通州区"},
+//                            {"name": "顺义区"},
+//                            {"name": "昌平区"},
+//                            {"name": "大兴区"},
+//                            {"name": "怀柔区"},
+//                            {"name": "平谷区" },
+//                            {"name": "密云县"},
+//                            {"name": "延庆县" }
+
+                ]
+            }
+        ]
+    };
+    function openSelect(elem){
+        if(document.createEvent){
+            var e = document.createEvent("MouseEvents");
+            e.initMouseEvent("mousedown");
+            elem[0].dispatchEvent(e);
+        } else if(elem.fireEvent) {
+            elem[0].fireEvent("onmousedown");
+        }
+    }
+
+    function openDateTime(elem){
+        if(document.createEvent){
+            var e = document.createEvent("MouseEvents");
+            e.initMouseEvent("mousedown");
+            elem[0].dispatchEvent(e);
+        } else if(elem.fireEvent) {
+            elem[0].fireEvent("onmousedown");
+        }
+    }
+
+    var weekMap = new Array("日", "一", "二", "三", "四", "五", "六");
+    function calcWeek(date){
+        var arys1= new Array();
+        arys1=date.split('-');     //日期为输入日期，格式为 2013-3-10
+        var ssdate=new Date(arys1[0],parseInt(arys1[1]-1),arys1[2]);
+        return ssdate.getDay();
+    }
+    function trimZero(str) {
+        if(str && str[0] === "0") {
+            return str.substring(1);
+        } else {
+            return str;
+        }
+    }
+    function formatDate(date){
+        var arys1 = date.split("-");
+        return trimZero(arys1[0]) + "年" + trimZero(arys1[1]) + "月" + trimZero(arys1[2]) + "日";
+    }
+    function reFormatDate(date) {
+        var sp1 = date.split("年");
+        var year = sp1[0];
+        var sp2 = sp1[1].split("月");
+        var month = sp2[0];
+        var sp3 = sp2[1].split("日");
+        var day = sp3[0];
+        return year + '-' + month + '-' + day;
+    }
+
+    $(function(){
+
+//        var heightArea = '', weightArea = '';
+//        for(var i = 150;i<=200;i++){
+//            heightArea += "<option value="+i+">"+i+"</option>";
+//        }
+//        for(var j = 45 ;j<=100;j++){
+//            weightArea += "<option value="+j+">"+j+"</option>";
+//        }
+//
+//        $('#category_height').html(heightArea).find('option').eq(20).attr("selected",true);
+//        $('#category_weight').html(weightArea).find('option').eq(15).attr("selected",true);
+
+
+        //北京行政区域划分
+        var cityArea = '';
+        var bjcity = citylist.province[0].city.slice();
+        for(var m = 0;m<bjcity.length;m++){
+            cityArea += "<option value ="+bjcity[m].name+">"+bjcity[m].name+"</option>";
+        }
+        $('#category_address').html(cityArea).find('option').eq(5).attr("selected",true);
+
+        $(".sel_wrap").not(".datetime").on("change", function () {
+            var o;
+            var opt = $(this).find('option');
+            opt.each(function (i) {
+                if (opt[i].selected == true) {
+                    o = opt[i].innerHTML;
+                }
+            })
+            $(this).find('label').html(o);
+        }).trigger("change");
+        $("label.os").on("click", function() {
+            openSelect($("#" + $(this).attr("for")));
+        });
+
+        $('input[type=date]').on("change", function() {
+            var o = $(this).val();
+            var week = calcWeek(o);
+
+            //对x5不兼容
+            //$(this).parent().find('#weekLabel').html("星期" + weekMap[week]);
+            $(this).parent().find('#dateLabel').html(formatDate(o));
+        }).trigger('change');
+        $("input[type=time]").on("change", function() {
+            var o = $(this).val();
+            $(this).prev("label").html(o);
+        });
+        $(".datetime").on("click", function() {
+            var $this = $(this);
+            if($this.hasClass("datetimeWrap")) {
+                $this.parent().removeClass("time-active").addClass("datetime-active");
+            } else {
+                $this.parent().removeClass("datetime-active").addClass("time-active");
+            }
+            $this.find("input").focus();
+        });
+
+        //获取当前时间并格式化, TODO：如果没有进行选择则为now,input的值还需再赋值
+
+
+        var date = new Date(),
+                day = date.getDate(),
+                month = date.getMonth() + 1,
+                year = date.getFullYear(),
+                hours = date.getHours(),
+                minutes = date.getMinutes(),
+                week = date.getDay();;
+
+        (day < 10) && (day = "0" + day);
+        (month < 10) && (month = '0' + month);
+        (hours < 10) && (hours = '0' + hours);
+        (minutes < 10) && (minutes = '0' + minutes);
+
+        var dateLabel = year+'年'+month+'月'+day + '日';
+        var timeLabel = hours+':'+minutes;
+        $('#dateLabel').html(dateLabel);
+        $('#timeLabel').html(timeLabel);
+        $('input[type=date]').val(year+'-'+month+'-'+day);
+        $('input[type=time]').val(timeLabel);
+    })
+        function popUp(msg){
+            $('#Popup').css('padding','10px').text(msg).popup("open");
+        };
+
+        function showTips(txt, time, status) {
+            var htmlCon = '';
+            if (txt != '') {
+                if (status != 0 && status != undefined) {
+                    htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#4AAF33;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="/static/images/gouw/ok.png" style="vertical-align: middle;margin-right:5px;" alt="OK，"/>' + txt + '</div>';
+                } else {
+                    htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#D84C31;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="/static/images/gouw/err.png"" style="vertical-align: middle;margin-right:5px;" alt="Error，"/>' + txt + '</div>';
+                }
+                $('body').prepend(htmlCon);
+                if (time == '' || time == undefined) {
+                    time = 1500;
+                }
+                setTimeout(function () {
+                    $('.tipsBox').remove();
+                }, time);
+            }
+        }
+
+    $(function(){
+        $('.qur').click(function(){
+            var sex = function(){
+                var gender = '男';
+                ($('#gender').parent().find('label').text() == '女士') && (gender = '女');
+                return gender;
+            };
+//            var height = $('#category_height').val();
+//            var weight = $('#category_weight').val();
+            var address_region = $('#category_address').val();
+            var address_street =  $("#category_address_jiedao").val();
+            var reservation_time = (($('[type=date]').val()))+' '+($('[type=time]').val());
+
+            if(!address_street){
+                showTips("请输入街道地址!");
+                return;
+            }
+
+            $.post('/wap/reserve_measure_post/', {
+                        sex: sex(),
+//                        height: height,
+//                        weight: weight,
+                        address_region : address_region,
+                        address_street : address_street,
+                        reservation_time: reservation_time
+                    },
+                    function(returnedData){
+                        showTips(returnedData.msg, '', 1);
+                    }
+            );
+         });
+
+    })
+
+    </script>
+{% endblock %}
+
+{% block body %}
+<div class="header-fixed">
+    <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+    <a href="/wap/cart_view/">
+        {% if request.session.carts_number != '0' %}
+        <div class="carnum">
+            <span class="cnume">{{ request.session.carts_number }}</span>
+        </div>
+        {% else %}
+        <div class="carnum carnum-empty"></div>
+        {% endif %}
+    </a>
+</div>
+<div class="gwb">
+	<div class="gwb_ren">
+    	<ul>
+            <li>
+            	<span>性别</span>
+             
+                <p class="p sel_wrap">
+                
+                <label for="gender" class="top-layer os txt-right"></label>
+                <select id="gender" name="gender" class="select">
+                    <option value="先生" selected="selected">先生</option>
+                    <option value="女士">女士</option>
+                </select>
+                </p>
+            </li>
+            <li>
+                <span class="span">预约时间</span>
+            	<div class="gwb_li">
+                    <div class="datetimeWrap datetime">
+                        <input type="date" id="date" data-role="none">
+                        <label for="date" id="dateLabel" class=""></label>
+                        <!--<label for="date" id="weekLabel" class="" style="display: block;"></label>-->
+                    </div>
+                    <div class="datetime timeWrap">
+                        <label for="time" id="timeLabel" class="top-layer justify-height"></label>
+                        <input type="time" data-role="none" id="time">
+                    </div>
+                    <div class="clearfix"></div>
+            	</div>
+            </li>
+            <li class="">
+            	<span class="span" style="padding-bottom: 0">预约地点</span>
+                <ol class="gwb_list">
+                    <dl class="row">
+                        <div class="col-4">
+                            <select class="sebei select">
+                                <option value="北京" selected="selected">北京</option>
+                            </select><p class="sheng">省</p>
+                        </div>
+                        <div class="col-4">
+                            <select class="qu select">
+                                <option value="北京" selected="selected">北京</option>
+                            </select><p class="shi">市</p>
+                        </div>
+                        <div class="xian col-4 sel_wrap os">
+                            <label for="category_address" class="top-layer os justify-height"></label>
+                            <select class="select"  id="category_address"  data-role="none" style="width:80px;">
+                        </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </dl>
+                    <dl style="padding: 0;">
+                        <input type="text" id="category_address_jiedao" name="newName" placeholder="请输入街道地址"value="" class="ingput_three jeidao"></p>
+                    </dl>
+                </ol>
+            </li>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+    
+    <div class="gwb_queren">
+    	<div class="qur">
+           提交
+        </div>
+    
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,256 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}更换手机号{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+<link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+{{ block.super }}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+        var sendSmsOpen = false; //是否打开对话框
+        var sendingSms = false; //是否在发送短信
+        function register() {
+            if(sendingSms){
+                return;
+            }
+            sendingSms = true;
+            $.post('/wap/send_sms_post/', { phone:$("#newPhone").val()},
+                    function(returnedData){
+                        //验证码发送倒计时
+                        $(".fixModal").hide();
+                        if (returnedData.code == 0) {
+                            var _element = $("#pageForm8 .certification span"),
+                                    wait = 30;
+                            _element.css({
+                                'background': 'grey',
+                                "width": "134px"
+                            });
+                            _element.text(wait + "秒后重新发送");
+                            wait--;
+                            var countDown = setInterval(function () {
+                                _element.text(wait + "秒后重新发送");
+                                if (wait == 0) {
+                                    sendingSms = false;
+                                    sendSmsOpen = false;
+                                    _element.text("重新获取验证码").css({
+                                        'background':'#1D50A3',
+                                        'width': "auto"
+                                    });
+                                    wait = 30;
+                                    clearInterval(countDown);
+                                }
+                                wait--;
+                            }, 1000);
+                        } else {
+                            $('#Popup').css({'padding': '10px'}).text(returnedData.msg).popup("open");
+                            $('#Popup').on("click", function () {
+                                $('#Popup').popup("close");
+                            });
+                            setTimeout(function () {
+                                $('#Popup').popup("close");
+                            }, 2000);
+                            sendingSms = false;
+                            sendSmsOpen = false;
+                        }
+                    });
+        };
+        function changePhone(){
+            $.post('/wap/change_phone_post/', { new_phone:$("#newPhone").val(), old_phone:$("#oldPhone").val(), verification:$("#verification").val()},
+                    function(returnedData){
+                        $(".fixModal").hide();
+                        if(returnedData.code == 0){
+                            window.location.href = "#pageForm9"
+                        }else{
+                            $("#pageForm8 .form-errors").html(returnedData.msg);
+                            if(returnedData.code == -2){
+                                $("#pageForm8 #verification").addClass("error-border");
+                            }
+                        }
+                    });
+
+        };
+        function showNew(){
+            var newphone = $('#newPhone').val();
+            var isMobile = /^(?:13\d|15\d|18\d)\d{5}(\d{3}|\*{3})$/;
+
+            if(!isMobile.test(newphone)) {
+                $("#pagePhone .form-errors").html("请输入正确的手机号");
+                $("#newPhone").parent().addClass("error-border");
+                return;
+            }
+            $('#thisphone').text("+86 " + newphone);
+            $('#yzCodeSend').show();
+        }
+
+        function showResend() {
+            if(sendSmsOpen) {
+                return;
+            }
+            sendSmsOpen = true;
+            $('.yzCodeResend').show();
+        }
+        function refreshResend() {
+            sendSmsOpen = false;
+            $('.yzCodeResend').hide();
+        }
+
+    </script>
+{% endblock %}
+
+{% block body %}
+<!--查看手机号页面,标号8.1-->
+<div data-role="page" id="pageForm5" class="page" data-theme="b">
+    <div class="carwarp nobot">
+        <div class="header-fixed">
+            <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+            <a href="/wap/cart_view/">
+                {% if request.session.carts_number != '0' %}
+                <div class="carnum">
+                    <span class="cnume">{{ request.session.carts_number }}</span>
+                </div>
+                {% else %}
+                <div class="carnum carnum-empty"></div>
+                {% endif %}
+            </a>
+        </div>
+    </div>
+    <div class="phoneInfo">
+        <div  class="phoneIconBig"></div>
+        <p>您的手机号:<span id="oldPhone">{{userinfo.phonenumber}}</span></p>
+    </div>
+
+    <div class="submitWrap" style="margin-top: 52px;">
+        <!--<a  data-inline="true" data-theme="b" data-role="button" href="#pagePhone">更换手机号</a>-->
+        <button class="myBtn" data-role="none" onclick="$.mobile.changePage('#pagePhone')">更换手机号</button>
+    </div>
+
+
+</div>
+
+
+<!--用户单条信息修改页面,标号7-->
+<div data-role="page" id="pagePhone" class="page accountPhone" data-theme="b">
+    <div class="carwarp nobot">
+        <div class="header-fixed">
+            <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+            <a href="/wap/cart_view/">
+                {% if request.session.carts_number != '0' %}
+                <div class="carnum">
+                    <span class="cnume">{{ request.session.carts_number }}</span>
+                </div>
+                {% else %}
+                <div class="carnum carnum-empty"></div>
+                {% endif %}
+            </a>
+        </div>
+    </div>
+    <form method="post">
+        <p class="centerP">更换手机号后，下次登录可使用新手机号登录</p>
+        <p class="centerP">当前手机号：<span style="font-size: 15px;">{{userinfo.phonenumber}}</span></p>
+        <p class="leftP">
+            <input type="tel" pattern="[0-9]*"   data-role="none" id="newPhone" placeholder="请输入新的手机号" maxlength="11"/>
+        </p>
+        <div class="form-errors"></div>
+        <div class="submitWrap" style="margin: 0 18px;">
+            <!--<input type="button" data-inline="true" value="确定" data-theme="b" onclick="showNew()"/>-->
+            <button type="button" class="myBtn" data-ajax="false" data-role="none" onclick="showNew()">确定</button>
+        </div>
+    </form>
+</div>
+
+
+<div data-role="page" id="pageForm8" class="page" data-theme="b">
+    <div class="carwarp nobot">
+        <div class="header-fixed">
+            <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+            <a href="/wap/cart_view/">
+                {% if request.session.carts_number != '0' %}
+                <div class="carnum">
+                    <span class="cnume">{{ request.session.carts_number }}</span>
+                </div>
+                {% else %}
+                <div class="carnum carnum-empty"></div>
+                {% endif %}
+            </a>
+        </div>
+    </div>
+    <div class="cer-ctn">
+        <div class="certification form-group">
+            <input type="tel" class="form-control" data-role="none"  id="verification" placeholder="请填写验证码"/>
+            <span class="form-control-feedback" onclick="showResend()">重新获取验证码</span>
+        </div>
+        <div class="form-errors"></div>
+        <div class="submitWrap" style="margin: 0;">
+            <button class="myBtn" data-role="none" onclick="changePhone()">确定</button>
+        </div>
+    </div>
+    <div data-role="popup" id="Popup"></div>
+</div>
+
+<!--更换手机号成功-->
+<div data-role="page" id="pageForm9" class="page" data-theme="b">
+    <div class="carwarp nobot">
+        <div class="header-fixed">
+            <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+            <a href="/wap/cart_view/">
+                {% if request.session.carts_number != '0' %}
+                <div class="carnum">
+                    <span class="cnume">{{ request.session.carts_number }}</span>
+                </div>
+                {% else %}
+                <div class="carnum carnum-empty"></div>
+                {% endif %}
+            </a>
+        </div>
+    </div>
+    <div class="phoneInfo change-s">
+        <div class="phoneIconBig"></div>
+        <p>您的手机号已更换成功，</p>
+        <p>请您用新的手机号登录。</p>
+    </div>
+
+    <div class="submitWrap" style="margin-top: 52px;">
+        <button class="myBtn" data-role="none" onclick="window.location.href='/wap/login'">重新登录</button>
+    </div>
+</div>
+
+
+<!--发送验证码-->
+<div class="fixModal" id="yzCodeSend" >
+    <div class="modalWrap yzcSend">
+        <div class="modalInfo">
+            <div>我们将发送验证码到这个手机</div>
+            <div id = "thisphone"></div>
+        </div>
+        <div class="operator">
+            <a class="cancel" href="#" data-role="none" onclick="$('#yzCodeSend').hide()">取消</a>
+            <a class="sure" href="#pageForm8" data-ajax="false" data-role="none" onclick="register()">确定</a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+<!--重新获取验证码-->
+<div class="fixModal yzCodeResend"  >
+    <div class="modalWrap yzcRS">
+        <div class="modalInfo">
+            重新获取验证码
+        </div>
+        <div class="operator">
+            <a class="cancel" href="#" data-role="none" onclick="refreshResend()">取消</a>
+            <a class="sure" href="#" data-role="none" onclick="register()">确定</a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

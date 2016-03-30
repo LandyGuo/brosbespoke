@@ -1,0 +1,62 @@
+@charset "utf-8";
+/* CSS Document */
+@font-face{font-family:'QuicksandBook';src: url('../font/QuicksandBook.otf');font-weight: normal;font-style: normal;}
+
+body,ul,li,dl,dd,dt,ol,table,td,tr,h1,h2,h3,h4,h5,strong,div,a,span,input,em,p,img{padding:0; margin:0; list-style:none; border:0; font-style:normal;border:none;}
+html, body{background:#fff;font-size: 18px; font-family: Helvetica, "STXihei", sans-serif;}
+@media (max-width: 400px) {
+  body{
+    font-size: 16px;
+  }
+}
+@media(max-width: 325px){
+  body{
+    font-size: 14px;
+  }
+}
+a:link,a:visited{color:#000; text-decoration:none;}
+
+.header{}
+
+.header-fixed {
+  background-color: #ffffff;
+//  position: fixed;
+  width: 100%;
+  z-index: 10;
+  border-bottom: 2px solid #959595;
+}
+
+.header-spacing {
+//  height: 71px;
+}
+
+.carwarp{
+  max-width:640px;
+  overflow:hidden;
+  margin:0 auto;
+  position:relative;
+}
+.carlogo{
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 15px 0 8px;
+  width: 110px;
+}
+.carlogo img{width:100%;text-align:center;}
+.carnum {
+  width: 29px;
+  height: 29px;
+  display: block;
+  overflow: hidden;
+  background: url(../images/public/caricon.jpg) no-repeat right center;
+  background-size: 29px 29px;
+  position: absolute;
+  right: 31px;
+  top: 20px;
+}
+.carnum-empty{
+  background:url(../images/public/carempty.png) no-repeat right center;
+  background-size:29px 29px;
+}
+.cnume{width: 11px;height: 11px;display: block;text-align: left;float: left;color: #fff;margin: 1px 0 0 14px;position: absolute;font-size:12px;}
+.cartxt{height:40px; line-height:37px; text-align:center;overflow:hidden;font-size:20px;}

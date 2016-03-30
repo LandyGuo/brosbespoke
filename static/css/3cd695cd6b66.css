@@ -1,0 +1,224 @@
+.dz_dions{margin:0;overflow:hidden;width:100%}
+.dz_dions .dz_wenban{text-align:center;line-height:50px;margin-top:0;background:none;border-top:2px solid #959595;border-radius:0;border-bottom:2px solid #959595;height:auto}
+.dz_dions .dz_wenban p{color:#000;line-height:40px;font-size:20px}
+.dz_site{width:100%;margin:0 auto;overflow:hidden}
+.dz_site .dz_shoujian{border-radius:5px;text-align:center;border:none;height:auto;margin:0;padding:0;background:none}
+.dz_site .dz_shoujian_one{height:165px;background-color:#eee;border-radius:5px;text-align:center;margin-top:20px}
+.dz_site .dz_shoujian .xinxi{width:100%;overflow:hidden;height:auto;margin:0}
+.dz_site .dz_shoujian .xinxi ul{width:100%;float:left;overflow:hidden}
+.dz_site .dz_shoujian .xinxi li{line-height:26px;font-size:15px;color:#000;text-align:left;width:100%;float:left;border-bottom:1px solid #000;padding:0 5px}
+.dz_site .dz_shoujian .bish{width:85%;overflow:hidden;height:20px;margin:0 auto}
+.dz_site .dz_shoujian .bish .lise{width:100%;float:left;overflow:hidden}
+.dz_site .dz_shoujian .bish .lise span{font-size:14px;color:#1d50a2;margin-left:75%}
+.dz_site .dz_shoujian .bish .lise img{margin-top:2px}
+.dz_site_n{width:80%;margin:0 auto;overflow:hidden}
+.dz_site_n .dz_shoujian{height:auto;background-color:#eee;border-radius:5px;text-align:center;margin-top:20px;border:4px #eee solid}
+.dz_site_n .dz_shoujian_one{height:165px;background-color:#eee;border-radius:5px;text-align:center;margin-top:20px}
+.dz_site_n .dz_shoujian .xinxi{margin:15px auto 0;width:80%;overflow:hidden}
+.dz_site_n .dz_shoujian .xinxi ul{width:100%;float:left;overflow:hidden}
+.dz_site_n .dz_shoujian .xinxi li{line-height:26px;font-size:14px;color:#000;text-align:left}
+.dz_site_n .dz_shoujian .edit-b{color:#1d50a2;float:right;margin-right:10px;margin-bottom:10px;font-size:14px}
+.dz_site_n .dz_shoujian .bish{width:85%;overflow:hidden;height:20px;margin:0 auto}
+.dz_site_n .dz_shoujian .bish .lise{width:100%;float:left;overflow:hidden}
+.dz_site_n .dz_shoujian .bish .lise span{font-size:14px;color:#1d50a2;margin-left:75%}
+.dz_site_n .dz_shoujian .bish .lise img{margin-top:2px}
+.footer{border-bottom:2px solid #959595;overflow:hidden}
+.floor{width:100%;height:260px;overflow:hidden;float:left}
+.floor_bottom{text-align:center;color:#fff;font-size:16px;background-color:#797979}
+.footer_bttm{width:100%;height:40px;overflow:hidden;float:left}
+.floor_bottom{text-align:center;color:#fff;font-size:16px;background-color:#797979;line-height:40px}
+
+
+    .delBox{
+
+    }
+
+    .delBox .box-bg{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: rgba(0,0,0,0.4);
+        z-index: 999998;
+    }
+
+    .delBox .box-ctn{
+        background-color: #ffffff;
+        border: none;
+        border-radius: 1px;
+        box-shadow: 0 0 3px #ddd inset;
+        color: #000;
+        left: 50%;
+        margin-left: -40%;
+        position: fixed;
+        text-align: center;
+        top: 30%;
+        width: 80%;
+        z-index: 999999;
+    }
+
+    .delBox .box-info{
+        border-bottom: 1px solid #959595;
+        color: #aaaaaa;
+        font-size: 14px;
+        padding: 40px 0;
+    }
+
+    .delBox .box-btns button{
+        background: #ffffff;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        box-sizing: border-box;
+        color: #1D50A2;
+        font-size: 14px;
+        outline: none;
+        padding: 12px 0;
+        width: 50%;
+    }
+
+    .delBox .box-btns .box-cnl{
+        border-right: 1px solid #959595;
+    }
+
+    .panel{
+        margin: 36px auto 20px;
+        padding: 0 42px;
+    }
+
+    .new-rec-ctn{
+        margin: 0 auto;
+        text-align: center;
+        width: 80%;
+    }
+
+    .new-rec-ctn .new-rec{
+        background-color: #eeeeee;
+        border: none;
+        border-radius: 1px;
+        color: #1d50a2;
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 10px;
+        outline: none;
+        padding: 18px 0;
+        width: 100%;
+    }
+
+    .ont {
+        display: none;
+    }
+
+    .wushi50 {
+        width: 50%;
+        float: left;
+    }
+
+    .wushi50:first-child{
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    .wushi50:last-child{
+        box-sizing: border-box;
+        padding: 0px 8px 0px 0px;
+    }
+
+    .info-list{
+        padding: 8px;
+        padding-bottom: 0;
+    }
+
+    .info-list:not(:first-child){
+        padding-top: 0;
+    }
+
+    .ingput_ont {
+        background: none repeat scroll 0 0 transparent;
+        box-sizing: content-box;
+        border: medium none;
+        color: #1d50a2;
+        font-size: 1em;
+        height: 19px;
+        line-height: 26px;
+        margin: 0;
+        margin-top: 5px;
+        outline: none;
+        padding: 8px 0;
+        text-align: right;
+        vertical-align: bottom;
+        width: 100%;
+    }
+
+    .ingput_tow {
+        background: #eeeeee;
+        border: medium none;
+        color: #000000;
+        float: right;
+        font-size: 12px;
+        height: 14px;
+        /* line-height: 53px; */
+        margin: 0;
+        padding: 0;
+        text-align: right;
+        width: 16em;
+        margin-top: 5px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .ops{
+        margin: 0 42px;
+        margin-top: 115px;
+    }
+
+    .ops a{
+        box-sizing: border-box;
+        display: inline-block;
+        font-size: 18px;
+        text-align: center;
+        width: 100%;
+        padding: 9px 0 7px;
+    }
+
+    .ops a:not(:first-child){
+        margin-top: 10px;
+    }
+
+    .ops #preserve{
+        background-color: #1d50a2;
+        border: 1px solid #2e6da4;
+        color: #ffffff;
+    }
+
+    .ops #delete{
+        background-color: #BFBFBF;
+        border: 1px solid #bbbbbb;
+        color: #ffffff;
+    }
+
+    .ops #cancel{
+        background-color: #fff;
+        border: 1px solid #ccc;
+        color: #000000;
+    }
+
+    * {
+        text-shadow: none !important;
+    }
+
+    .sel_wrap .select {
+        text-transform: none;
+        cursor: pointer;
+        height: 3.3em;
+        left: 0;
+        line-height: 3.3em;
+        margin: 0;
+        opacity: 0;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 4;
+    }

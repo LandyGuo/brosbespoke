@@ -1,0 +1,105 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}定制种类{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/libs/require.js"></script>
+<script>
+    requirejs(['/static/sjs/common.js'], function (common) {
+        requirejs(['sjs/app/custom-main']);
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+    <div class="cus-s">
+        <span class="cus-s-c">第<span class="cus-s-n">1</span>步</span> 请选择定制种类
+    </div>
+    <div class="cus-type">
+        <div class="pri-container slt-mtm">
+            <div class="pri-title">
+                <div class="checkboxWrap checkboxWrap-md">
+                    <input type="radio" id="MTM" name="type1" checked>
+                    <label for="MTM"></label>
+                </div>
+                <span>MTM</span><sup>1</sup>
+            </div>
+            <div class="sec-container">
+                <div class="sec-title">
+                    <div class="checkboxWrap checkboxWrap-md">
+                        <input type="radio" id="two-suit" name="type2" checked>
+                        <label for="two-suit"></label>
+                    </div>
+                    <span>两件套</span>
+                    <div class="sec-price">&yen;<span class="ex-price">{{ mtm_prce2 }}</span></div>
+                </div>
+                <div class="sec-desc">外套、裤子</div>
+            </div>
+            <div class="sec-container">
+                <div class="sec-title">
+                    <div class="checkboxWrap checkboxWrap-md">
+                        <input type="radio" id="three-suit" name="type2">
+                        <label for="three-suit"></label>
+                    </div>
+                    <span>三件套</span>
+                    <div class="sec-price">&yen;<span class="ex-price">{{ mtm_prce3 }}</span></div>
+                </div>
+                <div class="sec-desc">外套、马甲、裤子</div>
+            </div>
+        </div>
+        <div class="pri-container slt-bespoke">
+            <div class="pri-title">
+                <div class="checkboxWrap checkboxWrap-md">
+                    <input type="radio" id="bespoke" name="type1">
+                    <label for="bespoke"></label>
+                </div>
+                <span>BESPOKE</span><sup>2</sup>
+            </div>
+            <div class="sec-container" style="display: none;">
+                <div class="sec-title">
+                    <div class="checkboxWrap checkboxWrap-md">
+                        <input type="radio" id="two-h-suit" name="type3" checked>
+                        <label for="two-h-suit"></label>
+                    </div>
+                    <span>两件套</span>
+                    <div class="sec-price">&yen;<span class="ex-price">{{ product_prce2 }}</span></div>
+                </div>
+                <div class="sec-desc">外套、裤子</div>
+            </div>
+            <div class="sec-container" style="display: none;">
+                <div class="sec-title">
+                    <div class="checkboxWrap checkboxWrap-md">
+                        <input type="radio" id="three-h-suit" name="type3">
+                        <label for="three-h-suit"></label>
+                    </div>
+                    <span>三件套</span>
+                    <div class="sec-price">&yen;<span class="ex-price">{{ product_prce3 }}</span></div>
+                </div>
+                <div class="sec-desc">外套、马甲、裤子</div>
+            </div>
+        </div>
+    </div>
+    <div class="cus-remark">
+        <div class="cus-remark-sub">
+            1.MTM:MTM是英文made-to-measure的缩写，意指在标准尺寸基础上针对不同客户的身材进行修改，以单独满足每位客户的需要。
+        </div>
+        <div class="cus-remark-sub">
+            2.BESPOKE：Bespoke是比MTM更精准的高级定制服务。这个起源于伦敦萨维尔街的单词意思是speak for your order——我们会先制作胚样衣为您上门试样，记录您试穿后的每个要求，之后再用高级面料制作成衣，为您提供最尊贵的定制享受。
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+<div class="bot-spacing"></div>
+<div class="warpbottom">
+    <div class="jiesuan">
+        <span class="jsmoney">&yen;<span class="ex-pri">{{ order_price }}</span></span>
+        <a href="#" class="jsbtn">下一步</a>
+    </div>
+    <!--结算 结束-->
+</div>
+{% endblock %}

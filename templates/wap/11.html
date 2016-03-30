@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>产品详情--西服</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/style.css"/>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<!--产品详情页-->
+<div data-role="page" id="pageProduct" class="page" >
+    <div class="productImgWrap"><img  src="{{productinfo.img}}" alt="product"/></div>
+    <div><p class="yuan">&yen;{{productinfo.price}}</p></div>
+    <div class="trait">
+        <p class="traitTitle">面料</p>
+        <ul class="material">
+            
+        {% if fabric_desc %}
+            {% for item in fabric_desc %}
+            <li>
+                {% for str in item %}
+                <p>{{str}}</p>
+                {% endfor %}
+            </li>
+            {% endfor %}
+        {% endif %}
+        </ul>
+    </div>
+    <div class="trait">
+        <p class="traitTitle">工艺</p>
+        <ul class="craft">
+        {% if craft_desc %}
+            {% for str in craft_desc %}
+                <li><p>{{str}}</p></li>
+            {% endfor %}
+        {% endif %}
+        </ul>
+    </div>
+    <div class="trait">
+        <p class="traitTitle">定制说明</p>
+        <ul class="direction">
+            <li>
+                <p>点击下方的［立即预约］按钮，并按照提示操作即可。</p>
+                <p>首次定制将有专员为您免费上门量体。</p>
+            </li>
+            <li>
+                <p>西服定制周期为25天（衬衫定制周期为20天），7天无理由退货，30天免费售后服务。</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="fixedWrap">
+        <p class="price">&yen;{{productinfo.price}}</p>
+        <a class="booking" onclick='window.location.href = "/wap/order4who"'>立即定制</a>
+    </div>
+
+</div>
+</body>
+</html>

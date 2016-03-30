@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>获取验证码</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/style.css"/>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageForm8" class="page" data-theme="b">
+    <div class="certification">
+        <p>请填写验证码</p>
+        <input type="number"  data-role="none" />
+        <a href="#" class="">未收到验证码?</a>
+    </div>
+    <div class="submitWrap">
+        <button data-inline="true" data-theme="b">提交</button>
+    </div>
+</div>
+
+    
+    
+<!--发送验证码-->
+<div class="fixModal">
+    <div class="modalWrap">
+        <div class="yzCode">
+            <p>我们将发送验证码到这个手机</p>
+            <p>13112345678</p>
+            <div class="operator">
+                <a class="cancel" href="#" data-role="none">取消</a>
+                <a class="sure" href="#" data-role="none">确定</a>
+                <div class="clearBoth"></div>
+            </div>
+        </div>
+    </div>
+</div>    
+
+<!--重新获取验证码-->
+<div class="fixModal" style="display: block">
+    <div class="modalWrap">
+        <div class="yzCode">
+            <p>重新获取验证码</p>
+            <div class="operator">
+                <a class="cancel" href="#" data-role="none">取消</a>
+                <a class="sure" href="#" data-role="none">确定</a>
+                <div class="clearBoth"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--更换手机号成功-->
+<div class="fixModal">
+    <div class="modalWrap">
+        <div class="changeSucces">
+            <div  class="phoneIcon"></div>
+            <p>您的手机号已更换成功，</p>
+            <p>请您用新的手机号登录！</p>
+        </div>
+        <div class="submitWrap">
+            <button  data-inline="true" data-theme="b">确定</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>衬衫款式选择</title>
+    <link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/style.css"/>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+        function popUp(msg){
+            $('#Popup').css('padding','10px').text(msg).popup("open");
+        };
+
+        function next(){
+            $.post('/wap/style_select_post/', {type:'chenshan',
+                        LingXingChenShan:$('#lingxing_list .nav_active').text(),
+                        XiuKouChenShan:$('#xiukou_list .nav_active').text(),
+                        XiaBaiChenShan:$('#xiabai_list .nav_active').text(),
+                        MenJinChenShan:$('#menjin_list .nav_active').text(),
+                        HouBeiChenShan:$('#houbei_list .nav_active').text(),
+                    },
+                    function(returnedData){
+
+                        (returnedData.code == 0) && (window.location.href = '/wap/personalization_select/shirt');
+                        popUp(returnedData.msg);
+                    }
+            );
+        }
+    </script>
+</head>
+<body>
+
+    <div data-role="content">
+        <div class="step">
+            <div class="stepNumber">2</div>
+            <div class="stepContent">
+                <p class="stepTitle">款式选择</p>
+                <p class="stepDescription">请选择您所钟爱的款式</p>
+            </div>
+        </div>
+        <ul class="demandWrap">
+
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">领型</div>
+                    <ul id='lingxing_list' class="tab_nav kxNav">
+                    {% if lingxing_list %}
+                        {% for lingxing in lingxing_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{lingxing.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{lingxing.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if lingxing_list %}
+                        {% for lingxing in lingxing_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{lingxing.image.url}}" alt="{{lingxing.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{lingxing.image.url}}" alt="{{lingxing.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">袖口</div>
+                    <ul id='xiukou_list' class="tab_nav">
+                    {% if houbei_list %}
+                        {% for houbei in houbei_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{houbei.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{houbei.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if houbei_list %}
+                        {% for houbei in houbei_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{houbei.image.url}}" alt="{{houbei.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{houbei.image.url}}" alt="{{houbei.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">下摆</div>
+                    <ul id='xiabai_list' class="tab_nav">
+                    {% if xiabai_list %}
+                        {% for xiabai in xiabai_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{xiabai.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{xiabai.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if xiabai_list %}
+                        {% for xiabai in xiabai_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{xiabai.image.url}}" alt="{{xiabai.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{xiabai.image.url}}" alt="{{xiabai.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">门襟</div>
+                    <ul id='menjin_list' class="tab_nav">
+                    {% if menjin_list %}
+                        {% for menjin in menjin_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{menjin.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{menjin.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if menjin_list %}
+                        {% for menjin in menjin_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{menjin.image.url}}" alt="{{menjin.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{menjin.image.url}}" alt="{{menjin.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">后背</div>
+                    <ul id='houbei_list' class="tab_nav">
+                    {% if houbei_list %}
+                        {% for houbei in houbei_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{houbei.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{houbei.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if houbei_list %}
+                        {% for houbei in houbei_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{houbei.image.url}}" alt="{{houbei.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{houbei.image.url}}" alt="{{houbei.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="fixedWrap">
+        <p class="price">&yen;{{product.price}}</p>
+        <a class="booking" >下一步</a>
+    </div>
+
+
+    <!--面料信息弹出层-->
+    <div class="fixModal">
+        <div class="modalWrap">
+            <div class="">
+                <p class="modalTitle">面料信息</p>
+                <div class="operator">
+                    <a class="cancel" href="#" data-role="none" onclick="$('.fixModal').hide()">取消</a>
+                    <a class="sure" href="#" data-role="none">确认选择</a>
+                    <div class="clearBoth"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--默认选项提示框-->
+    <div class="fixModal fixDefault ">
+        <div class="modalWrap isDefault">
+            <div class="">
+                <p class="defaultSure">您确定采用默认选项吗?</p>
+                <div class="operator">
+                    <a class="cancel" href="javascript:;" data-role="none" onclick="$('.fixModal').hide()">不，我再看看</a>
+                    <a class="sure" href="javascript:;" data-role="none"  onclick="next()" >确定</a>
+                    <div class="clearBoth"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="popup" id="Popup"></div>
+
+<script>
+
+    $(function(){
+        var status = 0;
+        $('.tab_nav a').not('.multiNav a').click(function(){
+            status++;
+            var $this = $(this);
+            var i = parseInt($this.attr('data-number'));
+            $this.parents('.tab_nav').find('.nav_active').removeClass('nav_active');
+            $this.parents('.demandTab').find('.tab_active').removeClass('tab_active');
+            $this.addClass('nav_active').parents('.demandTab').find('.tab_right>div').eq(i).addClass('tab_active');
+        })
+        //多选
+        $('.multiNav a').click(function(){
+            status++;
+            var $this = $(this),
+                    i = parseInt($this.attr('data-number')),
+
+                    j = $('.multiNav .nav_active').length,
+                    isSelectd = $this.hasClass('nav_active');
+            if(!isSelectd){
+                $this.parents('.demandTab').find('.tab_active').removeClass('tab_active');
+                $this.addClass('nav_active').parents('.demandTab').find('.tab_right>div').eq(i).addClass('tab_active');
+            }else{
+                if(j != 1){
+                    $this.removeClass('nav_active');
+                    $this.parents('.demandTab').find('.tab_active').removeClass('tab_active');
+
+                    var m = parseInt($('.multiNav .nav_active').first().attr('data-number'));
+                    $('.multiTab>div').eq(m).addClass('tab_active');
+                }
+            }
+
+        })
+        //下一步
+        $('.booking').click(function(){
+            if(status){
+                next()
+            }else{
+                $(".fixDefault").show();
+            }
+
+        })
+    })
+</script>
+</body>
+</html>

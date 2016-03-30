@@ -1,0 +1,54 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}名字{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/libs/font-awesome/css/font-awesome.min.css" />
+{{ block.super }}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function changeName(){
+        $.post('/wap/change_name_post/', { name: $("#userName").val()},
+                function(returnedData){
+                   if(returnedData.code == 0){
+                       window.location.href = '/wap/my_info/';
+                   }
+                });
+    }
+</script>
+{% endblock %}
+
+{% block body %}
+<!--用户单条信息修改页面,标号7-->
+<div class="carwarp nobot">
+    <div class="header-fixed">
+        <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+        <a href="/wap/cart_view/">
+            {% if request.session.carts_number != '0' %}
+            <div class="carnum">
+                <span class="cnume">{{ request.session.carts_number }}</span>
+            </div>
+            {% else %}
+            <div class="carnum carnum-empty"></div>
+            {% endif %}
+        </a>
+    </div>
+</div>
+<div data-role="page" id="pageForm4" class="page accountPage" data-theme="b">
+    <form method="post" action="">
+        <p class="accountItem input-group">
+            <input type="text"  value="{{userinfo.nickname}}" id="userName" data-role="none" class="form-control" />
+            <span class="input-group-addon"><i class="fa fa-times-circle" onclick="$('#userName').val('').focus();"></i></span>
+        </p>
+        <div class="submitWrap" style="margin-top: 45px;">
+            <!--<input type="button" data-inline="true" value="确定" data-theme="b" onclick="changeName()">-->
+            <button class="myBtn" data-role="none" type="button" onclick="changeName()">确定</button>
+        </div>
+    </form>
+    
+   <div data-role="popup" id="Popup"></div>
+
+</div>
+{% endblock %}

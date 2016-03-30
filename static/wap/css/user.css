@@ -1,0 +1,45 @@
+﻿/*********************购物车*******************/
+/*********************文本********************/
+.dz_dions{width:80%; margin:0 auto; overflow:hidden;}
+.dz_dions .dz_wenban{ height:50px; background-color:#eeeeee; border-radius:5px; text-align:center; line-height:50px; margin-top:25px;}
+.dz_dions .dz_wenban p{ font-size:15px; color:#1d50a2;}
+
+.dz_site{width:80%; margin:0 auto; overflow:hidden;} 
+.dz_site .dz_shoujian{ height:165px; background-color:#eeeeee; border-radius:5px; text-align:center; margin-top:20px; border: 4px #eeeeee solid;}
+.dz_site .dz_shoujian_one{ height:165px; background-color:#eeeeee; border-radius:5px; text-align:center; margin-top:20px; }
+.dz_site .dz_shoujian .xinxi{ width:80%; overflow:hidden;  height:125px; margin:0 auto; margin-top:15px;}
+.dz_site .dz_shoujian .xinxi ul{width:100%; float:left; overflow:hidden;}
+.dz_site .dz_shoujian .xinxi li{ line-height:26px; font-size:14px; color:#000000; text-align:left; width:100%; float:left;}
+
+.dz_site .dz_shoujian .bish{ width:85%; overflow:hidden; height:20px; margin:0 auto;}
+.dz_site .dz_shoujian .bish .lise{width:100%; float:left; overflow:hidden;}
+.dz_site .dz_shoujian .bish .lise span{ font-size:14px; color:#1d50a2; margin-left:75%}
+.dz_site .dz_shoujian .bish .lise img{ margin-top:2px;}
+
+
+.dz_site_n{width:80%; margin:0 auto; overflow:hidden;}
+.dz_site_n .dz_shoujian{ height:165px; background-color:#eeeeee; border-radius:5px; text-align:center; margin-top:20px; border: 4px #eeeeee solid;}
+.dz_site_n .dz_shoujian_one{ height:165px; background-color:#eeeeee; border-radius:5px; text-align:center; margin-top:20px; }
+.dz_site_n .dz_shoujian .xinxi{ width:80%; overflow:hidden;  height:125px; margin:0 auto; margin-top:15px;}
+.dz_site_n .dz_shoujian .xinxi ul{width:100%; float:left; overflow:hidden;}
+.dz_site_n .dz_shoujian .xinxi li{ line-height:26px; font-size:14px; color:#000000; text-align:left;}
+
+.dz_site_n .dz_shoujian .bish{ width:85%; overflow:hidden; height:20px; margin:0 auto;}
+.dz_site_n .dz_shoujian .bish .lise{width:100%; float:left; overflow:hidden;}
+.dz_site_n .dz_shoujian .bish .lise span{ font-size:14px; color:#1d50a2; margin-left:75%}
+.dz_site_n .dz_shoujian .bish .lise img{ margin-top:2px;}
+
+
+
+
+
+/*********************底文********************/
+.footer{border-bottom: 2px solid #959595;overflow: hidden;}
+.floor{width: 100%;height:260px;overflow: hidden;float: left;}
+.floor_bottom{ text-align:center; color:#ffffff; font-size:16px; background-color:#797979;}
+.footer_bttm{width: 100%;height:40px;overflow: hidden;float: left;}
+.floor_bottom{ text-align:center; color:#ffffff; font-size:16px; background-color:#797979; line-height:40px;}
+
+.footer_money{width: 100%;height:40px;overflow: hidden;float: left; margin-top:30px;}
+.footer_money_on{ width:50%;height:38px;overflow: hidden;float: left; text-align:center; line-height:38px; background-color:#999999;}
+.footer_money_be{ width:50%;height:38px;overflow: hidden;float: left; text-align:center; line-height:38px; background-color:#113061;}

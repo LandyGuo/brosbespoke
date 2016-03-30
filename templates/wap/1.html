@@ -1,0 +1,624 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}会员登录{% endblock %}
+
+{% block extra_css %}
+{#<link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css"/>#}
+<link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css"/>
+{{ block.super }}
+<link rel="stylesheet" href="/static/libs/font-awesome/css/font-awesome.min.css">
+<style>
+    .conpro{
+        padding: 25px 40px;
+    }
+
+    .input-group-addon{
+        width: 44px;
+    }
+
+    .helpInfo{
+        margin-top: 10px;
+        text-align: center;
+    }
+    .helpInfo a{
+        color: #959595;
+        font-size: 0.9em;
+    }
+
+    .submitWrap{
+        margin-top: 18px;
+    }
+
+    button.primary, a.primary{
+        background-color: #1D50A3;
+        color: #ffffff;
+    }
+    .myBtn.default{
+        background-color: #ffffff;
+        border: 1px solid #959595;
+        color: #959595;
+        margin-top: 13px;
+    }
+
+    .form-errors{
+        margin-top: 15px;
+    }
+    .form-errors label{
+        color: red;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    [data-role="popup"]{
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        display: none;
+        background-color: rgba(238, 238, 238, 0.5);
+        z-index: 99;
+    }
+    [data-role="popup"] .content{
+        text-align: center;
+        width: 80%;
+        height: 35px;
+        background-color: #aaaaaa;
+        color: #ffffff;
+        border-radius: 2px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        padding: 10px;
+    }
+    .form-group{
+        position: relative;
+    }
+
+    .form-group .form-control{
+        padding-right: 55%;
+        z-index: 1;
+    }
+    .form-group .form-control-feedback{
+        font-size: 1.1em;
+        display: inline-block;
+        position: absolute;
+        right: 0px;
+        top: 3px;
+        z-index: 2;
+        background-color: #1D50A3;
+        color: #ffffff;
+        cursor: pointer;
+        margin-right: 3px;
+        border-radius: 2px;
+        width: 50%;
+        text-align: center;
+        height: 2.4em;
+        line-height: 2.4em;
+        padding: 0;
+    }
+
+    #fForm input, #rForm input{
+        border-bottom: 1px solid #959595;
+    }
+
+    a[type=button], button{
+        line-height: 22px;
+        text-align: center;
+    }
+
+    #rForm input[type="checkbox"]{
+        vertical-align: middle;
+        width: 16px;
+    }
+
+    #rForm .checkboxWrap{
+        width: 16px;
+        height: 16px;
+        border: 1px solid #1D50A3;
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 6px;
+    }
+    #rForm .checkboxWrap input[type=checkbox]{
+        visibility: hidden;
+        width: 10px;
+        height: 10px;
+    }
+    #rForm .checkboxWrap label{
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        left: 2px;
+        top: 2px;
+    }
+
+    #rForm .checkboxWrap input:checked + label{
+        background: #1D50A3;
+    }
+
+    #rForm div.form-control{
+        border-bottom: 1px solid #959595;
+        padding: 6px 12px;
+        line-height: 30px;
+    }
+    #rForm .col-half{
+        float: left;
+        width: 50%;
+        text-align: center;
+    }
+    #rForm .agreement{
+        color: #aaaaaa;
+        font-size: 1em;
+        text-align: center;
+        margin-top: 10px;
+    }
+    #rForm .agreement a{
+        color: #aaaaaa;
+    }
+
+    #rForm .agreement label{
+        display: inline-block;
+        font-size: 14px;
+    }
+
+    .err-border{
+        border: 1px solid red!important;
+        border-radius: 2px!important;
+    }
+    </style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/jquery-1.7.1.min.js"></script>
+<script src="/static/js/jquery.validate.min.js"></script>
+<script src="/static/js/jquery.mobile-1.0.1.js"></script>
+<script>
+function showTips(txt, time, status) {
+    var htmlCon = '';
+    if (txt != '') {
+        if (status != 0 && status != undefined) {
+            htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#4AAF33;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="/static/images/gouw/ok.png" style="vertical-align: middle;margin-right:5px;" alt="OK，"/>' + txt + '</div>';
+        } else {
+            htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#D84C31;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="/static/images/gouw/err.png"" style="vertical-align: middle;margin-right:5px;" alt="Error，"/>' + txt + '</div>';
+        }
+        $('body').prepend(htmlCon);
+        if (time == '' || time == undefined) {
+            time = 1500;
+        }
+        setTimeout(function () {
+            $('.tipsBox').remove();
+        }, time);
+    }
+}
+
+        $.extend({
+            urlGet: function () {
+                var aQuery = window.location.href.split("?");  //取得Get参数
+                var aGET = new Array();
+                if (aQuery.length > 1) {
+                    var aBuf = aQuery[1].split("&");
+                    for (var i = 0, iLoop = aBuf.length; i < iLoop; i++) {
+                        var aTmp = aBuf[i].split("=");  //分离key与Value
+                        aGET[aTmp[0]] = aTmp[1];
+                    }
+                }
+                return aGET;
+            }
+        })
+        function popUp(e, msg) {
+            var $content = $('#' + e + 'Popup .content');
+            $('#' + e + 'Popup').show();
+            $content.text(msg);
+            $('#' + e + 'Popup').on("click", function() {
+                $(this).hide();
+            })
+            setTimeout(function() {
+//                $('#' + e + 'Popup').hide();
+            }, 2000);
+        }
+
+        var keyMap = {};
+        function register(e, element) {
+            var phone = !!e ? $("#rPhone").val() : $("#fPhone").val();
+
+            if(!phone){
+                showTips("请填写正确的手机号");
+                return;
+            }
+
+            if(keyMap[e]) {
+                return;
+            }
+            keyMap[e] = true;
+
+            $.post('/wap/send_sms_post/', {phone: phone},
+                    function (returnedData) {
+                        if (returnedData.code == 0) {
+                            //验证码发送倒计时
+                            var _element = $(element),
+                                    wait = 30;
+                            _element.css('background', 'grey');
+                            _element.text(wait + "秒后重新发送");
+                            wait--;
+                            var countDown = setInterval(function () {
+                                _element.text(wait + "秒后重新发送");
+                                if (wait == 0) {
+                                    keyMap[e] = false;
+                                    _element.text("获取验证码").css('background', '#1D50A3');
+                                    wait = 30;
+                                    clearInterval(countDown);
+                                }
+                                ;
+                                wait--;
+                            }, 1000)
+                        } else {
+                            keyMap[e] = false;
+                            popUp((!!e ? 'r' : 'f'), returnedData.msg);
+                        }
+                    });
+
+        }
+
+        function sexChoice(gender) {
+            var genderCH = '男';
+            if (gender == '女') {
+                genderCH = '女';
+            }
+            $('#rSex').val(genderCH);
+
+            $('.sexChoice').hide();
+        }
+
+        $().ready(function () {
+            $("#loginForm").validate({
+                rules: {
+                    phone: {
+                        required: true,
+                        minlength: 11,
+                        maxlength: 11
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6
+                    }
+                },
+                messages: {
+                    phone: "请输入正确的手机号",
+                    password: "请输入正确的密码"
+                },
+                submitHandler: function () {
+                    $(".login-error").remove();
+                    $.post('/wap/login_post/', {phone: $("#lPhone").val(), password: $("#lPassword").val()},
+                        function (returnedData) {
+                            if (returnedData.code == 0) {
+                                $("#pageFormLS .s-info").html("登录成功")
+                                window.location.href = "#pageFormLS";
+                                setTimeout(function() {
+                                    var GET = $.urlGet();
+                                    var returnUrl = GET['returnUrl'] || "/wap/buy/";
+                                    window.location.href = returnUrl
+                                }, 2000);
+                            } else if(returnedData.code == -2) {
+                                $("#loginForm").find(".form-errors").html('<label class="error login-error">用户不存在</label>');
+                                $("#lPhone").addClass("err-border");
+                            } else if(returnedData.code == -1) {
+                                $("#loginForm").find(".form-errors").html('<label class="error login-error">密码错误</label>');
+                                $("#lPassword").addClass("err-border");
+                            } else {
+                                $("#loginForm").find(".form-errors").html('<label class="error login-error">用户名和密码错误</label>');
+                            }
+                        }
+                    );
+                },
+                errorPlacement: function(error,element){
+                    element.addClass("err-border");
+                    element.parents("form").find(".form-errors").append(error);
+                },
+                success: function(error, element){
+                    var $elem = $(element);
+                    $elem.removeClass("err-border");
+                }
+            });
+
+            $("#rForm").validate({
+                rules: {
+                    phone: {
+                        required: true,
+                        minlength: 11,
+                        maxlength: 11
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6
+                    },
+                    password2: {
+                        required: true,
+                        minlength: 6,
+                        equalTo: "#rPassword"
+                    },
+                    sex: "required",
+                    nickname: {
+                        required: true
+                    },
+                    verification: {
+                        required: true,
+                        minlength: 4,
+                        maxlength: 4
+                    },
+                    "sex-check": "required",
+                    accept: "required"
+                },
+                messages: {
+                    phone: "请输入正确的手机号",
+                    password: "请输入六位以上的密码",
+                    password2: "两次密码输入不一致",
+                    sex: "请选择性别",
+                    verification: "请输入四位验证码",
+                    nickname: "请输入姓名",
+                    accept: "请先同意用户协议",
+                    "sex-check": "请选择性别"
+                },
+                submitHandler: function () {
+                    $.post('/wap/register_post/', {
+                                phone: $("#rPhone").val(),
+                                password: $("#rPassword").val(),
+                                sex: $("#rSex").val(),
+                                verification: $("#rVerification").val(),
+                                name: $("#rNickname").val()
+                            },
+                            function (returnedData) {
+                                if (returnedData.code == 0) {
+                                    $("#pageFormLS .s-info").html("注册成功")
+                                    window.location.href = "#pageFormLS";
+                                    setTimeout(function() {
+                                        var GET = $.urlGet();
+                                        var returnUrl = GET['returnUrl'] || "/wap/buy/";
+                                        window.location.href = returnUrl
+                                    }, 2000);
+                                } else {
+                                    popUp('r', returnedData.msg)
+                                }
+                            });
+                },
+                errorPlacement: function(error, element){
+                    if(element.attr("name") === "accept"){
+                        element.parent().addClass("err-border");
+                    } else if(element.attr("name") === "sex-check"){
+                        element.closest(".form-control").addClass("err-border");
+                    } else {
+                        element.addClass("err-border");
+                    }
+                    element.parents("form").find(".form-errors").append(error);
+                },
+                success: function(error, element){
+                    var $elem = $(element);
+                    if($elem.attr("name") === "accept"){
+                        $elem.parent().removeClass("err-border");
+                    } else if($elem.attr("name") === "sex-check"){
+                        $elem.closest(".form-control").removeClass("err-border");
+                    } else {
+                        $elem.removeClass("err-border");
+                    }
+                }
+            });
+
+
+            $("#fForm").validate({
+                rules: {
+                    phone: {
+                        required: true,
+                        minlength: 11,
+                        maxlength: 11
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6
+                    },
+                    password2: {
+                        required: true,
+                        minlength: 6,
+                        equalTo: "#fPassword"
+                    },
+                    verification: {
+                        required: true
+                    }
+                },
+                messages: {
+                    phone: "请输入正确的手机号",
+                    password: "请输入密码",
+                    password2: "两次密码输入不一致",
+                    verification: "请输入四位验证码"
+                },
+                submitHandler: function () {
+                    $.post('/wap/forget_password_post/', {
+                        phone: $("#fPhone").val(),
+                        password: $("#fPassword").val(),
+                        verification: $("#fVerification").val()
+                    },
+                    function (returnedData) {
+                        if (returnedData.code == 0) {
+                            $("#pageFormLS .s-info").html("修改成功")
+                            window.location.href = "#pageFormLS";
+                            setTimeout(function() {
+                                var GET = $.urlGet();
+                                var returnUrl = GET['returnUrl'] || "/wap/buy/";
+                                window.location.href = returnUrl
+                            }, 2000);
+                        } else {
+                            popUp('f', returnedData.msg)
+                        }
+                    });
+                },
+                errorPlacement: function(error,element){
+                    element.addClass("err-border");
+                    element.parents("form").find(".form-errors").append(error);
+                },
+                success: function(error, element) {
+                    var $elem = $(element);
+                    $elem.removeClass("err-border");
+                }
+            });
+
+            $("#rForm .checkboxWrap label").on("click", function (e) {
+                e.preventDefault();
+                $("#rForm .checkboxWrap input[type=checkbox]").prop("checked", false);
+                $(this).prev().prop("checked", true);
+            });
+        })
+    </script>
+{% endblock %}
+
+{% block body %}
+<div data-role="page" id="pageLogin" class="page carwarp" data-title="会员登录">
+    <div class="header-fixed">
+        <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+        <a href="/wap/cart_view/">
+            {% if request.session.carts_number != '0' %}
+	        <div class="carnum">
+	            <span class="cnume">{{ request.session.carts_number }}</span>
+	        </div>
+	        {% else %}
+	        <div class="carnum carnum-empty"></div>
+	        {% endif %}
+        </a>
+    </div>
+    <div class="header-spacing"></div>
+    <div class="conpro" style="padding-top: 40px;">
+        <form method="post" action="/wap/login_post/" id="loginForm">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                <input class="form-control" type="tel" pattern="[0-9]*" name="phone" id="lPhone" placeholder="手机号" data-role="none" maxlength="11" style="">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input class="form-control" type="password" name="password" id="lPassword" placeholder="密码" data-role="none">
+            </div>
+            <div class="helpInfo">
+                <a href="#pageForm2" class="forget">忘记密码?</a>
+            </div>
+            <div class="form-errors"></div>
+            <div class="submitWrap" style="margin-top: 36px;">
+                <button class="myBtn primary" type="submit" data-role="none">登录</button>
+                <a class="myBtn default" type="button" href="#pageForm1" data-role="none">注册</a>
+            </div>
+        </form>
+        <div data-role="popup" id="lPopup"><div class="content"></div></div>
+    </div>
+</div>
+
+<div data-role="page" id="pageForm1" class="page carwarp" data-title="新用户注册">
+    <div class="header-fixed">
+        <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+        <a href="/wap/cart_view/">
+            {% if request.session.carts_number != '0' %}
+	        <div class="carnum">
+	            <span class="cnume">{{ request.session.carts_number }}</span>
+	        </div>
+	        {% else %}
+	        <div class="carnum carnum-empty"></div>
+	        {% endif %}
+        </a>
+    </div>
+    <div class="header-spacing"></div>
+    <div class="conpro">
+        <form name="registerForm" method="post" id="rForm">
+            <input class="form-control" type="tel" pattern="[0-9]*" name="phone" placeholder="输入常用手机号" id="rPhone" maxlength="11" data-role="none">
+            <div class="form-group">
+                <input class="form-control" type="tel" pattern="[0-9]*" name="verification" placeholder="请输入验证码" id="rVerification" data-role="none" maxlength="4">
+                <span class="form-control-feedback" onclick="register(1,this)">获取验证码</span>
+            </div>
+            <input class="form-control" type="password" name="password" placeholder="请输入密码" id="rPassword" data-role="none">
+            <input class="form-control" type="password" name="password2" placeholder="请重复输入密码" id="rPassword2" data-role="none">
+            <input class="form-control" type="text" name="nickname" placeholder="请输入您的姓名" id="rNickname" data-role="none">
+            <div class="form-control" type="text" name="sex" placeholder="请选择性别" id="rSex">
+                <div class="col-half">
+                    <div class="checkboxWrap">
+                        <input data-role="none" type="checkbox" id="sex-m" name="sex-check">
+                        <label for="sex-m" onclick="sexChoice('男')"></label>
+                    </div>
+                    男
+                </div>
+                <div class="col-half">
+                    <div class="checkboxWrap">
+                        <input data-role="none" type="checkbox" id="sex-w" name="sex-check">
+                        <label for="sex-w" onclick="sexChoice('女')"></label>
+                    </div>
+                    女
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="agreement">
+                <input id="accept" type="checkbox" value="" data-role="none" name="accept"/><label for="accept">我已阅读和同意<a
+                    data-role="none" href="/wap/privacy" class="privacy">《BB用户协议》</a></label>
+            </div>
+            <div class="form-errors"></div>
+            <div class="submitWrap">
+                <button class="myBtn primary" type="submit" data-role="none" name="registerbutton">确定</button>
+                <a type="button" class="myBtn default" data-role="none" href="#pageLogin">取消</a>
+            </div>
+        </form>
+    </div>
+    <div data-role="popup" id="rPopup"><div class="content"></div></div>
+</div>
+
+<div data-role="page" id="pageForm2" class="page carwarp" data-title="忘记密码">
+    <div class="header-fixed">
+        <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+        <a href="/wap/cart_view/">
+            {% if request.session.carts_number != '0' %}
+	        <div class="carnum">
+	            <span class="cnume">{{ request.session.carts_number }}</span>
+	        </div>
+	        {% else %}
+	        <div class="carnum carnum-empty"></div>
+	        {% endif %}
+        </a>
+    </div>
+    <div class="header-spacing"></div>
+    <div class="conpro" style="padding-top: 60px;">
+        <form method="post" action="" id="fForm">
+            <input class="form-control" type="tel" pattern="[0-9]*" placeholder="请输入注册的手机号" name="phone" id="fPhone" maxlength="11" data-role="none">
+            <div class="form-group">
+                <input class="form-control" type="tel" pattern="[0-9]*" placeholder="请输入验证码" name="verification" id="fVerification" style="padding-right: 108px;" data-role="none">
+                <span class="form-control-feedback" onclick="register(0,this)">获取验证码</span>
+            </div>
+            <input class="form-control" type="password" name="password" placeholder="请输入新密码" id="fPassword"  data-role="none">
+            <input class="form-control" type="password" name="password2" placeholder="请重复输入新密码"  data-role="none">
+            <div class="form-errors"></div>
+            <div class="submitWrap" style="margin-top: 53px;">
+                <button class="myBtn primary" data-role="none" type="submit">确定</button>
+                <a type="button" class="myBtn default" data-role="none" href="#pageLogin">取消</a>
+            </div>
+        </form>
+    </div>
+    <div data-role="popup" id="fPopup"><div class="content"></div></div>
+</div>
+
+<div data-role="page" id="pageFormLS" class="page carwarp" data-title="会员登录">
+    <div class="header-fixed">
+        <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+        <a href="/wap/cart_view/">
+            {% if request.session.carts_number != '0' %}
+	        <div class="carnum">
+	            <span class="cnume">{{ request.session.carts_number }}</span>
+	        </div>
+	        {% else %}
+	        <div class="carnum carnum-empty"></div>
+	        {% endif %}
+        </a>
+    </div>
+    <div class="header-spacing"></div>
+    <div class="conpro">
+        <div>
+            <i class="fa fa-check-circle"></i> <span class="s-info">登录成功</span>
+        </div>
+        <div>正在跳转，请稍候...</div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}定制文化{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css"/>
+<link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css"/>
+<link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css"/>
+<style>
+    .ui-page-theme-a .ui-btn{
+        padding: 11px 2px 9px;
+        color: #000000;
+        font-size: 15px;
+        opacity: 1;
+    }
+    .ui-page-theme-a .ui-btn:hover{
+        background: none;
+    }
+    .ui-page-theme-a .ui-btn:after{
+        opacity: 0.2;
+        right: 2px;
+    }
+    [data-role=content]{
+        background: #ffffff;
+        border-bottom: none;
+    }
+    .ui-collapsible-content p{
+        font-size: 14px;
+        color: #000000;
+        line-height: 27px;
+    }
+    .ui-collapsible-themed-content .ui-collapsible-content{
+        border:none;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+{% endblock %}
+
+{% block body %}
+<div class="carwarp nobot">
+    <div class="header-fixed">
+        <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+        <a href="/wap/cart_view/">
+            {% if request.session.carts_number != '0' %}
+            <div class="carnum">
+                <span class="cnume">{{ request.session.carts_number }}</span>
+            </div>
+            {% else %}
+            <div class="carnum carnum-empty"></div>
+            {% endif %}
+        </a>
+    </div>
+    <div class="header-spacing"></div>
+</div>
+<div data-role="content">
+
+    <div data-role="collapsible" data-collapsed="false" data-expanded-icon="carat-u" data-collapsed-icon="carat-d" data-iconpos="right" class="ui-alt-icon ui-nodisc-icon">
+        <h1>合身的西服标准</h1>
+
+        <div class="centerImgWap" style="margin-top: 15px;"><img class="centerImg" src="/static/wap/images/suitStandard.png"/></div>
+        <p style="margin-top: 28px;">面料：全羊毛是西服品质的保障。羊毛面料质感光滑，纹理清晰，透气性好，弯折后的皱褶可以在很短时间内消失。而化纤面料手感疲软，缺乏挺括感，容易出现皱褶并且不易消退。</p>
+
+        <p>颜色：男士西服一般采用灰色、藏蓝或黑色三种颜色。由于灰色略显老气且不好驾驭，因此建议第一套西服选择藏蓝色或黑色，搭配白色衬衫，避免形象过于深沉。</p>
+
+        <p>纹理：简洁大方是基本原则，由于衬衫和领带多带有花纹，因此西服一般选择素色或暗条纹的面料，低调沉稳。</p>
+
+        <p>纽扣：单排扣西服通常只扣第一颗扣子，站立时扣上，就坐时解开。单排扣西服最下面一颗扣子永远不扣，单排三扣的西装第二粒可扣可不扣。双排扣西服则应始终扣好扣子。</p>
+
+        <p>袖长：以站立时衬衫袖子露出西服袖口1cm为宜。</p>
+
+        <p>下摆：西服下摆应自然盖过臀部，或在双臂自然下摆时位于大拇指指根处。</p>
+
+        <p>裤长：西裤前端应刚好到达脚背，后端到达鞋帮和鞋跟的交界线。</p>
+    </div>
+    <div data-role="collapsible" data-collapsed="false" data-expanded-icon="carat-u" data-collapsed-icon="carat-d" data-iconpos="right" class="ui-alt-icon ui-nodisc-icon">
+        <h1>配件选择</h1>
+
+        <div class="centerImgWap"><img class="centerImg" src="/static/wap/images/tie.png"/></div>
+        <p style="margin-top: 20px;">领带：凡是参加正式交际活动，穿西服应系领带。领带颜色需要比衬衫颜色深，且应较好地搭配衬托西服颜色。长度应刚及皮带扣。</p>
+
+        <p>穿着藏蓝色西服和白色或明亮蓝色的衬衫，推荐搭配蓝色、朱红色领带；穿着黑色西服以及白色或浅色衬衫，推荐搭配灰色、蓝色、深绿色领带；穿着灰色西服和白衬衫，推荐搭配灰色、绿色和砖色领带。</p>
+        <p style="margin-bottom: 16px;">同类型的图案最好不要搭配，例如暗格西服搭配素色或者条纹、花纹领带，格子衬衣搭配斜纹领带，直纹衬衣搭配方格图案的领带。</p>
+
+        <div class="centerImgWap"><img class="centerImg" src="/static/wap/images/shoes.png"/></div>
+        <p style="margin-top: 26px;">皮鞋：正式场合通常穿系带、尖头的皮鞋，颜色选择棕色或黑色。记得要给皮鞋打油，常擦拭，不要留有灰尘。</p>
+
+        <p>袜子：袜子应与西裤颜色一致或比西裤颜色更深，并且无明显花纹。袜长应保证就坐时不露出小腿皮肤。</p>
+    </div>
+    <div data-role="collapsible" data-collapsed="false" data-expanded-icon="carat-u" data-collapsed-icon="carat-d" data-iconpos="right" class="ui-alt-icon ui-nodisc-icon">
+        <h1>配饰选择</h1>
+
+        <div class="centerImgWap"><img class="centerImg" src="/static/wap/images/waistband.png"/></div>
+        <p style="margin-top: 22px;">皮带：皮带的颜色要和皮鞋的颜色一致，一般选择黑色、深棕色。皮带扣的选择应没有明显logo，颜色应为金色或银色。套装的其他金属配饰，如袖扣、领带夹以及手表等颜色都应与皮带扣相衬。</p>
+
+        <div class="centerImgWap"><img class="centerImg" src="/static/wap/images/watch.png" style="width: 100%;"/></div>
+        <p style="margin-top: 28px;">手表：一般来说，金属手表越薄则越显正式，指针表也远比电子表更正式。最庄重的场合不应该佩戴手表，而应该佩戴怀表。但怀表今日已不常见。</p>
+    </div>
+</div>
+<div class="mensooter">
+
+    <p>400-699-7386</p>
+
+    <p class="smf">北京大学2010级创业团队</p>
+
+    <p class="smf">©北京岂曰无衣服装有限公司</p>
+</div>
+{% endblock %}

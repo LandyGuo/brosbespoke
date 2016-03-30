@@ -1,0 +1,157 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors wangfengquan(you@example.org)
+ * @date    2015-05-16 11:08:22
+ */
+/*账户信息样式*/
+.perTit p{width: 200px;text-align:center;}
+.hide{display: none;}
+.personal{width: 960px;min-height:437px;font-family: "PingHei-Light","Arial","微软雅黑";position: relative;top:0;left:0;}
+.personal_nav,.information,.save{ width: 100%;}
+.right_list{width:180px;min-height:437px;background: #EFEFEF;float: left;}
+.line_list{width:160px;margin:0 auto;margin-bottom: 18px;border-bottom: 1px solid #000;margin-top: 23px;padding-bottom: 4px;}
+.personal_nav{position: absolute;top:0; left: 0;z-index: 1;width: 180px;}
+.personal_nav ul{width:130px;margin:0 auto;}
+.personal_nav ul li{margin-bottom: 10px;white-space:nowrap;}
+.bold{padding-left: 10px;background: url("../img/pointer.png")no-repeat center left;}
+/**新添加的个人信息显示**/
+.startMsg p{margin-left:230px;color:#898989;}
+.account{width:180px;height:130px;padding: 10px;background: #f0f0f0;margin-left: 230px;margin-top:30px;}
+.account h2{font-size: 14px;margin-bottom: 15px;}
+.account span{width: 100%;display: block;margin-bottom: 10px;color:#898989;}
+.account a{display: block;margin-top: 36px;}
+
+.msg ul{width:290px;margin-left: 230px;}
+.msg ul li{width:264px;margin-bottom:30px; }
+.msg ul li:nth-child(4){margin-bottom: 20px;}
+.msg ul li p{margin-bottom:5px;}
+.msg ul li input{width:254px;height: 14px; padding: 3px 0 3px 4px;border: 1px solid #000; 
+    outline: none;}
+.msg ul li select{width:260px;height: 20px;border: 1px solid #000;outline: none; }
+.molibe{line-height: 20px;display: inline-block;height:20px;}
+.molibe a,.changepassword a{text-decoration: underline;}
+.changepassword{margin-top: 20px;display: inline-block;}
+.save a{ font-size: 14px;display: inline-block;margin-top:30px;width:264px; height:34px;text-align:center; line-height:34px;
+border-radius:5px;background: #000;color: #fff;}
+.cancelbtn a{background: #898989;margin-top: 10px;}
+.required{display: block;margin-top:5px;font-style: italic;font-weight: bold;}
+/*尺寸*/
+
+.pentagon {position: relative; top:50%;left:0;  background: #090;}
+#myChart{  margin-left: 290px; margin-top: 30px;}
+/*我的订单*/
+.orderBox{width: 582px;margin-left: 228px;}
+.order_top{width: 100%; height: 54px;line-height:54px;}
+.order_num{margin:10px 0px;width: 200px;}
+.oeder_date{margin-top:10px;}
+.order_num h2,.order_num span,.oeder_date h2,.oeder_date span{float:left; margin-right:20px;}
+.order_num span,.oeder_date span{font-family:"Adobe 黑体 Std";}
+.shop_goods_nav{width:500px; height:21px;margin-left: 30px;}
+.shop_goods_nav li{float:left;width: 150px;}
+.shop_goods_nav li:last-child{width: 50px;}
+.goods_img{width:73px;height:73px;background:#999;margin-left: 0px;}
+.goods_img img{width: 100%;height: 100%;}
+.orderDetails{display:inline-block;text-decoration:underline;float:right;margin:38px 0;color: #898989;}
+.oeder_date span.orderdate{margin-right:50px;}
+.ordertxt{width: 130px;white-space:nowrap;display: block;overflow: hidden;text-overflow: ellipsis;color: #898989;}
+#hr1_line{background:#898989;}
+
+.sizeTxt{margin-left: 230px;}
+.sizeTxt p{line-height: 16px; }
+.sizeTxt a{margin-top:20px;display: block;font-size: 14px;font-style: italic;text-decoration: underline;}
+.sizeTxt span,.sizeTxt em{display: block;}
+.sizeTxt span{margin: 30px 0 20px 0;}
+.sizeTxt em{color: #898989;margin-bottom: 10px;}
+/*产品详情*/
+.information > h2{color: #ccc;}
+
+.product{width: 646px; min-height: 348px;margin-top: -200px;margin-left: -323px;}
+.product h3{font-size: 14px; font-family:"Arial","微软雅黑","pinghei"}
+.mt42{margin-top: 42px;}
+.product_left,.product_middle,.product_right{width: 210px;}
+.product_left{padding-left: 15px;}
+.left_con span{margin-top:20px;margin-right: 20px;display: inline-block; }
+
+.goods_all{width:646px; height: 348px; background: #fff;margin-top: -174px; margin-left: -323px; }
+.goods_all h3{font-size: 14px;}
+.goods_all_con{width:566px;margin:40px auto}
+.goods_all_con div{width: 138px; height: 100%;float: left; margin-right:76px; }
+.goods_all_con div.goods_right{margin-right: 0;}
+.goods_all_con div h2{font-size: 14px;}
+.goods_all_con div ul li{margin-top: 17px;color: #777;}
+.goods_all_con div ul li span.mr{margin-left: 23px;white-space: nowrap;}
+.goods_all_con div ul li span.check{width: 70px; display: inline-block;float: right;margin-bottom: 17px;line-height: 17px;}
+.goods_all_con div ul li  img{vertical-align: middle;margin-left:10px;width:10px;}
+.goods_all_con .goods_right ul li img{width:10px;margin: 0;}
+.nowrap{white-space:pre;}
+/*地址*/
+.address{ width: 580px; min-height:408px;margin-left:228px;}
+.add_addr{position:relative;top:0;left:0;z-index: 1;}
+.add_addr a{color: #fff;display:block; width:200px;height:34px;background:#000;margin-bottom: 28px;border-radius: 5px;
+text-align:center;line-height: 34px;font-size: 14px; }
+.addr_msg{ width: 100%; height: 119px;}
+.addr_left p{line-height: 17px;}
+.addr_right{ width: 152px;margin-top: 10px;}
+.addr_right span{margin-left: 28px;text-align:right;float:right;}
+.addr_right span:last-child{ margin-left: 0}
+
+.address_box{width: 780px;height: 580px;background: #fff;margin-top: -320px;margin-left: -420px; font-family: "PingHei-Light","Arial","微软雅黑";}
+.address_box h3{font-size: 28px;margin-left: 90px;margin-top:50px;}
+.address_box i{width: 100px;height: 20px;float: left;display:block;margin-top: -30px;color: red;}
+.address_box > p{font-size: 14px;margin-left: 80px;margin-top:10px; }
+.addr_con{width: 267px;height:424px;margin-left: 90px;margin-top: 40px;}
+.addr_con input{width: 260px; height: 10px; padding:5px 0 5px 4px;background: #fff; border: 1px solid #000; 
+outline: none;margin-bottom: 30px;font-size: 12px;font-family: "PingHei-Light","Arial","微软雅黑"; }
+.addr_con i{float: left;width:260px;height:20px;margin-top: -30px;display: none;color: red;}
+.addr_con p{font-size: 12px;text-indent: 0;}
+.addr_con select{width: 266px; height: 22px;margin-bottom: 30px;outline: none;font-size: 12px;font-family: "PingHei-Light","Arial","微软雅黑"; }
+.addr_con input.small_addr,.addr_con select.small_addr{width: 57px;margin:0 3px;margin-bottom: 10px;}
+.addr_con a{ text-align: center;width:270px;height:35px; border-radius:5px;margin-top:15px;display: inline-block;font-size: 16px;
+line-height: 35px;background: #000;color:#fff;}
+/*更改密码*/
+.strength{position: absolute;left: 400px;top:283px;width: 240px;}
+.strength ul{float: left;}
+.strength ul li{width: 60px;border:1px solid #000;height:12px;float: left;margin-right: 6px;}
+.active{background: #000;}
+.strength span{float:left;display: inline-block;margin-left:200px;margin-top: -12px; }
+/*更改手机号*/
+.moblienum_con{width:400px;min-height: 408px; }
+.moblienum_con input:first-child{margin-bottom: 30px;background: #090;vertical-align: middle;}
+.moblienum_con p{ font-size: 12px;white-space:nowrap;margin-bottom: 2px;text-indent: 0;}
+.moblienum_con p:first-child{margin: 50px 0 0px 0;}
+.moblienum_con i{width: 100px;height: 20px;color:red;float: left;margin-top:-30px;display: none;}
+.identifying_btn{float:left;margin-left:8px;display: inline-block;vertical-align: middle;font-weight: bold;
+    margin-top:5px;cursor: pointer;}
+/*确认弹出框*/
+.weixinchat .confirm{width: 330px;height:198px;  margin-top: -136px;padding: 0;}
+.weixinchat .confirm h3{margin:50px 0 50px 50px;font-size: 14px;}
+.weixinchat .confirm .confirmBtn{margin-left:50px;height:34px;}
+.weixinchat .confirm .confirmBtn a{display: inline-block;width:100px;height: 34px;background: #898989;
+font-size: 14px;color: #fff;line-height: 34px;text-align: center;}
+.weixinchat .confirm .confirmBtn a:first-child{margin-right: 30px;background: #000;}
+/*建议*/
+.advise_con{margin-left: 228px;}
+#textarea1{width:420px;height:200px;border:1px solid #000;  resize: none; outline: none;
+    padding: 10px;}
+#advise{
+    display: block;
+    width: 168px;
+    height: 34px;
+    background: #000;
+    color: #FFF;
+    border-radius:5px;
+   margin-left: 275px;
+    margin-top:30px;
+    text-align: center;
+    line-height: 34px;
+    font-size: 14px;
+}
+/*这是新添加的脚部样式*/
+.foot{margin-top: 10px;}
+.btn_go{margin-top:143px;}
+.doubt{margin-top: 30px;}
+.ContactUs p.or{margin-top: 30px;}
+.ContactUs p.gray{color:#898989;}
+.Sorry{margin-bottom: 5px;}
+.whiteSpae{text-indent:20px;}

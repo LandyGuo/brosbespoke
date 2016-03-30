@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="description" content="a order implement with Django"/>
+	<meta name="keywords" content="django,order" />
+	<meta name="author" content="Holbrook" />
+	<title>{% block title %} 标题 {% endblock %}</title>
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+	<link rel="stylesheet" href="/static/order/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/order/css/layout.css">
+</head>
+<body>
+    <script src="/static/order/js/jquery-1.7.1.min.js"></script>
+    {% block js %}
+        <!--这里插入具体页面引用的js库，或者js代码-->
+     {% endblock %}
+    <script>
+    $(function () {
+        //这里编写base界面的on_ready代码
+        
+        {% block on_ready %}
+            //这里插入具体界面的on_ready代码
+        {% endblock %}
+    });
+    </script>
+ 
+	<div class="topbar" >
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="#">Bros.Bespoke</a>
+          <ul class="nav">
+            <li class="active1"><a href="/admin">Admin首页</a></li>
+            <li class="active"><a href="/order/order_manage"></a></li>
+            
+          </ul>
+       
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+       
+      <div class="content">
+        <h>{% block yz %}  {% endblock %}</h>
+        <div class="page-header">
+          <h1>{% block pagename %} 页面名称 {% endblock %}</h1>
+        </div>
+		{% block content %} 
+		内容
+		{% endblock %}
+	</div><!-- /content -->
+
+	
+</div><!-- /container -->
+</body>
+</html>

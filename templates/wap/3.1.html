@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>西服款式选择（上衣）</title>
+    <link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/style.css"/>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+        function popUp(msg){
+            $('#Popup').css('padding','10px').text(msg).popup("open");
+        };
+        function next(){
+            var neibudou_selected = $('#neibudou_list .nav_active');
+            var neibudou_value = '';
+            for ( var i = 0; i < neibudou_selected.length; i++ ) {
+                neibudou_value += neibudou_selected.eq(i).text();
+                neibudou_value +='|';
+            }
+            //去掉最后一个 '|'
+            if ( neibudou_value.indexOf('|') >= 0) {
+                neibudou_value = neibudou_value.substring(0,neibudou_value.length - 1);
+            }
+            console.log('neibudou_value='+neibudou_value);
+            $.post('/wap/style_select_post/', {type:'shangyi',
+                        KouXingShangYi:$('#kouxing_list .nav_active').text(),
+                        LingXingShangYi:$('#lingxing_list .nav_active').text(),
+                        YaoDouShangYi:$('#yaodou_list .nav_active').text(),
+                        KaiQiShangYi:$('#kaiqi_list .nav_active').text(),
+                        XiuKouShangYi:$('#xiukou_list .nav_active').text(),
+                        NeiBuZaoXingShangYi:$('#neibuzaoxing_list .nav_active').text(),
+                        NeiBuDouShangYi:neibudou_value
+                    },
+                    function(returnedData){
+
+                        (returnedData.code == 0) && (window.location.href = '/wap/style_select/xiku');
+                        popUp(returnedData.msg);
+                    }
+            );
+        }
+    </script>
+</head>
+<body>
+
+    <div data-role="content">
+        <div class="step">
+            <div class="stepNumber">2</div>
+            <div class="stepContent">
+                <p class="stepTitle">款式选择</p>
+                <p class="stepDescription">请选择您所钟爱的款式</p>
+            </div>
+        </div>
+        <div class="demand">2.1上衣设计要求</div>
+        <ul class="demandWrap">
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">扣型</div>
+                    <ul id='kouxing_list' class="tab_nav kxNav">
+		            {% if kouxing_list %}
+			            {% for kouxing in kouxing_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{kouxing.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{kouxing.name}}</a></li>
+                            {% endif %}
+			            {% endfor %}
+		            {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if kouxing_list %}
+                        {% for kouxing in kouxing_list %}
+                            {% if forloop.first %} 
+                            
+		                    <div class="tab_active">
+		                        <img src="{{kouxing.image.url}}" alt="{{kouxing.name}}"/>
+		                    </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{kouxing.image.url}}" alt="{{kouxing.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">领型</div>
+                    <ul id='lingxing_list' class="tab_nav">
+                    {% if lingxing_list %}
+                        {% for lingxing in lingxing_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{lingxing.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{lingxing.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if lingxing_list %}
+                        {% for lingxing in lingxing_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{lingxing.image.url}}" alt="{{lingxing.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{lingxing.image.url}}" alt="{{lingxing.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">腰兜</div>
+                    <ul id='yaodou_list' class="tab_nav">
+                    {% if yaodou_list %}
+                        {% for yaodou in yaodou_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{yaodou.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{yaodou.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if yaodou_list %}
+                        {% for yaodou in yaodou_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{yaodou.image.url}}" alt="{{yaodou.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{yaodou.image.url}}" alt="{{yaodou.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">开气</div>
+                    <ul id='kaiqi_list' class="tab_nav">
+                    {% if kaiqi_list %}
+                        {% for kaiqi in kaiqi_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{kaiqi.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{kaiqi.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if kaiqi_list %}
+                        {% for kaiqi in kaiqi_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{kaiqi.image.url}}" alt="{{kaiqi.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{kaiqi.image.url}}" alt="{{kaiqi.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">袖扣</div>
+                    <ul id='xiukou_list' class="tab_nav">
+                    {% if xiukou_list %}
+                        {% for xiukou in xiukou_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{xiukou.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{xiukou.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if xiukou_list %}
+                        {% for xiukou in xiukou_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{xiukou.image.url}}" alt="{{xiukou.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{xiukou.image.url}}" alt="{{xiukou.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">内部造型</div>
+                    <ul id='neibuzaoxing_list' class="tab_nav">
+                    {% if neibuzaoxing_list %}
+                        {% for neibuzaoxing in neibuzaoxing_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{neibuzaoxing.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{neibuzaoxing.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if neibuzaoxing_list %}
+                        {% for neibuzaoxing in neibuzaoxing_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{neibuzaoxing.image.url}}" alt="{{neibuzaoxing.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{neibuzaoxing.image.url}}" alt="{{neibuzaoxing.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">内部兜</div>
+                    <ul id='neibudou_list' class="tab_nav multiNav" >
+                    {% if neibudou_list %}
+                        {% for neibudou in neibudou_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{neibudou.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{neibudou.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right multiTab">
+                    {% if neibudou_list %}
+                        {% for neibudou in neibudou_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{neibudou.image.url}}" alt="{{neibudou.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{neibudou.image.url}}" alt="{{neibudou.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <p class="multiChoice">*此项可多选</p>
+                </div>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="fixedWrap">
+        <p class="price">&yen;{{product.price}}</p>
+        <a class="booking" >下一步</a>
+    </div>
+
+
+    <!--面料信息弹出层-->
+    <div class="fixModal">
+        <div class="modalWrap">
+            <div class="">
+                <p class="modalTitle">面料信息</p>
+                <div class="operator">
+                    <a class="cancel" href="#" data-role="none" onclick="$('.fixModal').hide()">取消</a>
+                    <a class="sure" href="#" data-role="none">确认选择</a>
+                    <div class="clearBoth"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--默认选项提示框-->
+    <div class="fixModal fixDefault ">
+        <div class="modalWrap isDefault">
+            <div class="">
+                <p class="defaultSure">您确定采用默认选项吗?</p>
+                <div class="operator">
+                    <a class="cancel" href="javascript:;" data-role="none" onclick="$('.fixModal').hide()">不，我再看看</a>
+                    <a class="sure" href="javascript:;" data-role="none"  onclick="next()" >确定</a>
+                    <div class="clearBoth"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="popup" id="Popup"></div>
+<script>
+
+    $(function(){
+        var status = 0;
+
+        $('.tab_nav a').not('.multiNav a').click(function(){
+            status++;
+            var $this = $(this);
+            var i = parseInt($this.attr('data-number'));
+            $this.parents('.tab_nav').find('.nav_active').removeClass('nav_active');
+            $this.parents('.demandTab').find('.tab_active').removeClass('tab_active');
+            $this.addClass('nav_active').parents('.demandTab').find('.tab_right>div').eq(i).addClass('tab_active');
+        })
+        //多选
+        $('.multiNav a').click(function(){
+            status++;
+            var $this = $(this),
+                    i = parseInt($this.attr('data-number')),
+
+                    j = $('.multiNav .nav_active').length,
+                    isSelectd = $this.hasClass('nav_active');
+            if(!isSelectd){
+                $this.parents('.demandTab').find('.tab_active').removeClass('tab_active');
+                $this.addClass('nav_active').parents('.demandTab').find('.tab_right>div').eq(i).addClass('tab_active');
+            }else{
+                if(j != 1){
+                    $this.removeClass('nav_active');
+                    $this.parents('.demandTab').find('.tab_active').removeClass('tab_active');
+
+                    var m = parseInt($('.multiNav .nav_active').first().attr('data-number'));
+                    $('.multiTab>div').eq(m).addClass('tab_active');
+                }
+            }
+
+        })
+        //下一步
+
+        $('.booking').click(
+                function(){
+                    if(status){
+                        next()
+                    }else{
+                        $(".fixDefault").show();
+                    }
+                }
+        )
+    })
+</script>
+</body>
+</html>

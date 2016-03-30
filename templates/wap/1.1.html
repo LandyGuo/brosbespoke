@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>为谁定制</title>
+    <link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/style.css"/>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+<script>
+
+
+
+    function popUp(msg){
+        $('#Popup').css('padding','10px').text(msg).popup("open");
+    }
+
+    var forFriend = 0;
+
+
+    function choice(isForFriend,element){
+
+        isForFriend = isForFriend || 0;
+        $('.selected').not(this).removeClass('selected');
+
+        if(isForFriend){
+            forFriend = 1;
+            $('#taPhone').css('visibility','visible')
+        }else{
+            forFriend = 0;
+            $('#taPhone').css('visibility','hidden')
+        }
+
+        $(element).addClass('selected');
+
+    }
+
+    function onForWho() {
+
+        if(forFriend){
+            $.post('/wap/order4who_post/', {is4friend:1,phone:$('#taPhone').val() },
+                    function(returnedData){
+
+                        (returnedData.code == 0) && (window.location.href = '/wap/fabric_select');
+                        popUp(returnedData.msg);
+                    }
+            );
+        }else{
+            $.post('/wap/order4who_post/', {is4friend:0},
+                    function(returnedData){
+                        (returnedData.code == 0) && (window.location.href = '/wap/fabric_select');
+                        popUp(returnedData.msg);
+                    }
+            );
+        }
+
+    }
+
+
+</script>
+</head>
+<body>
+
+
+   <div data-role="content">
+       <div class="forWho">
+           <p>请选择为谁定制</p>
+           <div class="choice">
+               <p  class ="selected" id="myself"  onclick="choice(0,this)">我自己</p>
+               <div class="hr"></div>
+               <p  id="others"  onclick="choice(1,this)">我重视的人</p>
+           </div>
+           <input id="taPhone" pattern="[0-9]*" type="number" placeholder="请输入TA的手机号" data-role="none" />
+       </div>
+       <div class="submitWrap">
+           <button   id="submitBtn" class="myBtn" data-role="none" onclick="onForWho()">下一步</button>
+       </div>
+
+   </div>
+    <div data-role="popup" id="Popup"></div>
+
+</body>
+
+</html>

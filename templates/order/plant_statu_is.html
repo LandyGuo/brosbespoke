@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-us" >
+<head>
+<title>Site administration | Django site admin</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/dashboard.css" />
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/static/admin/css/ie.css" /><![endif]-->
+
+<script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
+<script type="text/javascript">window.__admin_utc_offset__ = "0";</script>
+<script type="text/javascript" src="http://www.aspbc.com/js/jquery.js"></script>
+<script type="text/javascript"></script>
+<meta name="robots" content="NONE,NOARCHIVE" />
+</head>
+
+
+<body class=" dashboard">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="/admin/">Bros.Bespoke 管理中心</a></h1>
+
+        </div>
+        
+        <div id="user-tools">
+            
+                Welcome,
+                <strong>{{user.user}}</strong>.
+            
+            
+                
+                
+                
+                <a href="/admin/password_change/">Change password</a> /
+                
+                <a href="/admin/logout/">Log out</a>
+            
+        </div>
+        
+        
+    </div>
+    <div class="breadcrumbs">
+<a href="/admin/">Home</a>
+&rsaquo; <a href="/admin/wap/">Wap</a>
+&rsaquo; <a href="/admin/wap/order/">订单</a>
+&rsaquo; 工厂状态 
+</div>
+<ul class="nav nav-tabs">
+  <li role="presentation"><a href="/order/plant_statu/ddzz">等待制作 ></a></li>
+  <li role="presentation"><a href="/order/plant_statu/zzing">制作中 ></a></li>
+  <li role="presentation"><a href="/order/plant_statu/zzwc">制作完成</a></li>
+  <li role="presentation"><a href="/order/plant_statu/psing">配送中</a></li>
+  <li role="presentation"><a href="/order/plant_statu/yjf">已交付</a></li>
+  <li role="presentation"><a href="/order/plant_statu/ddwc">完成订单</a></li>
+</ul>
+{% block content %}
+
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<body>
+
+  
+<div class="container">
+      <h2> {{nao}}:</h2>                  
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>订单id</th>
+            <th>客户</th>
+            <th>客户手机</th>
+            <th>订单号</th>
+            <th>订单金额</th>
+            <th>产品</th>
+
+            <th>工厂状态</th>
+            <th>下单时间</th>
+            <th>开始制作时间</th>
+            <th>制作天数</th>
+            <th>客户回访结果</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for or_li in a %} 
+          <tr>
+            <td>{{or_li.order_id}}</td>
+            <td>{{or_li.order.user.nickname}}</td>
+            <td>{{or_li.order.user.phonenumber}}</td>
+            <td>{{or_li.order.order_number}}</td>
+            <td>{{or_li.order.price}}</td>
+            <td>{{or_li.order.product}}</td>
+            <td>{{or_li.plant_status}}</td>
+            <td>{{ or_li.create_time|date:"Y-m-d H:i:s" }}</td>
+            <td>{{ or_li.zhizuo_time|date:"Y-m-d H:i:s" }}</td>
+            <td>{{ or_li.create_time|timeuntil }}</td>
+            
+
+            <td><form>
+<SELECT id="idState" style="width:150" name="state" selectedIndex="$!{state}"> 
+<OPTION  value="">----</OPTION> 
+<OPTION value="1">1</OPTION> 
+<OPTION value="2">2</OPTION> 
+<OPTION value="3">3</OPTION> 
+<OPTION value="4">4</OPTION> 
+<OPTION value="6">5</OPTION>
+</SELECT> 
+ <input   type="hidden" name="id" value="{{or_li.order_id}}" />
+ <input   type="submit"   value="提交">
+ </form></td>
+          </tr>
+          {% endfor %}
+<!--{% for or_li in a %} 
+            
+<script>
+   $(".{{ forloop.counter }}").val("{{or_li.Plant_status}}");    
+</script>
+
+{% endfor %}-->
+  
+
+
+
+        </tbody>
+      </table>
+    </div>
+
+
+
+</body>
+{% endblock %}
+
+

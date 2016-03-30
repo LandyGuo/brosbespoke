@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>地址选择</title>
+    <link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/style.css"/>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+        var address_id_to_del = 0;
+        function popUp(msg){
+            $('#Popup').css('padding','10px').text(msg).popup("open");
+        };
+        //添加收件人
+        function add_address(){
+            //如果没有填写
+            if ($("input[name='newName']").val().length > 0) { 
+                $.post('/wap/address_add_post/', {
+                            recipient:$("input[name='newName']").val(),
+                            phone:$("input[name='newPhone']").val(),
+                            address_region:$("input[name='newRegion']").val(),
+                            address_street:$("input[name='newStreet']").val()
+                        },
+                        function(returnedData){
+                            (returnedData.code == 0) && (window.location.href = '/wap/address_list');
+                            popUp(returnedData.msg);
+                        }
+                );
+            }else {
+                $('#fixModal_confirm_receiver').show();
+            }
+            
+        }
+        
+        //点击编辑
+        function edit_address(element){
+            var block_parent = $(element).closest('.address_block');
+            block_parent.find('div.recipientDetail').css('display','none');
+            block_parent.find('div.editRecipient').css('display','');
+        }
+        //点击删除
+        function delete_address_on_click(element){
+            var block_parent = $(element).closest('.address_block');
+            address_id_to_del = parseInt(block_parent.attr("id"));
+            //alert('delete id '+address_id_to_del);
+            $('#fixModal_delete').show();
+        }
+        function delete_address(){
+        	//alert('delete id '+address_id_to_del);
+            $.post('/wap/address_delete_post/', {
+                        address_id: address_id_to_del
+                    },
+                    function(returnedData){
+
+                        (returnedData.code == 0) && (window.location.href = '/wap/address_list');
+                        popUp(returnedData.msg);
+                    }
+            );
+        }
+        //点击保存编辑
+        function save_editing(element){
+            var block_parent = $(element).closest('.address_block');
+            
+           $.post('/wap/address_update_post/', {
+                address_id:block_parent.attr('id'),
+                recipient:block_parent.find("input[name='oldName']").val(),
+                phone:block_parent.find("input[name='oldPhone']").val(),
+                address_region:block_parent.find("input[name='oldRegion']").val(),
+                address_street:block_parent.find("input[name='oldStreet']").val()
+                },
+                function(returnedData){
+                    (returnedData.code == 0) && (window.location.href = '/wap/address_list');
+                    popUp(returnedData.msg);
+                }
+            );
+         }
+
+    </script>
+</head>
+<body>
+
+    <div data-role="content" id="marginBottom60">
+        <div class="step">
+            <div class="stepNumber">4</div>
+            <div class="stepContent">
+                <p class="stepTitle">地址选择</p>
+                <p class="stepDescription">请您填写收件人信息</p>
+
+            </div>
+        </div>
+
+
+        <div class="recipientWrap">
+        {% if address_list %}
+            {% for address in address_list %}
+           <div id="{{address.id}}" class="address_block">
+                <div class="checkTitle">
+                    <div class="checkboxWrap">
+                        <input data-role="none" type="checkbox" id="recipient{{address.id}}" >
+                        <label for="recipient{{address.id}}"></label>
+                    </div>
+                    <div class="">{{address.recipient}}</div>
+                </div>
+
+                <!--查看状态-->
+                <div class="recipientDetail">
+
+                    <div class="recipientList">
+                        <label data-role="none">手机号</label>
+                        <span>{{address.phone}}</span>
+                    </div>
+                    <div class="recipientList">
+                        <label data-role="none">收货地址</label>
+                        <span>{{address.address_region}}</span>
+                    </div>
+                    <div class="recipientList">
+
+                        <span>{{address.address_street}}</span>
+                    </div>
+                    <div class="operator">
+                        <a class="cancel" href="javascript:;" data-role="none" onclick='edit_address(this);'>编辑</a>
+
+                        <a class="sure" href="javascript:;" data-role="none"  onclick="delete_address_on_click(this);">删除</a>
+                        <div class="clearBoth"></div>
+                    </div>
+                </div>
+
+                <!--编辑状态-->
+
+                <div class="editRecipient" style="display:none">
+                    <div class="recipientList">
+                        <label data-role="none">收件人</label>
+                        <input data-role="none" type="text" value="{{address.recipient}}"  name="oldName" />
+                    </div>
+
+                    <div class="recipientList">
+                        <label data-role="none">手机号</label>
+                        <input type="tel" pattern="[0-9]*"  data-role="none"  value="{{address.phone}}" name="oldPhone"/>
+                    </div>
+
+
+                    <div class="recipientList">
+                        <div class="sel_wrap">
+
+                            <label data-role="none">收货地址</label>
+                            <input data-role="none" type="text"  name="oldRegion"/>
+                            <select class="select address"  id="editAddress"   data-role="none" value="{{address.address_region">
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="recipientList addressDetail">
+
+
+                            <input type="text" data-role="none" value="{{address.address_street}}" name="oldStreet"/>
+
+
+                    </div>
+
+                    <div class="submitWrap">
+
+                        <button class="myBtn"  data-role="none"  onclick='save_editing(this)'>保存</button>
+                    </div>
+
+                </div>
+            </div>
+            </br>
+            {% endfor %}
+        {% endif %}
+            <div class="createRecipient">
+                <p onclick="$('.createDetail').slideDown()">+&nbsp;&nbsp;&nbsp;新增收件人</p>
+                <div class="createDetail">
+                    <div class="editRecipient">
+                        <div class="recipientList">
+                            <label data-role="none">收件人</label>
+                            <input data-role="none" type="text" value="" name="newName" />
+                        </div>
+
+                        <div class="recipientList">
+                            <label data-role="none">手机号</label>
+                            <input type="tel" pattern="[0-9]*"  data-role="none"  value="" name="newPhone"/>
+                        </div>
+
+
+                        <div class="recipientList">
+                            <div class="sel_wrap">
+
+                                <label data-role="none">收货地址</label>
+                                <input data-role="none" type="text"  name="newRegion"/>
+                                <select    id="createAddress"  class=" select address"   data-role="none">
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="recipientList addressDetail">
+
+
+                            <input type="text" data-role="none" placeholder="请输入街道地址" name="newStreet"/>
+
+
+                        </div>
+
+                        <div class="submitWrap">
+
+                            <button class="myBtn"   data-role="none" onclick="add_address()" >保存</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+    <div class="fixedWrap">
+        <p class="price">&yen;{{order_price}}</p>
+        <a class="booking" >提交订单</a>
+    </div>
+
+
+    <div data-role="popup" id="Popup"></div>
+
+
+
+<div class="fixModal" id='fixModal_confirm_receiver'>
+    <div class="modalWrap recipientModal">
+        <div>
+            <p>请您填写收件人信息！</p>
+        </div>
+        <button onclick="$('#fixModal_confirm_receiver').hide();" >我知道了</button>
+    </div>
+</div>
+<div class="fixModal" id='selectReceiver'>
+    <div class="modalWrap recipientModal">
+        <div>
+            <p>请您选择收件人！</p>
+        </div>
+        <button onclick="$('#selectReceiver').hide();" >我知道了</button>
+    </div>
+</div>
+
+
+<!--删除收件人-->
+<div class="fixModal" id='fixModal_delete'>
+    <div class="modalWrap recipientModal">
+        <div>
+            <p>您确定删除该收件人信息吗？</p>
+        </div>
+        <div class="operator">
+            <a class="cancel" href="javascript:;" data-role="none" onclick="$('#fixModal_delete').hide();">取消</a>
+
+            <a class="sure" href="javascript:;" data-role="none" onclick="$('#fixModal_delete').hide();delete_address();">确定</a>
+            <div class="clearBoth"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var citylist = {
+        "province": [
+            {
+                "name": "北京市",
+                "city": [
+                    {"name": "东城区"},
+                    {"name": "西城区"},
+                    {"name": "朝阳区"},
+                    {"name": "丰台区"},
+//                    {"name": "石景山区"},
+                    {"name": "海淀区"},
+//                    {"name": "门头沟区"},
+//                    {"name": "房山区"},
+//                    {"name": "通州区"},
+//                    {"name": "顺义区"},
+//                    {"name": "昌平区"},
+//                    {"name": "大兴区"},
+//                    {"name": "怀柔区"},
+//                    {"name": "平谷区" },
+//                    {"name": "密云县"},
+//                    {"name": "延庆县" }
+
+                ]
+            }
+        ]
+    };
+    //北京行政区域划分
+    var cityArea = '';
+    var bjcity = citylist.province[0].city.slice();
+    for(var m = 0;m<bjcity.length;m++){
+        cityArea += "<option value =北京市"+bjcity[m].name+">北京市"+bjcity[m].name+"</option>";
+    }
+    $('.address').each(function(){
+        $(this).html(cityArea).find('option').eq(5).attr("selected",true);
+    });
+
+    $(function(){
+        $(".sel_wrap").on("change", function () {
+            var o;
+            var opt = $(this).find('option');
+            opt.each(function (i) {
+                if (opt[i].selected == true) {
+                    o = opt[i].innerHTML;
+                }
+            })
+            $(this).find('input').val(o);
+        }).trigger('change');
+
+        $(".checkboxWrap input").click(function(){
+
+            if($(this).prop("checked")){
+                $(".checkboxWrap input").not(this).prop("checked",false);
+            };
+        })
+
+        //下一步
+        $('.booking').click(function(){
+
+            if($(".checkboxWrap :checked").length  == 0){
+
+                $("#selectReceiver").show()
+
+            }else{
+
+            $.post('/wap/address_select_post/', {
+                        address_id:$(".checkboxWrap :checked").parents('.address_block').attr('id')
+                    },
+                    function(returnedData){
+
+                        (returnedData.code == 0) && (window.location.href = '/weixin/wxpay_pay/pay');
+                        popUp(returnedData.msg);
+                    }
+            );
+            }
+        })
+
+     })
+</script>
+</body>
+</html>

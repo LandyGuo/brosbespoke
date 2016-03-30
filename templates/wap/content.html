@@ -1,0 +1,110 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}产品详情{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/libs/require.js" data-main="/static/sjs/bb-order"></script>
+<script type="text/javascript">
+//$(function()
+//{
+    //	$(".af4").slide({
+    //		affect:4,
+    //		time:3000,
+    //		speed:0,
+    //		dot_text:false
+    //	});
+
+//});
+</script>
+{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+    .wrap {
+        height: 0;
+        overflow: hidden;
+        margin: 0 auto;
+        position: relative;
+        padding-bottom: 100%;
+    }
+    .slidebox {width:100%; overflow:hidden;}
+    .slidebox li {float:left;width:100%;overflow:hidden;left:0;top:0;}
+    .slidebox li img {display:block;width:100%;overflow:hidden; float:left;}
+    .dot {position: absolute;height:30px;text-align:right;bottom:-6px;left:50%;}
+    .dot p {margin-right:10px;}
+    .dot b {width:5px;height:5px;border-radius:20px;color:#333;display:inline-block;background:#d2d2d2;text-align:center;line-height:17px;margin:0 3px;margin-top:6px;cursor:pointer;font-weight:normal;}
+    .dot .cur {background:#626262;color:#fff;}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="carwarp" style="padding-bottom: 45px;">
+    <div class="header-fixed">
+        <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+        <a href="/wap/cart_view/">
+            {% if request.session.carts_number != '0' %}
+            <div class="carnum">
+                <span class="cnume">{{ request.session.carts_number }}</span>
+            </div>
+            {% else %}
+            <div class="carnum carnum-empty"></div>
+            {% endif %}
+        </a>
+    </div>
+<!--产品-->
+<div class="conpro pro-det">
+<div class="propic">
+  	<div class="wrap af4">
+        <ul class="slidebox">
+            <li><a href="#"><img src="{{productinfo.img_with_text}}"></a></li>
+        </ul>
+	</div>
+  </div>
+    <!--产品介绍 开始-->
+    <div class="warpcon">
+    	<h3 class="contlt"><a href="#">{{productinfo.title}}</a></h3>
+        <span class="conmoney">&yen;{{productinfo.price}}</span>
+        <div class="whom pro-fab">
+            <ul class="crafts">
+                {% if fabric_desc %}
+                    {% for item in fabric_desc %}
+                        {% for str in item %}
+                        <li>{{str}}</li>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+                <li style="margin-top: 42px;">*{% if productinfo.type == 'shirt' %}衬衫{% else %}西服{% endif %}定制周期为15天。</li>
+                <li>我们承诺，100%满意，不合身全额退款。</li>
+            </ul>
+        </div>
+    </div>
+    <!--产品介绍 结束-->
+</div>
+    <!--底部-->
+    <div class="mensooter">
+        <p>400-699-7386</p>
+
+        <p class="smf">北京大学2010级创业团队</p>
+
+        <p class="smf">©北京岂曰无衣服装有限公司</p>
+    </div>
+    <!--确认定制弹框-->
+    <!--<div class="loading-mask"></div>
+    <div class="Customized">
+        <div class="tkwhodz">请选择为谁定制</div>
+        <p class="good">好</p>
+    </div>-->
+    <!--确认定制弹框 结束-->
+</div>
+<div class="warpbottom">
+    <!--结算 开始-->
+    <div class="jiesuan">
+        <a href="#" class="jsbtn fw">开始我的定制</a>
+    </div>
+    <!--结算 结束-->
+</div>
+{% endblock %}

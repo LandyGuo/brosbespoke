@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>产品浏览--西服</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/style.css"/>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<!--西装10.1-->
+<div data-role="page" id="pageSuits" class="page">
+    <div class="mainContainer">
+
+    
+    {% if product_list %} 
+        {% for product in product_list %}
+            {% if product.type == 'suit' %} 
+                <div class="suit">
+                    <a data-role="none" href="/wap/buy_detail/{{product.id}}">
+                        <img src="{{product.img_with_text}}" alt="suit"/>
+                        {% if product.id|divisibleby:2 %} 
+                            <p class="suitPrice priceLeft">&yen;{{product.price}}</p>
+                        {% else %}
+                            <p class="suitPrice">&yen;{{product.price}}</p>
+                        {% endif %}
+                    </a>
+                </div>
+            {% else %}
+                <div class="shirt">
+                    <a data-role="none" href="/wap/buy_detail/{{product.id}}">
+                        <img src="{{product.img_with_text}}" alt="shirt"/>
+                        {% if product.id|divisibleby:2 %} 
+                            <p class="shirtPrice">&yen;{{product.price}}</p>
+                        {% else %}
+                            <p class="shirtPrice priceLeft">&yen;{{product.price}}</p>
+                        {% endif %}
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+    <p></p>
+    {% endif %}
+    
+    </div>
+</div>
+</body>
+</html>

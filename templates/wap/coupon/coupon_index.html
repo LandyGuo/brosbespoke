@@ -1,0 +1,107 @@
+{% extends "wap/base/base2.html" %}
+
+{% block title %}微信{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}
+
+{% block body %}
+<div class="shandow hide" id="share">
+    <img src="/static/images/couponimg/arrow.png" alt=""/>
+    <span>分享到好友群，<br/>马上领红包！</span>
+</div>
+    <div class="coupon_warp">
+        <div class="logo">
+            <img src="/static/images/couponimg/logo.png" alt=""/>
+        </div>
+        <div class="head_pic">
+            <img src="/static/images/couponimg/head.png" alt=""/>
+            
+        </div>
+        <div class="logo_text">
+            <img src="" alt=""/>
+        </div>
+
+       <div class="parent clearfix btn_shandow ">
+            <div class="redPaper" id="grap_true" >
+                <div class="money_bg">
+                     <span class="money"><h3>{{redpacket_money}}</h3></span>
+                </div>
+               <div class="msg_bg">
+                   <span class="msg"><h5><a href="weixin://profile/gh_8a9626f68eca">{{info}}</a></h5></span>
+               </div>
+                <p class="hb_num">红包已放入{{hbphone}}  <span><a href="/promote/all_coupons/">点击查看&gt</a></span></p>
+                <a href="javascript:;" class="submit">告诉好友抢更多</a>
+            </div>
+
+           <div class="redPaper {% if hide_full %} hide {% endif %}" id="full">
+                <div class="money_bg " style="margin-top:10px;">
+                     <span class="money"><h3>您的红包已满</h3></span>
+                </div>
+               <div class="msg_bg" style="margin-top:20px;">
+                   <span class="msg"><h5><a href="weixin://profile/gh_8a9626f68eca">快去使用</a></h5></span>
+               </div>
+                <p><span class="long_look"><a href="/promote/all_coupons/">点击查看我的红包&nbsp;&gt</a></span></p>
+         </div>
+
+            <div class="redPaper {% if send %}hide{% endif %}"  id="aftershare">
+                 <h2>送您</h2>
+                <div class="money_bg " style="margin-top:10px;">
+                     <span class="money"><h3>50元</h3></span>
+                </div>
+               <div class="msg_bg" style="margin-top:20px;">
+                   <span class="msg"><h5>感谢分享</h5></span>
+               </div>
+                <p class="afterphonenum">红包已放入{{hbphone}}  <span><a href="/promote/all_coupons/">点击查看&gt</a></span></p>
+                <span class="again">再去抢抢好友们的红包吧！</span>
+            </div>
+       </div>
+        <div class="cloudList">
+                     <span>抢红包风云榜</span>
+                    <a href="javascript:;" id="newlist">刷新列表</a>
+                     <hr/>
+                    <ul id="ul1">
+
+                    </ul>
+        </div>
+
+       <div class="article">
+            <span>活动说明</span>
+            <hr/>
+           <div>
+                <p>
+                    1.使用领取红包的手机号注册“师兄的衣柜”微信
+                    公众号，在“优惠券”按钮中方可查看红包。<br/>
+                    2.您可凭此红包直接抵扣现金，每件西服最多抵扣
+                    400元，每件衬衫最多抵扣200元。<br/>
+                    3.红包领取后60天内使用有效。<br/>
+                    4.师兄的衣柜保留最终解释权。 <br/>
+                </p>
+           </div>
+       </div>
+    </div>
+<script>
+        wx.config({
+              debug: false,
+              //debug: true,
+              appId: 'wxdba94d3cf0145197',
+              timestamp: {{config.timestamp}},
+              nonceStr: '{{config.nonceStr}}',
+              signature: '{{config.signature}}',
+              jsApiList: [
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+              ]
+          });
+</script>
+{% load compress %}
+{% compress js %}
+   <script type="text/javascript"src="/static/js/coupon/coupon.js"></script>
+   {% endcompress %}
+{% endblock %}

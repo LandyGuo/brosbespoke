@@ -1,0 +1,38 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}关于我们{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
+
+{% block body %}
+<!--关于我们-->
+<div class="carwarp nobot">
+    <div class="header-fixed">
+        <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+        <a href="/wap/cart_view/">
+            {% if request.session.carts_number != '0' %}
+            <div class="carnum">
+                <span class="cnume">{{ request.session.carts_number }}</span>
+            </div>
+            {% else %}
+            <div class="carnum carnum-empty"></div>
+            {% endif %}
+        </a>
+    </div>
+    <div class="header-spacing"></div>
+</div>
+<div data-role="page" id="pageAbout" class="page">
+    <div class="aboutUs">
+        <p>师兄的衣柜Bros.Bespoke，最初创建于北大光华的地下咖啡厅，现已成长为拥有在线定制平台、专业服务团队和实体体验店的O2O正装定制品牌。这些，都是北京大学2010级创业团队倾力打造的。</p>
+        <p>师兄的衣柜创始人发现，去商场里一件件试穿西服和衬衫是件无比痛苦的事，这样的时光为什么不能用于享受一杯咖啡？并且遗憾的是，纵使网上购物非常便捷，买到的衣服不合身也会让人苦恼不已。</p>
+        <p>这是我们做好师兄的衣柜最大的动力。这一年里，我们奔跑在追求完美的路上，得到了众多北大校友的好评，也获得了数十位北大教授的支持。我们力图用最便捷细致的服务，为每一位愿意体验定制的朋友打造一身专属正装，陪伴主人见证不平凡的时刻。</p>
+        <p>定制生活，从这里开始！</p></p>
+        <p><p><b>About Us</b>
+        <p>Bros.Bespoke, first founded in the basement of Guanghua building by a group of Peking University Class'14 students, has now grown rapidly to an O2O enterprise focusing on bespoke business dressings, with a professional service team, an online shopping platform, and an off-line experiencing spot.</p>
+        <p>We have noticed that, trying out one shirt after another in department stores is an outdated, inefficient and tiring way to find a satisfactory piece of garment. Yet despite shopping online offers a much more convenient shopping experience, a perfect fit is never to be guaranteed.</p>
+        <p>That is what inspires us to start up, to save your labor by ordering online while providing suits of tailored quality. In the past year, we have been striving for perfection. Our perspiration is appreciated by the body of our alumni, and dozens of Peking University professors. In the future, we are dedicated to delicate and considerate services continuously. We sincerely hope that our bespoke suits accompany the friends who honor us with the opportunity, in every great moment of their lives.</p>
+        <p>Your bespoke life begins here.</p>
+    </div>
+</div>
+{% endblock %}

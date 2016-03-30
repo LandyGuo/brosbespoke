@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta content="email=no" name="format-detection"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+
+    <title>{% block title %}{% endblock %}</title>
+    {% load compress %}
+    {% compress css %}
+    <link type="text/less" rel="stylesheet" href="/static/less/header.less" charset="utf-8">
+    <link type="text/less" rel="stylesheet" href="/static/less/style.less" charset="utf-8">
+    {% endcompress %}
+    {% block extra_css %}
+    {% endblock %}
+    {% compress css %}
+        <script type="text/javascript" src="/static/libs/less/less.min.js"></script>
+    {% endcompress %}
+    {% block js %}
+    <script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+    {% endblock %}
+    {% block extra_js %}
+        <!--<script type="text/javascript" src="/static/js/C_slide.js"></script>-->
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <div class="carwarp">
+        <div class="header-fixed">
+            <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+            <a href= "/wap/cart_view/">
+                {% if request.session.carts_number and request.session.carts_number != '0' %}
+                <div class="carnum">
+                    <span class="cnume">{{ request.session.carts_number }}</span>
+                </div>
+                {% else %}
+                <div class="carnum carnum-empty">
+                </div>
+                {% endif %}
+            </a>
+        </div>
+    </div>
+    {% block page %}
+    <div class="page-wrap">
+    {% block content %}
+    {% endblock %}
+    </div>
+    {% endblock %}
+    {% block footer %}
+        <div class="bot-spacing"></div>
+    {% endblock %}
+{% endblock %}
+</body>
+</html>

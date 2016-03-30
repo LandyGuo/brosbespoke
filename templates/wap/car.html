@@ -1,0 +1,75 @@
+{% extends "wap/base/base1.html" %}
+{% load compress %}
+
+{% block title %}购物车{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/libs/require.js"></script>
+<script>
+    requirejs(['/static/sjs/common-1.js'], function (common) {
+        requirejs(['sjs/app/cart-main-1']);
+    });
+</script>
+{% endblock %}
+
+{% block page %}
+<!--产品-->
+{% if carts %} 
+{% for product in carts %}
+<div class="carpro" data-pro-id="{{product.id}}">
+	<div class="prolist" id="{{ forloop.counter0 }}">
+        <div class="pro-wrap">
+            <div class="col-1">
+                <span class="carcheck">
+                    <div class="checkboxWrap checkboxWrap-sm check1">
+                        <input id="check{{ forloop.counter0 }}" type="checkbox" value="{{ forloop.counter0 }}" checked>
+                        <label for="check{{ forloop.counter0 }}"></label>
+                    </div>
+                </span>
+            </div>
+            <div class="col-2">
+                <a href="#" class="proimg"><img src="{{product.img}}"></a>
+            </div>
+            <div class="col-3">
+                <a href="#">{{ product.title }}</a>
+            </div>
+            <div class="product-price col-4 promoney" style="text-align: right;">&yen;<span class="ex-pri">{{product.price}}</span></div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% endblock %}
+
+
+{% block footer %}
+<div class="car-bot-spacing"></div>
+<div class="warpbottom">
+    {% if show_redpacket %}
+    <div class="use-coupon">
+        <div class="checkboxWrap checkboxWrap-sm check-coupon">
+            <input type="checkbox" value="" checked id="coupon">
+            <label for="coupon"></label>
+        </div>
+        <div class="use-c-in">
+            <span class="bgf">使用红包</span><span class="smf">（每件西服可抵400元，每件衬衫可抵200元）</span>
+        </div>
+    </div>
+    {% endif %}
+    <a class="jxgg" style="border-bottom: 1px solid #b9b9b9;" href="/wap/buy/">继续逛逛</a>
+    <!--<a class="jxgg" href="/wap/cart_clean">清空</a>-->
+    <!--继续逛逛 结束-->
+    <!--结算 开始-->
+    <div class="jiesuan">
+        <span class="jsmoney">&yen;<span class="ex-pri">{{cart_price}}</span></span>
+        <a href="#" class="jsbtn">去结算</a>
+    </div>
+    <!--结算 结束-->
+</div>
+{% endblock %}

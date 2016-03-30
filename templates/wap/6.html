@@ -1,0 +1,125 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}个人信息{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css"/>
+<link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+{{ block.super }}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+<script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+<script>
+        function popUp(msg) {
+            $('#Popup').css('padding', '10px').text(msg).popup("open");
+        }
+        ;
+
+        function sexSelection(gender) {
+            var genderCH = '男';
+            if (gender == '女') {
+                genderCH = '女';
+            }
+
+
+            $.post('/wap/change_sex_post/', {sex: gender},
+                    function (returnedData) {
+                        window.location.href="#pageForm3"
+                        if (returnedData.code == 0) {
+                            $("input[name='gender']").val(genderCH);
+                        } else {
+                            popUp(returnedData.msg)
+                        }
+
+                    });
+
+        }
+        ;
+
+        function signout() {
+            $.post('/wap/logout_post/',
+                    function (returnedData) {
+                        if (returnedData.code == 0) {
+                            window.location.href = '/wap/login?returnUrl=/wap/my_info/'
+                        } else {
+                            popUp(returnedData.msg)
+                        }
+                    });
+        }
+
+
+    </script>
+{% endblock %}
+
+{% block body %}
+<!-- 用户信息修改页面,标号6 -->
+<div data-role="page" id="pageForm3" class="page accountPage" data-theme="b" data-title="个人信息">
+    <div class="carwarp nobot">
+        <div class="header-fixed">
+            <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+            <a href="/wap/cart_view/">
+                {% if request.session.carts_number != '0' %}
+                <div class="carnum">
+                    <span class="cnume">{{ request.session.carts_number }}</span>
+                </div>
+                {% else %}
+                <div class="carnum carnum-empty"></div>
+                {% endif %}
+            </a>
+        </div>
+    </div>
+    <form method="post" action="" data-ajax="false">
+        <p class="accountInfo" onclick="window.location.href = '/wap/my_name_change/'">
+            <span class="inb">名字</span>
+            <input type="text" disabled="disabled" value="{{userinfo.nickname}}" data-role="none"/>
+        </p>
+
+        <p class="accountInfo" onclick="window.location.href = '/wap/my_phone_change/'">
+            <span class="inb">手机号</span>
+            <input type="tel" disabled="disabled" value="{{ userinfo.phonenumber }}" data-role="none"/>
+        </p>
+
+        <p class="accountInfo" onclick="window.location.href='#pageForm4'">
+            <span class="inb">性别</span>
+            <input type="text" name="gender" disabled="disabled" value="{{ userinfo.sex }} " data-role="none"/>
+        </p>
+
+        <div class="submitWrap" style="margin-top: 150px;">
+            <!--<input type="button" data-inline="true" value="退出登录" data-theme="b" onclick="signout()">-->
+            <button type="button" class="myBtn" data-role="none" onclick="signout()">退出登录</button>
+        </div>
+    </form>
+
+    <div data-role="popup" id="Popup"></div>
+</div>
+
+<div data-role="page" id="pageForm4" class="page accountPage" data-theme="b" data-title="性别">
+    <div class="carwarp nobot">
+        <div class="header-fixed">
+            <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+            <a href="/wap/cart_view/">
+                {% if request.session.carts_number != '0' %}
+                <div class="carnum">
+                    <span class="cnume">{{ request.session.carts_number }}</span>
+                </div>
+                {% else %}
+                <div class="carnum carnum-empty"></div>
+                {% endif %}
+            </a>
+        </div>
+    </div>
+    <div class="">
+        <div class="form-control account-sex" onclick="sexSelection('男')">
+            男
+        </div>
+        <div class="form-control account-sex" onclick="sexSelection('女')">
+            女
+        </div>
+    </div>
+</div>
+{% endblock %}

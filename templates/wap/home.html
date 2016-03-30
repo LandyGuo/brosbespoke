@@ -1,0 +1,160 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}首页{% endblock %}
+
+{% block extra_js %}
+<!--<script type="text/javascript" src="/static/js/C_slide.js"></script>-->
+<script type="text/javascript" src="/static/libs/swiper/swiper.jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("ul[class='warpsuit'] li a").click(function () {
+            window.location.href = this.href;
+        });
+        $("ul[class='warpsuit'] li a").click(function () {
+            window.location.href = this.href;
+        });
+
+//        //slidebox
+//        var $box = $(".af4").find("ul");
+//        if($box.find("li").length > 1) {
+//            $(".af4").slide({
+//                affect:4,
+//                time:3000,
+//                speed:0,
+//                dot_text:false
+//            });
+//        }
+        if($(".swiper-slide").length > 1) {
+            var mySwiper = new Swiper ('.swiper-container', {
+                direction: 'horizontal',
+                loop: true,
+
+                // If we need pagination
+                pagination: '.swiper-pagination'
+            });
+        }
+    });
+</script>
+{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<link type="text/css" rel="stylesheet" href="/static/libs/swiper/swiper.min.css" charset="utf-8">
+<style>
+    .dot {
+        position: absolute;
+        height: 30px;
+        bottom: -10px;
+        left: 0;
+        margin: 0 auto;
+        right: 0;
+        text-align: center;
+    }
+    .dot p {}
+    .dot b {
+        width:6px;
+        height:6px;
+        border-radius:20px;
+        color:#333;
+        display:inline-block;
+        background:#d3d3d3;
+        text-align:center;
+        line-height:17px;
+        margin:0 3px;
+        margin-top:6px;
+        cursor:pointer;
+        font-weight:normal;
+    }
+    .dot .cur {
+        background:#575757;
+        color:#fff;
+    }
+    .border-none{border: none;}
+
+.swiper-container {
+    width: 100%;
+}
+.swiper-container .swiper-slide a{
+    display: block;
+    padding-bottom: 44.5%;
+    width: 100%;
+    height: 0;
+}
+.swiper-container .swiper-slide a img{
+    width: 100%;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="carwarp">
+    <div class="header-fixed">
+        <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+        <a href="/wap/cart_view/">
+            {% if request.session.carts_number != '0' %}
+            <div class="carnum">
+                <span class="cnume">{{ request.session.carts_number }}</span>
+            </div>
+            {% else %}
+            <div class="carnum carnum-empty"></div>
+            {% endif %}
+        </a>
+    </div>
+    <!--产品-->
+    <div class="carpro">
+        <div class="propic">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">{% for banner in banner_list %}
+                <a href="{{banner.img_href}}"><img src=/media/{{banner.img}}></a>
+                {% endfor %}</div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        </div>
+    </div>
+    <!--男士西装-->
+    <div class="warpmen">
+        <p class="mens">Men’s <span class="msyh">男士</span></p>
+
+        <p class="mensxz">Suits <span class="msyh">定制西装</span></p>
+        <ul class="warpsuit" style="padding-bottom: 20px;">
+            {% for product in product_list1 %}
+            <li class="li-{% if forloop.counter0|divisibleby:2 %}left{% else %}right{% endif %}">
+                <a href="/wap/buy_detail/{{product.id}}">
+                    <span class="suitpic"><img src="{{product.img_with_text}}"/></span>
+
+                    <p class="suittlt">{{product.title}}</p>
+                    <span class="suitmoney">&yen;{{product.price}}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        <!--衬衫 开始-->
+        <p class="mensxz">Shirts <span class="msyh">定制衬衫</span></p>
+        <ul class="warpsuit border-none">
+            {% for product in product_list2 %}
+            <li class="li-{% if forloop.counter0|divisibleby:2 %}left{% else %}right{% endif %}">
+                <a href="/wap/buy_detail/{{product.id}}">
+                    <span class="suitpic"><img src="{{product.img_with_text}}"/></span>
+
+                    <p class="suittlt">{{product.title}}</p>
+                    <span class="suitmoney">&yen;{{product.price}}</span>
+                </a>
+            </li>
+            {% endfor %}
+
+        </ul>
+        <!--衬衫 结束-->
+    </div>
+</div>
+<!--底部-->
+<div class="mensooter">
+
+    <p>400-699-7386</p>
+
+    <p class="smf">北京大学2010级创业团队</p>
+
+    <p class="smf">©北京岂曰无衣服装有限公司</p>
+</div>
+{% endblock %}

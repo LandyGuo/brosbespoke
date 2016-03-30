@@ -1,0 +1,117 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}面料选择{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(function() {
+        $(".concolor .ao").on("click", function (e) {
+            e.preventDefault();
+
+            var mat = $(this).attr("data-mat");
+            //换图片
+            $(".fab-img-wrap").hide();
+            $("#" + mat + ".fab-img-wrap").show();
+            //按钮效果
+            $(".concolor .ao").removeClass("bgcolor");
+            $(this).addClass("bgcolor");
+        });
+
+        $(".checkboxWrap label").on("click", function (e) {
+            e.preventDefault();
+            var price;
+            var $elem = $(this).prev();
+            if($elem.is(":checked")) {
+                $elem.prop("checked", false);
+            } else {
+                $elem.prop("checked", true);
+            }
+
+            var total = parseInt($(".jsmoney .ex-pri").text());
+
+            if($elem.attr("id") == "add_kuzi") {
+                price = parseInt($elem.closest(".cus-trousers").find(".ex-pri").text());
+                if($elem.is(":checked")) {
+                    total += price;
+                } else {
+                    total -= price;
+                }
+                $(".jsmoney .ex-pri").text(total);
+            }
+        });
+
+        //提交
+        $(".jsbtn").on("click", function(e) {
+            e.preventDefault();
+            var fabricId = $(".concolor .ao.bgcolor").attr("data-mat");
+            var add_kuzi = ($("#add_kuzi").length && $("#add_kuzi").is(":checked"))? 1: 0;
+
+            $.post('/wap/fabric_select_post/', {fabric_id: fabricId, add_kuzi: add_kuzi},
+                function (ret) {
+                    if(ret.code == 0) {
+                        window.location.href = "{% url "style_select" %}";
+                    }
+                }
+            );
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+    <div class="cus-s">
+        <span class="cus-s-c">第<span class="cus-s-n">{{info}}</span>步</span> 定制您的面料
+    </div>
+    <div class="concolor row">
+        {% if fabric_list %}
+            {% for item in fabric_list %}
+            <div class="col-2">
+            <a href="#" class="ao{% if not forloop.counter0 %} bgcolor{% endif %}" data-mat="{{ item.id }}">
+                <span class="colorspan"><img src="/media/{{item.thumbnail_url}}"></span>
+            </a>
+            </div>
+            {% endfor %}
+            <div class="clearfix"></div>
+        {% endif %}
+    </div>
+    <div class="fab-intro">
+    {% for item in fabric_list %}
+        <span id="intro-{{ item.id }}" class="fab-name">{{ item.name }}</span>
+    {% endfor %}
+    </div>
+    <div class="fab-img-container">
+    {% if fabric_list %}
+        {% for item in fabric_list %}
+        <div class="fab-img-wrap" id="{{ item.id }}">
+            <img src="/media/{{item.image_url}}" style="">
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+    {%if kuzi_config %}
+    <div class="cus-trousers">
+        <div>
+            <div class="checkboxWrap">
+                <input type="checkbox" id="add_kuzi">
+                <label for="add_kuzi"></label>
+            </div>
+            <span class="smf">我要加一条裤子</span><span class="floatr">¥<span class="ex-pri">{{kuzi_config.price |floatformat}}</span>
+
+            </span>
+        </div>
+        <p class="bestxt" style="float: none;">西裤更易磨损，如您经常穿则建议选择两条裤子。</p>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+{{ block.super }}
+<div class="warpbottom">
+    <!--结算 开始-->
+    <div class="jiesuan">
+        <span class="jsmoney">&yen;<span class="ex-pri">{{order_price}}</span></span>
+        <a href="#" class="jsbtn">下一步</a>
+    </div>
+    <!--结算 结束-->
+</div>
+{% endblock %}

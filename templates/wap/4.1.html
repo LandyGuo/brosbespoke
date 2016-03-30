@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>个性化选择</title>
+    <link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/style.css"/>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+        function popUp(msg){
+            $('#Popup').css('padding','10px').text(msg).popup("open");
+        };
+    </script>
+</head>
+<body>
+
+<div data-role="page" id="" class="page" data-theme="b">
+   <div data-role="content">
+       <div class="step step3">
+           <div class="stepNumber">3</div>
+           <div class="stepContent individuation">
+               <p class="stepTitle">个性化选择</p>
+           </div>
+       </div>
+
+       <div class="additionsWrap ">
+           <div class="addition">
+               <div class="add_tab">
+
+                   <div class="add_tab_nav">
+                       <div class="checkboxWrap">
+                           <input data-role="none" type="checkbox" id="add_kuzi" name="add_kuzi">
+                           <label for="add_kuzi"></label>
+                       </div>
+                       <div class="addType">单加裤子</div>
+                       <div class="addPrice">&yen;{{kuzi_price}}</div>
+                   </div>
+
+               </div>
+               <div class="hr"></div>
+
+           </div>
+           <div class="addition">
+               <div class="add_tab">
+
+                   <div class="add_tab_nav">
+                       <div class="checkboxWrap">
+                           <input data-role="none" type="checkbox" id="add_majia" name="add_majia">
+                           <label for="add_majia"></label>
+                       </div>
+                       <div class="addType">单加马甲</div>
+                       <div class="addPrice">&yen;{{majia_price}}</div>
+                   </div>
+
+               </div>
+
+               <div class="add_content">
+                   <div class="demandTab">
+                       <div class="tab_left">
+                           <div class="tab_title">领型</div>
+                           <ul  id="lingxing_list" class="tab_nav">
+                    {% if lingxing_list %}
+                        {% for lingxing in lingxing_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{lingxing.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{lingxing.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                           </ul>
+                       </div>
+
+
+                       <div class="tab_right">
+                    {% if lingxing_list %}
+                        {% for lingxing in lingxing_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{lingxing.image.url}}" alt="{{lingxing.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{lingxing.image.url}}" alt="{{lingxing.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                       </div>
+
+                   </div>
+                   <div class="demandTab">
+                       <div class="tab_left">
+                           <div class="tab_title">扣型</div>
+                           <ul id="kouxing_list" class="tab_nav kxNav">
+                    {% if kouxing_list %}
+                        {% for kouxing in kouxing_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{kouxing.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{kouxing.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                           </ul>
+                       </div>
+
+                       <div class="tab_right">
+                    {% if kouxing_list %}
+                        {% for kouxing in kouxing_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{kouxing.image.url}}" alt="{{kouxing.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{kouxing.image.url}}" alt="{{kouxing.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                       </div>
+                   </div>
+
+               </div>
+               <div class="hr"></div>
+           </div>
+           <div class="addition">
+               <div class="add_tab">
+
+                   <div class="add_tab_nav">
+                       <div class="checkboxWrap">
+                           <input data-role="none" type="checkbox" id="add_bespoke" name="add_bespoke">
+                           <label for="add_bespoke"></label>
+                       </div>
+                       <div class="addType">Bespoke</div>
+                       <div class="addPrice">&yen;{{bespoke_price}}</div>
+                   </div>
+
+               </div>
+               <div class="add_content">
+                   <p class="bespoke">区别于普通的MTM（Made To Measure），Bespoke是一种更精准的全手工定制服务。我们会先用替代面料制作胚样衣，上门为您实际试样和调整，之后再用您选择的高级面料制作成衣，为您提供最尊贵的定制享受。</p>
+               </div>
+               <div class="hr"></div>
+
+           </div>
+           <div class="addition xiuziWrap">
+               <div class="add_tab">
+
+                   <div class="add_tab_nav">
+                       <div class="checkboxWrap">
+                           <input data-role="none" type="checkbox" id="add_xiuzi">
+                           <label for="add_xiuzi"></label>
+                       </div>
+                       <div class="addType">绣字</div>
+                       <div class="addPrice">&yen;{{xiuzi_price}}</div>
+                   </div>
+
+               </div>
+               <div class="add_content xiuzi">
+                   <input type="text" placeholder="请输入绣字内容" data-role="none" name="xiuzi" />
+                   <p>为美观起见，绣字建议汉字不超过4个，</p>
+                   <p>英文字母不超过10个为佳</p>
+               </div>
+           </div>
+
+       </div>
+
+
+   </div>
+
+
+    <div class="fixedWrap">
+        <p class="price">&yen;{{product.price}}</p>
+        <a class="booking" >下一步</a>
+    </div>
+
+
+
+    <div data-role="popup" id="Popup"></div>
+
+</div>
+<script>
+    $(function(){
+         var basePrice = parseInt($('.fixedWrap .price').text().slice(1));
+        $('body').click(function(){
+            var totalPrice = basePrice;
+            $(":checked").each(function(){
+                totalPrice = totalPrice + parseInt($(this).closest('.addition').find('.addPrice').text().slice(1));
+            })
+
+            $('.fixedWrap .price').text('&yen;'+totalPrice);
+        })
+       $('.add_tab').click(function(){
+           $(this).parent().find('.add_content').toggleClass('tab_open')
+       });
+        $('.tab_nav a').click(function(){
+            var $this = $(this);
+            var i = parseInt($this.attr('data-number'));
+            $this.parents('.tab_nav').find('.nav_active').removeClass('nav_active');
+            $this.parents('.demandTab').find('.tab_active').removeClass('tab_active');
+            $this.addClass('nav_active').parents('.demandTab').find('.tab_right>div').eq(i).addClass('tab_active');
+        })
+    })
+    //下一步
+    $('.booking').click(function(){
+
+        $.post('/wap/personalization_select_post/', {type:'suit',
+        	add_kuzi:($('#add_kuzi').prop('checked')? 1 : 0),
+        	add_majia:($('#add_majia').prop('checked')? 1 : 0),
+        	add_bespoke:($('#add_bespoke').prop('checked')? 1 : 0),
+        	add_xiuzi:($('#add_xiuzi').prop('checked')? 1 : 0),
+        	xiuzi:$('input[name="xiuzi"]').val(),
+        	majia_lingxing:$('#lingxing_list>.nav_active').text(),
+        	majia_kouxing:$('#xiukou_list>.nav_active').text(),
+        	price:$('.fixedWrap .price').text().slice(1),
+            },
+                function(returnedData){
+
+                    (returnedData.code == 0) && (window.location.href = '/wap/cart_add/');
+                    popUp(returnedData.msg);
+                }
+        );
+    })
+</script>
+</body>
+</html>

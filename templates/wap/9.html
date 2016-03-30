@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>定制需求</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/style.css"/>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+<!--选择产品种类-->
+<div data-role="page" id="pageSpecies" class="page" data-theme="b">
+
+    <p class="speciesTitle">请选择您需要定制的产品</p>
+    <div class="hr"></div>
+    <div class="submitWrap">
+        <!--<a data-inline="true" data-theme="b" data-role="button" href="/wap/buy_list/suit">西服</a>
+        <a data-inline="true" data-theme="b" data-role="button" href="/wap/buy_list/shirt">衬衫</a>-->
+        <button class="myBtn suitBtn" data-role="none" onclick="$.mobile.changePage('/wap/buy_list/suit')">西服</button>
+        <button class="myBtn" data-role="none" onclick="$.mobile.changePage('/wap/buy_list/shirt')">衬衫</button>
+    </div>
+
+</div>
+</body>
+</html>

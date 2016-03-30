@@ -1,0 +1,38 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors wangfengquan (you@example.org)
+ * @date    2015-05-15 12:49:41
+ */
+/*登陆标题*/
+.login_title p{margin:0 auto;width: 80px;font-family:  "PingHei-Light","Arial","微软雅黑";text-align: center;}
+.login_title p:first-child{font-size: 28px;}
+.login_title p:last-child{font-size: 14px;margin-top: 15px;}
+.login_box{ width:960px; margin: 0 auto;}
+/*登陆内容*/
+.login_con{width: 550px; height:624px;margin: 15px auto;position:relative;margin-bottom:83px; }
+.forgetpass_btn{color:#666;line-height:20px;}
+.regBlock{margin-left: 100px;}
+.regBlock:hover{text-decoration: underline;}
+.login_left{width: 290px;height:560px;position:absolute;left:145px;top:0;font-family:   "PingHei-Light","Arial","微软雅黑";font-size:12px; z-index: 1;}
+.login_left ul li{margin:30px 0;   white-space: nowrap;}
+.login_left ul li p{padding-bottom: 5px;}
+.login_left ul li input{width: 255px;height:10px; border:1px solid #000; outline:none;padding: 5px 5px;font-size:12px;font-family:   "PingHei-Light","Arial","微软雅黑"}
+.login_left ul li select{width: 264px;height: 22px;outline: none;border:1px solid #000;}
+.login_left ul li span{color:red;}
+.login_left ul li span{display: none;}
+.login_left ul li span.erroshow{display: block;}
+.login_btn{width:264px;}
+.login_btn a{display: inline-block;width: 264px;height: 34px;background:#000;border-radius:5px;color:#fff;line-height: 34px;text-align: center;}
+.font14{font-size: 14px;}
+.login_right{ opacity:0;filter:alpha(opacity:0);width: 290px; height:569px;float: left;border-left: 1px solid #D2D2D2;
+   position: absolute;left:145px;top:0;}
+   .login_right .login_left{opacity: 1;position:absolute; left:30px;top:0;}
+.reg_box{padding-left:25px; }
+
+.login_left ul li input.code{width:194px;}
+.login_left ul li span.getCode{text-indent: 5px; font-weight: bold;display: inline-block;}
+.agree{margin-bottom: 25px;margin-top:-30px;}
+.agree strong{font-style:italic;font-weight:bold; }
+.agree p{margin-top:10px;}
+.agree p img{width:12px;vertical-align: middle; margin-right: 3px; cursor: pointer;}

@@ -1,0 +1,41 @@
+{% extends "order/base.html" %}
+{% block title %} 账号登陆 {% endblock %}
+{% block pagename %} 请登录账号   {% if request.user.is_authenticated %}
+		<div class="pull-right">
+			<a href=#>欢迎您：{{request.user}}</a>  
+			<a class="btn danger small" href="{% url 'order.views.logout_view' %}">注销</a>
+		</div>
+		{% else %}
+          <form action="{% url 'order.views.login_view' %}" method='post' class="pull-right">
+			{% csrf_token %}
+            <input name='username' class="input-small" type="text" placeholder="用户名">
+            <input name='password' class="input-small" type="password" placeholder="密码">
+            <button class="btn" type="submit">登录</button>
+          </form>
+		{% endif %}{% endblock %}
+
+{% block content %}
+
+{% for item in products %}
+<div class="row"style="padding-top:10">
+<div class="span3 media-grid">
+<a href="#">
+<img class="thumbnail"src="{{item.image_url}}"alt="">
+</a>
+</div>
+<div class="span-two-thirds">
+<h3>{{item.title}}</h3>
+<br/>
+{{item.description}}
+
+<br/>
+<br/>
+<br/>
+
+</div>
+</div>
+<div class="page-header">
+</div>
+{% endfor %}
+{% endblock %}
+<body></body>

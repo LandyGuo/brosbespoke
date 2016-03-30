@@ -1,0 +1,37 @@
+@charset "utf-8";
+/* CSS Document */
+
+@font-face{font-family:'QuicksandBook';src: url('../font/QuicksandBook.otf');font-weight: normal;font-style: normal;}
+
+body,ul,li,dl,dd,dt,ol,table,td,tr,h1,h2,h3,h4,h5,strong,div,a,span,input,em,p,img{padding:0; margin:0; list-style:none; border:0; font-style:normal;border:none;}
+body{background:#fff;font-size:12px; font-family:"QuicksandBook","华文细黑",Arial,Helvetica,sans-serif;}
+a:link,a:visited{color:#000; text-decoration:none;}
+
+/*.carwarp{ max-width:640px; min-width:300px;overflow:hidden; margin:0 auto; position:relative;}*/
+/*.carlogo{width:143px;height:53px; margin:0 auto; overflow:hidden;padding:15px 0 10px;}*/
+/*.carlogo img{width:100%;text-align:center;}*/
+/*.carnum{width:29px;height:29px; display:block; overflow:hidden;background:url(../images/caricon.jpg) no-repeat right center;background-size:29px 29px; position:absolute;right:31px;top:24px;}*/
+/*.cnume{width: 11px;height: 11px;display: block;text-align: left;float: left;color: #fff;margin: 0px 0 0 13px;position: absolute;}*/
+/*.cartxt{height:40px; line-height:37px; text-align:center;overflow:hidden;font-size:20px;border-top:2px solid #959595;border-bottom:2px solid #959595;}*/
+/*产品列表*/
+/*.carpro{width:640px;border-bottom:1px solid #959595;padding:10px 0;}*/
+.prolist{padding:0 5px; overflow:hidden;}
+.carcheck{ float:left; overflow:hidden;margin:32px 10px 0 0;}
+.proimg{width:79px;height:79px; display:block; float:left;}
+.proimg img{width:100%; display:block; overflow:hidden; float:left;}
+.proright{wfloat:left; overflow:hidden;padding-left:5px;}
+.protlt{width:40%; min-width:118px;font-size:14px;font-family:"QuicksandBook";}
+.promoney{width:80px; text-align:right;font-size:14px;padding-left:10px; position:absolute;right:0;margin:0 10px 0 0;font-family:"QuicksandBook";}
+/*修改订单*/
+.modify{height:20px;display:block; overflow:hidden;background:url(../images/caricon2.jpg) no-repeat 61px 1px;background-size:15px 15px;font-size:14px; position:absolute;right:0;padding-right:29px;bottom:0;margin-bottom:10px;}
+.modify:link,.modify:visited{color:#1d50a2;}
+
+/*继续逛逛*/
+.warpbottom{width:100%; overflow:hidden; position:fixed;bottom:0;}
+.jxgg{height:40px; line-height:40px;background:#C9C9C9; text-align:center;font-size:18px;}
+.jxgg a:link,.jxgg a:visited{color:#fff;}
+/*结算*/
+.jiesuan{height:40px; line-height:40px; overflow:hidden;font-size:18px;}
+.jsmoney{width:50%; line-height:40px; text-align:center; overflow:hidden; display:block; float:left;font-family:"QuicksandBook";}
+.jsbtn{width:50%; line-height:40px; text-align:center; overflow:hidden;background:#1d50a2;color:#fff; display:block; float:left;}
+.jsbtn:link,.jsbtn:visited{color:#fff;}

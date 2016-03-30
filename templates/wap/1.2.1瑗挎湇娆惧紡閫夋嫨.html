@@ -1,0 +1,412 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}款式选择{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+    .tipsBox{
+        background-color: #D84C31;
+        border: none;
+        border-radius: 4px;
+        box-shadow: 0 0 3px #ddd inset;
+        color: #000;
+        left: 50%;
+        margin-left: -40%;
+        padding: 10px;
+        position: fixed;
+        text-align: center;
+        top: 50%;
+        width: 80%;
+        z-index: 999999;
+    }
+    .tipsBox .box-btns{
+        margin-top: 10px;
+    }
+
+    .tipsBox .box-btns button{
+        border-radius: 2px;
+        padding: 4px 10px;
+    }
+
+    .tipsBox .box-btns .def-cnl{
+        background-color: #fff;
+        border: 1px solid #ccc;
+        color: #333;
+    }
+    .tipsBox .box-btns .def-sbt{
+        background-color: #1D50A2;
+        border: 1px solid #2e6da4;
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(function(){
+    var is_default = true;  //默认选择
+	$(".lxstyles li").not(".lxstyles_multi li").on("click",function(){
+        is_default = false;
+
+        var id = $(this).attr("id");
+        var ids = id.split("_");
+        var newImgId = ids[0]+"_img_"+ids[1];
+        $("div[id^="+ids[0]+"_img_]").hide();
+        $("li[id^="+ids[0]+"_]").each(function(){
+            $(this).removeClass("curbg");
+        });
+        $("div[id^="+ids[0]+"_img_]").hide();
+        $("#"+id).addClass("curbg");
+        $("#"+newImgId).show();
+    })
+
+    $(".lxstyles_multi li").on("click",function(){
+        is_default = false;
+
+        var id = $(this).attr("id");
+        var ids = id.split("_");
+        var newImgId = ids[0]+"_img_"+ids[1];
+        if($(this).attr("class")=="curbg"){
+             $(this).removeClass("curbg");
+         }else{
+            $("div[id^="+ids[0]+"_img_]").hide();
+            /*$("li[id^="+ids[0]+"_]").each(function(){
+            $(this).removeClass("curbg");
+        });*/
+            $("div[id^="+ids[0]+"_img_]").hide();
+            $("#"+id).addClass("curbg");
+            $("#"+newImgId).show();
+         }
+
+    })
+
+    function submitResult() {
+        //取内部兜
+        var neibudou_value = '';
+        if($("#bn_1").attr('class')=="curbg")
+        {
+            neibudou_value+='里兜|';
+        }
+        if($("#bn_2").attr('class')=="curbg")
+        {
+            neibudou_value+='笔兜|';
+        }
+        if($("#bn_3").attr('class')=="curbg")
+        {
+            neibudou_value+='烟兜|';
+        }
+        if ( neibudou_value.indexOf('|') >= 0) {
+                neibudou_value = neibudou_value.substring(0,neibudou_value.length - 1);
+            }
+        var KouXingShangYi,LingXingShangYi,YaoDouShangYi,KaiQiShangYi,XiuKouShangYi,NeiBuZaoXingShangYi,
+         NeiBuDouShangYi,KuZheXiKu,HouDouXiKu,KuJiaoXiKu,majia_lingxing=0,majia_kouxing=0;
+        $("div[class='warplx']").each(function(){
+            if($("span:first",$(this)).attr("data-cus-type")=="kouxing")
+            {
+                KouXingShangYi = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first",$(this)).attr("data-cus-type")=="lingxing")
+            {
+                LingXingShangYi = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first",$(this)).text()=="腰兜")
+            {
+                YaoDouShangYi = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first",$(this)).text()=="开气")
+            {
+                KaiQiShangYi = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            // if($("span:first",$(this)).text()=="袖扣")
+            // {
+            //     XiuKouShangYi = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            // }
+            if($("span:first",$(this)).text()=="内部造型")
+            {
+                NeiBuZaoXingShangYi = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first",$(this)).text()=="内部兜")
+            {
+                NeiBuDouShangYi = neibudou_value;
+            }
+            if($("span:first",$(this)).text()=="裤褶")
+            {
+                KuZheXiKu = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first",$(this)).text()=="后兜")
+            {
+                HouDouXiKu = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first",$(this)).text()=="裤脚")
+            {
+                KuJiaoXiKu = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first", $(this)).attr("data-cus-type") == "majialingxing")
+            {
+                if($("ul[class='lxstyles']>.curbg",$(this)).length)
+                majia_lingxing = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first", $(this)).attr("data-cus-type") == "majiakouxing")
+            {
+                if($("ul[class='lxstyles']>.curbg",$(this)).length)
+                majia_kouxing = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+
+        });
+        $.post('/wap/style_select_post/', {
+            'KouXingShangYi':KouXingShangYi,
+            'LingXingShangYi':LingXingShangYi,
+            'YaoDouShangYi':YaoDouShangYi,
+            'KaiQiShangYi':KaiQiShangYi,
+            // 'XiuKouShangYi':XiuKouShangYi,
+            'NeiBuZaoXingShangYi':NeiBuZaoXingShangYi,
+            'NeiBuDouShangYi':neibudou_value,
+            'KuZheXiKu':KuZheXiKu,
+            'HouDouXiKu':HouDouXiKu,
+            'KuJiaoXiKu':KuJiaoXiKu,
+            'majia_lingxing': majia_lingxing,
+            "majia_kouxing": majia_kouxing
+            },
+                function(returnedData,status){
+
+                    (status == 'success') && (window.location.href = '/wap/personalization_select');
+//                    popUp(returnedData.msg);
+                }
+        );
+    }
+
+    function showDefaultModal() {
+        var htmlCon = '<div class="tipsBox">' +
+                '<div>使用默认款式？</div>' +
+                '<div class="box-btns"><button class="def-cnl">取消</button> <button class="def-sbt">确定</button></div>' +
+                '</div>';
+        $('body').prepend(htmlCon);
+        $('.def-cnl').on("click", function () {
+            $('.tipsBox').remove();
+        });
+        $('.def-sbt').on("click", function() {
+            submitResult();
+        });
+    }
+
+    $("a[class=jsbtn]").click(function(e){
+        e.preventDefault();
+        if(is_default) {
+            showDefaultModal();
+            return;
+        }
+
+        submitResult();
+    });
+})
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="carwarp">
+    <div class="header-fixed">
+        <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+        <a href= "/wap/cart_view/">
+            {% if request.session.carts_number != '0' %}
+            <div class="carnum">
+                <span class="cnume">{{ request.session.carts_number }}</span>
+            </div>
+            {% else %}
+            <div class="carnum carnum-empty">
+            </div>
+            {% endif %}
+        </a>
+    </div>
+<!--产品-->
+<div class="page-wrap">
+    <div class="cus-s">
+        <span class="cus-s-c">第<span class="cus-s-n">3</span>步</span> 定制您的款式
+    </div>
+    <!--款式 开始-->
+    <div class="warpstyles isuit">
+        <div class="cus-sub-title">上衣 COAT</div>
+        <!--扣型-->
+        <div class="warplx">
+            <span class="lxtlt" data-cus-type="kouxing">扣型</span>
+            <div class="lxdiv" id="kx_img_1"><img src="/static/wap/styleImg/suit/1/1-1.jpg"></div>
+            <div class="lxdiv" id="kx_img_2" style="display:none"><img src="/static/wap/styleImg/suit/1/2-2.jpg"></div>
+            <div class="lxdiv" id="kx_img_3" style="display:none"><img src="/static/wap/styleImg/suit/1/3-3.jpg"></div>
+            <div class="lxdiv" id="kx_img_4" style="display:none"><img src="/static/wap/styleImg/suit/1/4-2×1.jpg"></div>
+            <div class="lxdiv" id="kx_img_5" style="display:none"><img src="/static/wap/styleImg/suit/1/5-4×2.jpg"></div>
+            <div class="lxdiv" id="kx_img_6" style="display:none"><img src="/static/wap/styleImg/suit/1/6-6×2.jpg"></div>
+            <ul class="lxstyles">
+                <li class="curbg" id="kx_1"><button>1</button></li>
+                <li id="kx_2"><button>2</button></li>
+                <li id="kx_3"><button>3</button></li>
+                <li id="kx_4"><button>2*1</button></li>
+                <li id="kx_5"><button>4*2</button></li>
+                <li id="kx_6"><button>6*2</button></li>
+            </ul>
+        </div>
+        <!--领型-->
+        <div class="warplx">
+            <span class="lxtlt" data-cus-type="lingxing">领型</span>
+            <div class="lxdiv" id="lx_img_1"><img src="/static/wap/styleImg/suit/2/1.jpg"></div>
+            <div class="lxdiv" id="lx_img_2" style="display:none"><img src="/static/wap/styleImg/suit/2/2.jpg"></div>
+            <div class="lxdiv" id="lx_img_3" style="display:none"><img src="/static/wap/styleImg/suit/2/3.jpg"></div>
+            <ul class="lxstyles">
+                <li class="curbg" id="lx_1"><button>平驳头</button></li>
+                <li id="lx_2"><button>枪驳头</button></li>
+                <li id="lx_3"><button>礼服领</button></li>
+            </ul>
+        </div>
+        <!--腰兜-->
+        <div class="warplx">
+            <span class="lxtlt">腰兜</span>
+            <div class="lxdiv" id="kd_img_1"><img src="/static/wap/styleImg/suit/3/1.jpg"></div>
+            <div class="lxdiv" id="kd_img_2" style="display:none"><img src="/static/wap/styleImg/suit/3/2.jpg"></div>
+            <div class="lxdiv" id="kd_img_3" style="display:none"><img src="/static/wap/styleImg/suit/3/3.jpg"></div>
+            <ul class="lxstyles">
+                <li class="curbg" id="kd_1"><button>普通</button></li>
+                <li id="kd_2"><button>斜兜</button></li>
+                <li id="kd_3"><button>双牙兜</button></li>
+            </ul>
+        </div>
+        <!--开气-->
+        <div class="warplx">
+            <span class="lxtlt">开气</span>
+            <div class="lxdiv" id="yd_img_1"><img src="/static/wap/styleImg/suit/4/1.jpg"></div>
+            <div class="lxdiv" id="yd_img_2" style="display:none"><img src="/static/wap/styleImg/suit/4/2.jpg"></div>
+            <div class="lxdiv" id="yd_img_3" style="display:none"><img src="/static/wap/styleImg/suit/4/3.jpg"></div>
+            <ul class="lxstyles">
+                <li class="curbg" id="yd_1"><button>后开气</button></li>
+                <li id="yd_2"><button>侧开气</button></li>
+                <li id="yd_3"><button>无</button></li>
+            </ul>
+        </div>
+        <!--内部造型-->
+        <div class="warplx">
+            <span class="lxtlt">内部造型</span>
+            <div class="lxdiv" id="bd_img_1"><img src="/static/wap/styleImg/suit/6/1.jpg"></div>
+            <div class="lxdiv" id="bd_img_2" style="display:none"><img src="/static/wap/styleImg/suit/6/2.jpg"></div>
+            <ul class="lxstyles">
+                <li class="curbg" id="bd_1"><button>时尚款</button></li>
+                <li id="bd_2"><button>传统款</button></li>
+            </ul>
+        </div>
+        <!--内部兜-->
+        <div class="warplx">
+            <span class="lxtlt">内部兜</span>
+            <div class="lxdiv" id="bn_img_1"><img src="/static/wap/styleImg/suit/7/1.jpg"></div>
+            <div class="lxdiv" id="bn_img_2" style="display:none"><img src="/static/wap/styleImg/suit/7/2.jpg"></div>
+            <div class="lxdiv" id="bn_img_3" style="display:none"><img src="/static/wap/styleImg/suit/7/3.jpg"></div>
+            <ul class="lxstyles_multi">
+                <li class="curbg" id="bn_1"><button>里兜</button></li>
+                <li id="bn_2"><button>笔兜</button></li>
+                <li id="bn_3"><button>烟兜</button></li>
+            </ul>
+            <div class="lxstyles_multi_tip"><sup>*</sup> 此项可多选</div>
+        </div>
+        <!--裤褶-->
+        <div class="warplx">
+            <span class="lxtlt">裤褶</span>
+            <div class="lxdiv" id="bz_img_1"><img src="/static/wap/styleImg/pants/1裤褶/1无.jpg"></div>
+            <div class="lxdiv" id="bz_img_2" style="display:none"><img src="/static/wap/styleImg/pants/1裤褶/2单褶.jpg"></div>
+            <div class="lxdiv" id="bz_img_3" style="display:none"><img src="/static/wap/styleImg/pants/1裤褶/3双褶.jpg"></div>
+            <ul class="lxstyles">
+                <li class="curbg" id="bz_1"><button>无褶</button></li>
+                <li id="bz_2"><button>单褶</button></li>
+                <li id="bz_3"><button>双褶</button></li>
+            </ul>
+        </div>
+        <!--后兜-->
+        <div class="warplx">
+            <span class="lxtlt">后兜</span>
+            <div class="lxdiv" id="bh_img_1"><img src="/static/wap/styleImg/pants/2后兜/1右边.jpg"></div>
+            <div class="lxdiv" id="bh_img_2" style="display:none"><img src="/static/wap/styleImg/pants/2后兜/2两边.jpg"></div>
+            <ul class="lxstyles">
+                <li class="curbg" id="bh_1"><button>右边</button></li>
+                <li id="bh_2"><button>两边</button></li>
+            </ul>
+        </div>
+        <!--裤脚-->
+        <div class="warplx">
+            <span class="lxtlt">裤脚</span>
+            <div class="lxdiv" id="bj_img_1"><img src="/static/wap/styleImg/pants/3裤脚/1内折边.jpg"></div>
+            <div class="lxdiv" id="bj_img_2" style="display:none"><img src="/static/wap/styleImg/pants/3裤脚/2外翻边.jpg"></div>
+            <ul class="lxstyles">
+                <li class="curbg" id="bj_1"><button>内折边</button></li>
+                <li id="bj_2"><button>外翻边</button></li>
+            </ul>
+        </div>
+
+        {% if majia_kouxing_list %}
+        <div class="cus-sub-title">马甲 VEST</div>
+        <div class="warplx">
+             {% if majia_lingxing_list %}
+                    {% for lingxing in majia_lingxing_list %}
+                        {% if forloop.first %}
+            <span class="lxtlt" data-cus-type="majialingxing">领型</span>
+            <div class="lxdiv" id="gx_img_{{ forloop.counter }}"><img src="{{lingxing.image.url}}"></div>
+            {% else %}
+            <div class="lxdiv" id="gx_img_{{ forloop.counter }}" style="display:none;"><img src="{{lingxing.image.url}}"></div>
+            {% endif %}
+                    {% endfor %}
+                {% endif %}
+            <ul class="lxstyles">
+                {% if majia_lingxing_list %}
+                    {% for lingxing in majia_lingxing_list %}
+                        {% if forloop.first %}
+                <li class="curbg" id="gx_{{ forloop.counter }}"><button>{{lingxing.name}}</button></li>
+                 {% else %}
+                <li id="gx_{{ forloop.counter }}"><button>{{lingxing.name}}</button></li>
+                 {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        <div class="warplx" style="margin-bottom: 25px;">
+            {% if majia_kouxing_list %}
+                    {% for kouxing in majia_kouxing_list %}
+                        {% if forloop.first %}
+            <span class="lxtlt" data-cus-type="majiakouxing">扣型</span>
+            <div class="lxdiv" id="xk_img_{{ forloop.counter }}"><img src="{{kouxing.image.url}}"></div>
+             {% else %}
+            <div class="lxdiv" id="xk_img_{{ forloop.counter }}" style="display:none"><img src="{{kouxing.image.url}}"></div>
+            {% endif %}
+                    {% endfor %}
+                {% endif %}
+            <ul class="lxstyles" id="kouxing">
+                {% if majia_kouxing_list %}
+                    {% for kouxing in majia_kouxing_list %}
+                        {% if forloop.first %}
+                <li class="curbg" id="xk_{{ forloop.counter }}"><button>{{kouxing.name}}</button></li>
+                {% else %}
+                <li id="xk_{{ forloop.counter }}"><button>{{kouxing.name}}</button></li>
+              {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+    <!--款式 结束-->
+</div>
+<!--底部-->
+
+<!--确认定制弹框-->
+<!--<div class="loading-mask"></div>
+<div class="Customized">
+	<div class="tkwhodz">您确定进入下一步吗？</div>
+    <p class="good">
+    	<span class="bdrspan">不，我再看看</span><span>确定</span>
+    </p>
+</div>-->
+<!--确认定制弹框 结束-->
+</div>
+<div class="bot-spacing"></div>
+<div class="warpbottom">
+    <!--结算 开始-->
+    <div class="jiesuan">
+        <span class="jsmoney">&yen;{{order_price}}</span>
+        <a href="#" class="jsbtn">下一步</a>
+    </div>
+    <!--结算 结束-->
+</div>
+{% endblock %}

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <title>预约量体</title>
+    <link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/style.css"/>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+        function popUp(msg){
+            $('#Popup').css('padding','10px').text(msg).popup("open");
+        };
+        function _submit() {
+
+
+            $.post('/wap/reserve_measure_post/', {
+                        sex: function(){
+                            var gender = '男';
+                            ($('#gender').parent().find('label').text() == '女士') && (gender = '女');
+                            return gender;
+                        },
+                        height: $('#height').parent().find('label').text(),
+                        weight: $('#weight').parent().find('label').text(),
+                        address_region : $('#address').parent().find('label').text(),
+                        address_street : $('.addressDetail input').val(),
+                        reservation_time: ($('#dateLabel').text())+' '+($('#timeLabel').text())
+
+                    },
+                    function(returnedData){
+
+                        popUp(returnedData.msg);
+                    }
+            );
+
+
+        };
+    </script>
+</head>
+<body>
+<div data-role="page" id="" class="page" data-theme="b">
+    <div data-role="content">
+       <div class="bookingTitle">
+           <p>预约量体</p>
+       </div>
+       <div class="hr bookinghr"></div>
+
+
+            <div class="sel_wrap">
+
+                <span>性别</span>
+                <label for="gender"></label>
+                <select class="select"  id="gender"   data-role="none">
+                    <option value="先生" selected="selected">先生</option>
+                    <option value="女士">女士</option>
+                </select>
+            </div>
+<div class="dash"></div>
+
+            <div class="hwWrap">
+                <div class="sel_wrap hWrap">
+                    <span>身高</span>
+                    <span class="degree">cm</span>
+                    <label for="height"></label>
+                    <select class="select"  id="height"   data-role="none">
+                    </select>
+                </div>
+
+
+                <div class="sel_wrap wWrap">
+                    <span>体重</span>
+                    <span class="degree">kg</span>
+                    <label for="weight" ></label>
+                    <select class="select"  id="weight" data-role="none">
+                    </select>
+                </div>
+
+            </div>
+            <div class="dash"></div>
+            <div class="sel_wrap sel_datetime">
+
+                <span>预约时间</span>
+                <div class="datetimeWrap">
+                <div class="datetime">
+                    <label for="date" id="dateLabel"></label>
+                    <input type="date" id="date" data-role="none"/>
+                </div>
+               <div class="datetime timeWrap">
+                   <label for="time" id="timeLabel"></label>
+                   <input type="time" data-role="none" id="time"/>
+               </div>
+
+            </div>
+            </div>
+            <div class="dash specialDash"></div>
+
+
+        <!--TODO:地点选择-->
+
+            <div class="sel_wrap">
+
+                <span>预约地点</span>
+                <label for="address"></label>
+                <select class="select"  id="address"   data-role="none">
+
+                </select>
+            </div>
+             <div class="addressDetail">
+                 <input type="text" data-role="none" placeholder="丹棱SOHO 503室"/>
+             </div>
+
+
+            <div class="submitWrap">
+                <button  onclick="_submit()" class="myBtn" data-role="none">提交</button>
+            </div>
+
+    </div>
+
+    <div data-role="popup" id="Popup"></div>
+
+</div>
+<script>
+    /*暂时只列出北京市*/
+    var citylist = {
+        "province": [
+            {
+                "name": "北京市",
+                "city": [
+                            {"name": "东城区"},
+                            {"name": "西城区"},
+                            {"name": "朝阳区"},
+                            {"name": "丰台区"},
+//                            {"name": "石景山区"},
+                            {"name": "海淀区"},
+//                            {"name": "门头沟区"},
+//                            {"name": "房山区"},
+//                            {"name": "通州区"},
+//                            {"name": "顺义区"},
+//                            {"name": "昌平区"},
+//                            {"name": "大兴区"},
+//                            {"name": "怀柔区"},
+//                            {"name": "平谷区" },
+//                            {"name": "密云县"},
+//                            {"name": "延庆县" }
+
+                ]
+            }
+        ]
+    };
+
+    $(function() {
+
+        var heightArea = '', weightArea = '';
+        for(var i = 150;i<=200;i++){
+            heightArea += "<option value"+i+">"+i+"</option>";
+        }
+        for(var j = 45 ;j<=100;j++){
+            weightArea += "<option value"+j+">"+j+"</option>";
+        }
+
+        $('#height').html(heightArea).find('option').eq(20).attr("selected",true);
+        $('#weight').html(weightArea).find('option').eq(15).attr("selected",true);
+
+        //北京行政区域划分
+        var cityArea = '';
+        var bjcity = citylist.province[0].city.slice();
+        for(var m = 0;m<bjcity.length;m++){
+            cityArea += "<option value =北京市"+bjcity[m].name+">北京市"+bjcity[m].name+"</option>";
+        }
+        $('#address').html(cityArea).find('option').eq(5).attr("selected",true);
+
+
+
+        $(".sel_wrap").not('.datetime').on("change", function () {
+            var o;
+            var opt = $(this).find('option');
+            opt.each(function (i) {
+                if (opt[i].selected == true) {
+                    o = opt[i].innerHTML;
+                }
+            })
+            $(this).find('label').html(o);
+        }).trigger('change');
+        $('.datetime').on("change", function () {
+            var o = $(this).find('input').val();
+            $(this).find('label').html(o);
+        }).trigger('change');
+
+        //获取当前时间并格式化, TODO：如果没有进行选择则为now,input的值还需再赋值
+
+
+        var date = new Date(),
+                day = date.getDate(),
+                month = date.getMonth() + 1,
+                year = date.getFullYear(),
+                hours = date.getHours(),
+                minutes = date.getMinutes();
+
+        (day < 10) && (day = "0" + day);
+        (month < 10) && (month = '0' + month);
+        (hours < 10) && (hours = '0' + hours);
+        (minutes < 10) && (minutes = '0' + minutes);
+
+
+        var dateLabel = year+'-'+month+'-'+day;
+        var timeLabel = hours+':'+minutes;
+        $('#dateLabel').html(dateLabel);
+        $('#timeLabel').html(timeLabel);
+
+
+
+    })
+</script>
+
+
+
+
+</body>
+</html>

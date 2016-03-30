@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=no" />
+<meta name="format-detection" content="telephone=no">
+<title>订单详情</title>
+<link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+<link rel="stylesheet"
+	href="/static/wap/css/jquery.mobile.icons.min.css" />
+<link rel="stylesheet"
+	href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+<link rel="stylesheet" href="/static/wap/css/style.css" />
+<script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+<script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+
+</head>
+<body>
+
+		<div data-role="content" id="marginBottom60">
+
+			<div class="recipientWrap">
+
+				<div class="orderWrap specialOrder">
+					<div>
+						<label>订单编号</label> <span>{{order.order_number}}</span>
+					</div>
+					<div>
+						<label>订购日期</label> <span>{{order.create_time|date:"Y-m-d H:m"}} </span>
+					</div>
+
+
+				</div>
+
+				<div class="orderList">
+					<p class="orderTitle">产品信息</p>
+					<ul>
+						<li><label>产品名称</label> <span>{{order.product.title}}</span></li>
+						<li><label>产品价格</label> <span>&yen;{{order.price}}</span></li>
+					</ul>
+
+				</div>
+				<div class="orderList">
+					<p class="orderTitle">面料</p>
+					<ul>
+						<li>{{order.fabric.content}}</li>
+					</ul>
+				</div>
+				{% ifequal order.product.type 'suit' %}
+				<div class="orderList">
+					<p class="orderTitle">西服款式</p>
+					<ul>
+						<li><label>扣型</label> <span>{{order.kouxing_sy}}</span></li>
+                        <li><label>领型</label> <span>{{order.lingxing_sy}}</span></li>
+                        <li><label>腰兜</label> <span>{{order.yaodou_sy}}</span></li>
+                        <li><label>开气</label> <span>{{order.kaiqi_sy}}</span></li>
+                        <li><label>袖扣</label> <span>{{order.xiukou_sy}}</span></li>
+                        <li><label>内部造型</label> <span>{{order.neibuzaoxing_sy}}</span></li>
+                        <li><label>内部兜</label> <span>{{order.neibudou_sy}}</span></li>
+					</ul>
+				</div>
+				<div class="orderList">
+                    <p class="orderTitle">西裤款式</p>
+                    <ul>
+                        <li><label>裤褶</label> <span>{{order.kuzhe_xk}}</span></li>
+                        <li><label>后兜</label> <span>{{order.houdou_xk}}</span></li>
+                        <li><label>裤脚</label> <span>{{order.kujiao_xk}}</span></li>
+                    </ul>
+                </div>
+				{% else %}
+				<div class="orderList">
+                    <p class="orderTitle">衬衫款式</p>
+                    <ul>
+                        <li><label>领型</label> <span>{{order.lingxing_cs}}</span></li>
+                        <li><label>袖扣</label> <span>{{order.xiukou_cs}}</span></li>
+                        <li><label>下摆</label> <span>{{order.xiabai_cs}}</span></li>
+                        <li><label>门襟</label> <span>{{order.menjin_cs}}</span></li>
+                        <li><label>后背</label> <span>{{order.houbei_cs}}</span></li>
+                        <li><label>口袋</label> <span>{{order.koudai_cs}}</span></li>
+                    </ul>
+                </div>
+                 {% endifequal %}
+                 <div class="orderList">
+                    <p class="orderTitle">个性化选择</p>
+                    <ul>
+                        {% ifequal order.add_kuzi 1 %} 
+                        <li><label>单加裤子</label> <span>&yen;{{kuzi_price}}</span></li>
+                        {% endifequal %}
+                        
+                        {% ifequal order.add_majia 1 %} 
+                        <li><label>单加马甲</label> <span>&yen;{{majia_price}}</span></li>
+                        {% endifequal %}
+                        
+                        {% ifequal order.add_bespoke 1 %} 
+                        <li><label>Bespoke</label> <span>&yen;{{bespoke_price}}</span></li>
+                        {% endifequal %}
+                        
+                        {% ifequal order.add_xiuzi 1 %}  
+                        <li><label>绣字</label> <span>&yen;{{xiuzi_price}}</span></li>
+                        {% endifequal %}
+                        
+                    </ul>
+                </div>
+			</div>
+		</div>
+
+		<div class="fixedWrap">
+			<p class="price orderPrice">&yen;{{order.price}}</p>
+			<a class="booking">申请售后</a>
+		</div>
+
+	<script>
+	</script>
+</body>
+</html>

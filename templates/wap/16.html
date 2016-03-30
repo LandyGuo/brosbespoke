@@ -1,0 +1,128 @@
+{% extends "wap/base/base1.html" %}
+{% block title %}微信{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+    html{
+        height: 100%;
+    }
+    body{
+        min-height: 100%;
+    }
+    body{
+        background: rgb(93,165,239) url("/static/images/coupon/bg.png") repeat;
+    }
+    .con-tit{
+        background-color: #276abc;
+        color: #ffffff;
+        font-size: 18px;
+        padding: 14px 0;
+        text-align: center;
+    }
+    .my-cou{
+        padding: 0 24px;
+    }
+    .con-container-u{
+        border-bottom: 1px dashed #4186d4;
+        padding: 20px 0;
+        position: relative;
+    }
+    .mon-img{
+        position: absolute;
+        top: 20px;
+        left: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    .mon-img img{
+        width: 40px;
+        height: 40px;
+    }
+    .mon-content{
+        margin-left: 50px;
+    }
+    .f-l{
+        color: #FFFFFF;
+        line-height: 20px;
+    }
+    .mon-no{
+        font-size: 14px;
+    }
+    .mon-rti{
+        font-size: 12px;
+        margin-left: 10px;
+    }
+    .mon-eti{
+        color: rgb(39, 106, 188);
+        font-size: 13px;
+        line-height: 16px;
+    }
+    .cou-des{
+        padding: 20px 58px;
+        color: rgb(39, 106, 188);
+    }
+    .cou-des .cou-des-tit{
+        border-bottom: 1px solid rgb(39, 106, 188);
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 40px;
+        text-align: center;
+    }
+    .cou-des .cou-des-con{
+        line-height: 20px;
+        margin-top: 6px;
+        font-size: 12px;
+        padding: 0 6px;
+    }
+    .con-container-u.disabled .f-l{
+        color: #898989;
+    }
+    .con-container-u.disabled .mon-eti{
+        color: #898989;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
+
+{% block body %}
+<div class="con-tit">我的红包</div>
+<div class="my-cou">
+    {% for i in redpacket %}
+    <div class="con-container-u{% if i.isUsed == '1' %} disabled{% endif %}">
+        <div class="mon-img">
+            {% if i.isUsed == '1' %}
+            <img src="/static/images/coupon/moneyg.png">
+            {% else %}
+            <img src="/static/images/coupon/money.png">
+            {% endif %}
+        </div>
+        <div class="mon-content">
+            <div class="f-l">
+                <span class="mon-no">{{i.money}}元红包</span>
+                <span class="mon-rti">领取时间：{{ i.create_time|date:"Y年m月d日" }}</span>
+            </div>
+            <div class="mon-eti">
+                {% if i.isUsed == '1' %}
+                已使用
+                {% else %}
+                {{ i.end_day|date:"Y年m月d日" }}前有效
+                 {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="cou-des">
+    <div class="cou-des-tit">活动说明</div>
+    <p class="cou-des-con">
+        1.使用领取红包的手机号注册“师兄的衣柜”微信公众号，在“优惠券”按钮中方可查看红包。<br>
+        2.您可凭此红包直接抵扣现金，每件西服最多抵扣400元，每件衬衫最多抵扣200元。<br>
+        3.红包领取后60天内使用有效。<br>
+        4.师兄的衣柜保留最终解释权。
+    </p>
+</div>
+{% endblock %}

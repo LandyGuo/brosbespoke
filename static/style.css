@@ -1,0 +1,98 @@
+﻿@charset "utf-8";
+/* CSS Document */
+*{
+    box-sizing: border-box;
+}
+
+.clearfix {zoom: 1;}
+.clearfix:before,.clearfix:after{display: table;line-height: 0;content: "";}
+.clearfix:after{clear: both;}
+
+.content-pad{padding-left: 10px; padding-right: 10px;}
+
+.carpro{border-bottom:1px solid #E4E4E4; overflow:hidden;}
+/*男士西装*/
+.warpmen{padding:0 5px; overflow:hidden;}
+.mens{border-bottom:1px solid #626262; line-height:40px; overflow:hidden;font-size:18px; font-family:"Microsoft YaHei";color:#000000; font-weight:bold;}
+/*西装*/
+.mensxz{font-size:18px; line-height:30px;padding-top:5px; overflow:hidden; float:left;}
+.warpsuit{width:100%;float:left; overflow:hidden;border-bottom:1px solid #626262;}
+.warpsuit li{width:50%;overflow:hidden; float:left;color:#676767;padding-bottom:15px; box-sizing: border-box;}
+.warpsuit li a{overflow:hidden; display:block; float:left;}
+.warpsuit .suitpic{display:block; float:left; overflow:hidden;border:1px solid #626262;}
+.warpsuit .suitpic img{width:100%; display:block; overflow:hidden; float:left;}
+.suittlt{width:100%; line-height:25px;font-size:16px; overflow:hidden; text-align:center;}
+.suitmoney{width:100%; line-height:25px; font-size:16px; overflow:hidden; text-align:center; display:block;}
+.warpsuit li.pl{padding-left:2.5em;}
+/************************产品内容页面********************************/
+/*产品介绍*/
+.warpcon{padding:0 5px; overflow:hidden;}
+.contlt{ line-height:30px;font-size:20px; font-weight:bold; overflow:hidden; padding:0 10px;}
+.conmoney{width:100%;line-height:25px; font-size:18px;color:#585858; display:block; padding:0 10px;}
+/*颜色*/
+.concolor{ overflow:hidden; float:left;padding:10px;}
+.concolor .ao{width:30px;height:30px;background:#fff;border:1px solid #C9C9C9; display:block; float:left;margin-right:20px;}
+.concolor .colorspan{width:22px;height:22px; display:block;background:red; float:left;margin:3px 0 0 3px;}
+.concolor .colorspan img{width: 100%; height: 100%;}
+.concolor .bgcolor{background:#aaaaaa;}
+/*最后一个a不需要加的间距*/
+.concolor .mrno{margin-right:0;}
+/*为谁定制*/
+.whom{width:100%;overflow:hidden; float:left;padding-bottom:20px;}
+.forwho{border-bottom:1px solid #626262; line-height:30px;font-size:18px; padding-left:10px; padding-right:10px;}
+.warpwho{width:50%;float:left; overflow:hidden; line-height:30px;}
+.warpwho.first{padding-left:10px;}
+.warpwho.last-child{padding-right:10px;}
+.whoche{ float:left; overflow:hidden;margin:8px 10px 0 0;}
+.whotxt{ float:left; overflow:hidden; display:block;font-size:18px;}
+/*请输入对方的手机号*/
+.num{width:80%;border-bottom:1px solid #dedede;font-size:18px;color:#a7a7a7; line-height:30px;padding-top:10px; margin-left:10px; outline:none;}
+/*面料*/
+.fabrics{line-height:20px; overflow:hidden; font-size:15px;color:#A7A7A7;padding-bottom:25px; padding-left:10px; padding-right:10px;}
+/*工艺*/
+.crafts{width:100%; overflow:hidden; float:left;}
+.crafts li{ float:left;padding-left:10px;padding-right:10px;font-size:15px;color:#A7A7A7;}
+.crafts.w-ver-s li:not(last-child){margin-bottom: 10px;}
+.crafts .nopr{padding-right:0;}
+.whom2{border-bottom:1px solid #000;}
+.warpbottom{width:100%; overflow:hidden; position:fixed;bottom:0;background:#fff;}
+/*结算*/
+.jiesuan{height:40px; line-height:40px; overflow:hidden;font-size:18px;}
+.jsmoney{width:50%; line-height:40px; text-align:center; overflow:hidden; display:block; float:left;border-top:1px solid #C9C9C9;}
+.jsbtn{width:50%; line-height:40px; text-align:center; overflow:hidden;background:#1d50a2;color:#fff; display:block; float:left;}
+.jsbtn:link,.jsbtn:visited{color:#fff;}
+/*定制弹框*/
+.loading-mask{position:absolute;left:0; top:0;width:100%;height:100%;z-index:10000;background:rgba(0,0,0,0.4);}
+.Customized{width:233px;height:138px;background:#fff;overflow:hidden; position:absolute;top:50%;left:50%; z-index:99999;margin:-150px 0 0 -116px; }
+.tkwhodz{width:233px;height:98px; line-height:98px; text-align:center;color:#959595;font-size:16px;}
+.good{width:233px; line-height:39px; text-align:center; overflow:hidden;color:#1d50a2;font-size:18px;border-top:1px solid #bfbfbf; cursor:pointer;}
+/**********************款式选择 页面************************************/
+.warpstyles{width:250px; margin:0 auto;padding:10px; overflow:hidden;}
+/*领型*/
+.warplx{ overflow:hidden; float:left;padding-top:25px;}
+.lxtlt{width:71px;height:35px; line-height:35px;background:#000;color:#fff; display:block; overflow:hidden; float:left;font-size:18px; text-align:center;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin-bottom:1px;}
+.lxdiv{width:238px;height:137px; overflow:hidden; float:left;border:1px solid #C9C9C9;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}
+.lxdiv img{width:100%; display:block; overflow:hidden; float:left;}
+.lxstyles{width:240px; overflow:hidden; float:left;}
+.lxstyles li{width:78px;height:33px; line-height:33px; text-align:center;margin:1px; cursor:pointer;background:#C9C9C9;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;color:#fff;font-size:18px; float:left;}
+.lxstyles .curbg{background:#1D50A2;}
+.lxstyles_multi{width:240px; overflow:hidden; float:left;}
+.lxstyles_multi li{width:78px;height:33px; line-height:33px; text-align:center;margin:1px; cursor:pointer;background:#C9C9C9;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;color:#fff;font-size:18px; float:left;}
+.lxstyles_multi .curbg{background:#1D50A2;}
+/*确定进入下一步弹框*/
+.good span{width:49%; overflow:hidden; display:block; float:left; text-align:center;font-size:16px; cursor:pointer;}
+.good .bdrspan{border-right:1px solid #bfbfbf;}
+/*****************************个性选择页面******************************/
+.besdiv{border-bottom:1px solid #000;padding:10px; overflow:hidden;}
+.bespoke{ width:100%;float:left; line-height:30px; overflow:hidden}
+.bespoke span{ float:left; display:block; overflow:hidden;font-size:18px;}
+.bespoke .floatr{ float:right;}
+.bestxt{ line-height:20px;font-size:16px; overflow:hidden; float:left;color:#bfbfbf;}
+/*去掉边框*/
+.besdiv2{border-bottom:none;}
+/*绣字内容*/
+.wztext{width:232px; line-height:30px;border-bottom:1px solid #dedede;font-size:18px;color:#bfbfbf; text-align:left;padding-top:15px;}
+/*底部*/
+.footerbdt{margin:0 5px;border-bottom:1px solid #626262; overflow:hidden;}
+.mensooter{padding:20px 0; overflow:hidden;}
+.mensooter p{width:100%; line-height:25px; font-size:16px; overflow:hidden; text-align:center;color:#000;}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="textml; charset=utf-8"/>
+    <meta content="email=no" name="format-detection"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+
+    <title>{% block title %}{% endblock %}</title>
+    {% load compress %}
+    {% block extra_css %}
+        {% compress css %}
+        <link type="text/less" rel="stylesheet" href="/static/less/coupon.less" charset="utf-8">
+        {% endcompress %}
+    {% endblock %}
+
+    {% block js %}
+    <script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {% endblock %}
+    {% block extra_js %}
+        <!--<script type="text/javascript" src="/static/js/C_slide.js"></script>-->
+    {% endblock %}
+    {% compress css %}
+        <script type="text/javascript" src="/static/libs/less/less.min.js"></script>
+    {% endcompress %}
+
+</head>
+<body>
+{% block body %}
+{% endblock %}
+</body>
+</html>

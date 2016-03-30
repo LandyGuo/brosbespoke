@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-us" >
+<head>
+<title>订单管理</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/dashboard.css" />
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/static/admin/css/ie.css" /><![endif]-->
+
+<script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
+<script type="text/javascript">window.__admin_utc_offset__ = "0";</script>
+<script type="text/javascript" src="http://www.aspbc.com/js/jquery.js"></script>
+<script type="text/javascript"></script>
+<script type="text/javascript">
+function ask()
+ {
+ var agree=confirm("提交?");
+
+           if (agree)
+           {
+             var orderID_list = new Array();
+            $(":checkbox:checked").each(function () {
+                orderID_list.push($(this).val());
+            });
+            var orderID_list =   orderID_list.toString()  ;
+
+            
+            $.post('/order/manage_post/', {
+                'id':orderID_list,
+            },
+                function(response_data,status){
+                    if(status=='success'){
+                        window.location.href = "/order/order_manage/order/";
+                    }
+                }
+            );
+            //end upload
+            return false;
+           }else{
+
+           }
+ } 
+
+$(function(){
+   $("a[class='btn btn-default']").click(function(){
+            ask();
+             });
+});
+
+</script>
+<meta name="robots" content="NONE,NOARCHIVE" />
+</head>
+
+
+<body class=" dashboard">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="/admin/">Bros.Bespoke 管理中心</a></h1>
+
+        </div>
+        
+        <div id="user-tools">
+            
+                Welcome,
+                <strong>{{user.user}}</strong>.
+            
+            
+                
+                
+                
+                <a href="/admin/password_change/">Change password</a> /
+                
+                <a href="/admin/logout/">Log out</a>
+            
+        </div>
+        
+        
+    </div>
+    <div class="breadcrumbs">
+<a href="/admin/">Home</a>
+&rsaquo; <a href="/admin/wap/">Wap</a>
+&rsaquo; <a href="/admin/wap/order/">订单</a>
+&rsaquo; {{nav}}
+</div>
+<ul class="nav nav-tabs">
+  <li role="presentation"><a href="/order/order_manage/order"></a></li>
+  
+</ul>
+{% block content %}
+
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<body>
+<div class="container">
+      <h2>{{nav}}:</h2>                  
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>客户姓名</th>
+            <th>客户电话</th>
+            <th>订单号</th>
+            <th>订单状态</th>
+            <th>订单类型</th>
+            <th>量体师</th>
+            <th>成衣表</th>
+            <th>反馈信息</th>
+            <th>选择订单</th>
+          </tr>
+        </thead>
+        <tbody>{% if a %}
+        	          <td><font color=red>退回订单</font></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>{% endif %}{% for br_li in a %} 
+          <tr>
+            <td><font color=red>{{ br_li.order.user.name }}</font></td>
+            <td><a href="/admin/wap/user/{{br_li.order.user.id}}">{{br_li.order.user.phonenumber}}</a></td>
+            <td><a href="/admin/wap/order/{{br_li.order.id}}">{{br_li.order.order_number}}</a></td>
+            <td>{{br_li.order.order_status}}</td>
+            {% if br_li.order.product.type == 'suit' and br_li.order.add_majia %}
+            <td>CPV</td>
+            {% elif br_li.order.product.type == 'suit' %}
+            <td>CP</td>
+            {% elif br_li.order.product.type == 'shirt' %}
+            <td>Shirt</td>
+            {% endif %}
+            <td>{{br_li.order.user.liangtishi}}</td>
+            <td> <a href="/order/exl/{{br_li.order.order_number}}" >本地预览</a> </td>
+            <td>{{br_li.issue}}</td>
+            <td><input name="" type="checkbox" value="{{br_li.order.order_number}}" ></td>
+          </tr>
+
+          {% endfor %}
+          {% if b %}
+          <td>新订单</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          {% endif %}
+          {% for or_li in b %} 
+          <tr>
+            <td>{{ or_li.order.user.name }}</td>
+            <td><a href="/admin/wap/user/{{or_li.order.user.id}}">{{or_li.order.user.phonenumber}}</a></td>
+            <td><a href="/admin/wap/order/{{or_li.order.id}}">{{or_li.order.order_number}}</a></td>
+            <td>{{or_li.order.order_status}}</td>
+            {% if or_li.order.product.type == 'suit' and or_li.order.add_majia %}
+            <td>CPV</td>
+            {% elif or_li.order.product.type == 'suit' %}
+            <td>CP</td>
+            {% elif or_li.order.product.type == 'shirt' %}
+            <td>Shirt</td>
+            {% endif %}
+            <td>{{or_li.order.user.liangtishi}}</td>
+            <td> <a href="/order/exl/{{or_li.order.order_number}}" >本地预览</a> </td>
+            <td>{{or_li.issue}}</td>
+            <td><input name="" type="checkbox" value="{{or_li.order.order_number}}" ></td>
+          </tr>
+
+          {% endfor %}
+          <td></td>
+          <td> </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><a class="btn btn-default" href="#" > 提交复审</a></td>
+        </tbody>
+      </table>
+    </div>
+  
+
+</body>
+{% endblock %}
+
+

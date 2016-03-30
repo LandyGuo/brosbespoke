@@ -1,0 +1,322 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}款式选择{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+    .tipsBox{
+        background-color: #D84C31;
+        border: none;
+        border-radius: 4px;
+        box-shadow: 0 0 3px #ddd inset;
+        color: #000;
+        left: 50%;
+        margin-left: -40%;
+        padding: 10px;
+        position: fixed;
+        text-align: center;
+        top: 50%;
+        width: 80%;
+        z-index: 999999;
+    }
+    .tipsBox .box-btns{
+        margin-top: 10px;
+    }
+
+    .tipsBox .box-btns button{
+        border-radius: 2px;
+        padding: 4px 10px;
+    }
+
+    .tipsBox .box-btns .def-cnl{
+        background-color: #fff;
+        border: 1px solid #ccc;
+        color: #333;
+    }
+    .tipsBox .box-btns .def-sbt{
+        background-color: #1D50A2;
+        border: 1px solid #2e6da4;
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(function(){
+    var is_default = true;
+	$("li").bind("click",function(){
+        is_default = false;
+
+		var id = $(this).attr("id");
+		var ids = id.split("_");
+		var newImgId = ids[0]+"_img_"+ids[1];
+		$("div[id^="+ids[0]+"_img_]").hide();
+		$("li[id^="+ids[0]+"_]").each(function(){
+			$(this).removeClass("curbg");
+		});
+		$("div[id^="+ids[0]+"_img_]").hide();
+		$("#"+id).addClass("curbg");
+		$("#"+newImgId).show();
+	})
+
+    function submitResult() {
+        var LingXingChenShan,XiuKouChenShan,XiaBaiChenShan,MenJinChenShan,HouBeiChenShan,KouDaiChenShan;
+        $("div[class='warplx']").each(function(){
+            if($("span:first",$(this)).text()=="领型")
+            {
+                LingXingChenShan = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first",$(this)).text()=="袖口")
+            {
+                XiuKouChenShan = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first",$(this)).text()=="下摆")
+            {
+                XiaBaiChenShan = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first",$(this)).text()=="门襟")
+            {
+                MenJinChenShan = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first",$(this)).text()=="后背")
+            {
+                HouBeiChenShan = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+            if($("span:first",$(this)).text()=="口袋")
+            {
+                KouDaiChenShan = $("ul[class='lxstyles']>.curbg",$(this)).text();
+            }
+        });
+        $.post('/wap/style_select_post/', {
+                'LingXingChenShan':LingXingChenShan,
+                'XiuKouChenShan':XiuKouChenShan,
+                'XiaBaiChenShan':XiaBaiChenShan,
+                'MenJinChenShan':MenJinChenShan,
+                'HouBeiChenShan':HouBeiChenShan,
+                'KouDaiChenShan':KouDaiChenShan,
+                },
+                function(returnedData,status){
+                        if(status=='success')
+                        {
+                            window.location.href='/wap/personalization_select';
+//                            popUp(returnedData.msg);
+                        }
+                    },
+                'json'
+            );
+    }
+
+    function showDefaultModal() {
+        var htmlCon = '<div class="tipsBox">' +
+                '<div>使用默认款式？</div>' +
+                '<div class="box-btns"><button class="def-cnl">取消</button> <button class="def-sbt">确定</button></div>' +
+                '</div>';
+        $('body').prepend(htmlCon);
+        $('.def-cnl').on("click", function () {
+            $('.tipsBox').remove();
+        });
+        $('.def-sbt').on("click", function() {
+            submitResult();
+        });
+    }
+
+    $("a[class=jsbtn]").click(function(e){
+        e.preventDefault();
+        if(is_default) {
+            showDefaultModal();
+            return;
+        }
+
+        submitResult();
+    });
+})
+</script>
+{% endblock %}
+
+{% block content %}
+<!--产品-->
+<div class="cus-s">
+    <span class="cus-s-c">第<span class="cus-s-n">2</span>步</span> 定制您的款式
+</div>
+<!--款式 开始-->
+<div class="warpstyles">
+<!--领型-->
+<div class="warplx first">
+{% if lingxing_list %}
+                    {% for lingxing in lingxing_list %}
+                        {% if forloop.first %}
+    <span class="lxtlt">领型</span>
+
+    <div class="lxdiv" id="xx_img_{{ forloop.counter }}"><img src="{{lingxing.image.url}}"></div>
+    {% else %}
+    <div class="lxdiv" id="xx_img_{{ forloop.counter }}" style="display:none"><img src="{{lingxing.image.url}}"></div>
+
+    {% endif %}
+                    {% endfor %}
+                {% endif %}
+    <ul class="lxstyles">
+        {% if lingxing_list %}
+                    {% for lingxing in lingxing_list %}
+                        {% if forloop.first %}
+        <li class="curbg" id="xx_{{ forloop.counter }}"><button>{{lingxing.name}}</button></li>
+        {% else %}
+        <li id="xx_{{ forloop.counter }}"><button>{{lingxing.name}}</button></li>
+        {% endif %}
+                    {% endfor %}
+                {% endif %}
+    </ul>
+</div>
+<!--袖口-->
+<div class="warplx">
+    {% if xiukou_list %}
+                    {% for xiukou in xiukou_list %}
+                        {% if forloop.first %}
+    <span class="lxtlt">袖口</span>
+    <div class="lxdiv" id="kk_img_{{ forloop.counter }}"><img src="{{xiukou.image.url}}"></div>
+    {% else %}
+    <div class="lxdiv" id="kk_img_{{ forloop.counter }}" style="display:none"><img src="{{xiukou.image.url}}"></div>
+    {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+    <ul class="lxstyles">
+        {% if xiukou_list %}
+                    {% for xiukou in xiukou_list %}
+                        {% if forloop.first %}
+        <li class="curbg" id="kk_{{ forloop.counter }}"><button>{{xiukou.name}}</button></li>
+        {% else %}
+        <li id="kk_{{ forloop.counter }}"><button>{{xiukou.name}}</button></li>
+        {% endif %}
+                    {% endfor %}
+                {% endif %}
+    </ul>
+</div>
+<!--下摆-->
+<div class="warplx">
+    {% if xiabai_list %}
+                    {% for xiabai in xiabai_list %}
+                        {% if forloop.first %}
+    <span class="lxtlt">下摆</span>
+    <div class="lxdiv" id="bb_img_{{ forloop.counter }}"><img src="{{xiabai.image.url}}"></div>
+    {% else %}
+    <div class="lxdiv" id="bb_img_{{ forloop.counter }}" style="display:none"><img src="{{xiabai.image.url}}"></div>
+    {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+    <ul class="lxstyles">
+        {% if xiabai_list %}
+                    {% for xiabai in xiabai_list %}
+                        {% if forloop.first %}
+        <li class="curbg" id="bb_{{ forloop.counter }}"><button>{{xiabai.name}}</button></li>
+        {% else %}
+        <li id="bb_{{ forloop.counter }}"><button>{{xiabai.name}}</button></li>
+        {% endif %}
+                    {% endfor %}
+                {% endif %}
+    </ul>
+</div>
+
+<!--门襟-->
+
+<div class="warplx">
+    {% if menjin_list %}
+                    {% for menjin in menjin_list %}
+                        {% if forloop.first %}
+    <span class="lxtlt">门襟</span>
+    <div class="lxdiv" id="jj_img_{{ forloop.counter }}"><img src="{{menjin.image.url}}"></div>
+    {% else %}
+    <div class="lxdiv" id="jj_img_{{ forloop.counter }}" style="display:none"><img src="{{menjin.image.url}}"></div>
+    {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+    <ul class="lxstyles">
+        {% if menjin_list %}
+                    {% for menjin in menjin_list %}
+                        {% if forloop.first %}
+        <li class="curbg" id="jj_{{ forloop.counter }}"><button>{{menjin.name}}</button></li>
+        {% else %}
+        <li id="jj_{{ forloop.counter }}"><button>{{menjin.name}}</button></li>
+        {% endif %}
+        {% endfor %}
+         {% endif %}
+    </ul>
+</div>
+
+<div class="warplx">
+    {% if houbei_list %}
+                    {% for houbei in houbei_list %}
+                        {% if forloop.first %}
+    <span class="lxtlt">后背</span>
+    <div class="lxdiv" id="hh_img_{{ forloop.counter }}"><img src="{{houbei.image.url}}"></div>
+    {% else %}
+    <div class="lxdiv" id="hh_img_{{ forloop.counter }}" style="display:none"><img src="{{houbei.image.url}}"></div>
+    {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+    <ul class="lxstyles">
+        {% if houbei_list %}
+                    {% for houbei in houbei_list %}
+                        {% if forloop.first %}
+        <li class="curbg" id="hh_{{ forloop.counter }}"><button>{{houbei.name}}</button></li>
+        {% else %}
+        <li id="hh_{{ forloop.counter }}"><button>{{houbei.name}}</button></li>
+        {% endif %}
+                    {% endfor %}
+                {% endif %}
+    </ul>
+</div>
+<!--口袋-->
+<div class="warplx">
+    {% if koudai_list %}
+                    {% for koudai in koudai_list %}
+                        {% if forloop.first %}
+    <span class="lxtlt">口袋</span>
+    <div class="lxdiv" id="di_img_{{ forloop.counter }}"><img src="{{koudai.image.url}}"></div>
+    {% else %}
+    <div class="lxdiv" id="di_img_{{ forloop.counter }}" style="display:none"><img src="{{koudai.image.url}}"></div>
+    {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+    <ul class="lxstyles">
+        {% if koudai_list %}
+                    {% for koudai in koudai_list %}
+                        {% if forloop.first %}
+        <li class="curbg" id="di_{{ forloop.counter }}"><button>{{koudai.name}}</button></li>
+        {% else %}
+        <li id="di_{{ forloop.counter }}"><button>{{koudai.name}}</button></li>
+        {% endif %}
+                    {% endfor %}
+                {% endif %}
+    </ul>
+</div>
+</div>
+<!--款式 结束-->
+{% endblock %}
+<!--底部-->
+
+<!--确认定制弹框-->
+<!--<div class="loading-mask"></div>
+<div class="Customized">
+	<div class="tkwhodz">您确定进入下一步吗？</div>
+    <p class="good">
+    	<span class="bdrspan">不，我再看看</span><span>确定</span>
+    </p>
+</div>-->
+<!--确认定制弹框 结束-->
+{% block footer %}
+{{ block.super }}
+<div class="warpbottom">
+    <!--结算 开始-->
+    <div class="jiesuan">
+        <span class="jsmoney">&yen;{{product.price}}</span>
+        <a href="#" class="jsbtn">下一步</a>
+    </div>
+    <!--结算 结束-->
+</div>
+{% endblock %}

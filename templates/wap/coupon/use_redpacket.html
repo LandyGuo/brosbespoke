@@ -1,0 +1,47 @@
+{% extends "wap/base/base1.html" %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/libs/require.js" data-main="/static/sjs/bb-use-coupon"></script>
+{% endblock %}
+
+{% block page %}
+{% for red in redpacket_list %}
+    <div class="con-container">
+        <div class="check-con">
+            <div class="checkboxWrap checkboxWrap-sm check-use-coupon">
+                <input type="checkbox" id="coupon-{{ forloop.counter0 }}" data-id="{{ red.id }}">
+                <label for="coupon-{{ forloop.counter0 }}"></label>
+            </div>
+        </div>
+        <div class="mon-img">
+            <img src="/static/images/coupon/moneyb.png">
+        </div>
+        <div class="mon-content">
+            <div class="mon-txt">&yen;<span class="cou-per-price">{{ red.money }}</span>元优惠券</div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+{% endfor %}
+{% endblock %}
+
+
+{% block footer %}
+<div class="car-bot-spacing"></div>
+<div class="warpbottom">
+    <div class="coupon-bot">
+        <div class="cou-slt">已选金额：<span class="cou-price">0</span></div>
+        <div class="cou-limit">您本次支付可使用优惠券总金额上限为<span class="cou-limit-num">{{ redpacket_limit }}</span>元</div>
+    </div>
+    <!--<a class="jxgg" href="/wap/cart_clean">清空</a>-->
+    <!--继续逛逛 结束-->
+    <!--结算 开始-->
+    <div class="jiesuan">
+        <span class="jsmoney">&yen;<span class="ex-pri">{{ order_price }}</span></span>
+        <a href="#" class="jsbtn">去结算</a>
+    </div>
+    <!--结算 结束-->
+</div>
+{% endblock %}

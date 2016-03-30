@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us" >
+<head>
+<title>订单管理</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/dashboard.css" />
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/static/admin/css/ie.css" /><![endif]-->
+
+<script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
+<script type="text/javascript">window.__admin_utc_offset__ = "0";</script>
+<script type="text/javascript" src="http://www.aspbc.com/js/jquery.js"></script>
+<script type="text/javascript"></script>
+<script type="text/javascript">
+function ask()
+ {
+ var agree=confirm("确定发送邮件吗?");
+
+           if (agree)
+          
+           {alert('eghwrh');
+             var orderID_list = new Array();
+            $(":checkbox:checked").each(function () {
+                orderID_list.push($(this).val());
+            });
+            var orderID_list =   orderID_list.toString();
+            
+            //begin upload
+            $.post('/order/kmail/', {
+                'id':orderID_list,
+            },
+                function(response_data,status){
+                    if(status=='success'){
+                        window.location.href = "/order/order_manage/wxd/";
+                    }
+                }
+            );
+            //end upload
+            return false;
+           }else{
+
+           }
+ } 
+
+$(function(){
+   $("a[class='btn btn-default']").click(function(){
+            ask();
+             });
+});
+
+</script>
+<meta name="robots" content="NONE,NOARCHIVE" />
+</head>
+
+
+<body class=" dashboard">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="/admin/">Bros.Bespoke 管理中心</a></h1>
+
+        </div>
+        
+        <div id="user-tools">
+            
+                Welcome,
+                <strong>{{user.user}}</strong>.
+            
+            
+                
+                
+                
+                <a href="/admin/password_change/">Change password</a> /
+                
+                <a href="/admin/logout/">Log out</a>
+            
+        </div>
+        
+        
+    </div>
+    <div class="breadcrumbs">
+<a href="/admin/">Home</a>
+&rsaquo; <a href="/admin/wap/">Wap</a>
+&rsaquo; <a href="/admin/wap/order/">订单</a>
+&rsaquo; {{nav}}
+</div>
+<ul class="nav nav-tabs">
+  <li role="presentation"><a href="/order/order_manage/wxd">复审订单 ></a></li>
+   <li role="presentation"><a href="/order/order_manage/dzing">定制中 </a></li>
+  <li role="presentation"><a href="/order/order_manage/dzwc">定制完成 </a></li>
+  <li role="presentation"><a href="/order/order_manage/psing">配送中  </a></li>
+  <li role="presentation"><a href="/order/order_manage/ywc">订单完成</a></li> 
+
+  
+</ul>
+{% block content %}
+
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<body>
+<div class="container">
+      <h2>{{nav}}:</h2>                  
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>客户姓名</th>
+            <th>客户电话</th>
+            <th>订单号</th>
+            <th>订单状态</th>
+            <th>订单类型</th>
+            <th>量体师</th>
+            <th>成衣表</th>
+            <th>问题反馈</th>
+            <th>发邮件</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for or_li in a %} 
+          <tr>
+            <td>{{ or_li.order.user.name }}</td>
+            <td>{{or_li.order.user.phonenumber}}</td>
+            <td>{{or_li.order.order_number}}</td>
+            <td>{{or_li.order.order_status}}</td>
+            {% if or_li.order.product.type == 'suit' and or_li.order.add_majia %}
+            <td>CPV</td>
+            {% elif or_li.order.product.type == 'suit' %}
+            <td>CP</td>
+            {% elif or_li.order.product.type == 'shirt' %}
+            <td>Shirt</td>
+            {% endif %}
+            <td>{{or_li.order.user.liangtishi}}</td>
+            <td> <a href="/order/exl/{{or_li.order.order_number}}" >本地预览</a> </td>
+            <td><form action="/order/manage_post/" method="post">
+                  <input type="text" name="issue" />
+                  <input   type="hidden" name="id" value="{{or_li.order.order_number}}" />
+                  <input type="submit" value="退回订单" /></form></td>
+                  
+            <td><input name="" type="checkbox" value="{{or_li.order.order_number}}" ></td>
+          </tr>
+          {% endfor %}
+          <td></td>
+          <td> </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><a class="btn btn-default" href="#" > 发送邮件</a></td>
+        </tbody>
+      </table>
+    </div>
+</body>
+{% endblock %}
+
+

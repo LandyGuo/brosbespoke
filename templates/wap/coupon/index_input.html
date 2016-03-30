@@ -1,0 +1,133 @@
+{% extends "wap/base/base2.html" %}
+
+{% block title %}微信{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="coupon_warp">
+        <div class="logo">
+            <img src="/static/images/couponimg/logo.png" alt=""/>
+        </div>
+        <div class="head_pic">
+            <img src="/static/images/couponimg/head.png" alt=""/>
+
+        </div>
+       <div class="parent clearfix btn_shandow ">
+            <div class="content">
+                <input type="tel"placeholder="请输入手机号 " id="phonenum"/>
+                <a href="javascript:;" id="grab">抢红包</a>
+            </div>
+       </div>
+       <div class="article">
+            <span>活动说明</span>
+            <hr/>
+           <div>
+                <p>
+                      1.使用领取红包的手机号注册“师兄的衣柜”微信
+                    公众号，在“优惠券”按钮中方可查看红包。<br/>
+                    2.您可凭此红包直接抵扣现金，每件西服最多抵扣
+                    400元，每件衬衫最多抵扣200元。<br/>
+                    3.红包领取后60天内使用有效。<br/>
+                    4.师兄的衣柜保留最终解释权。<br/>
+                </p>
+           </div>
+       </div>
+    </div>
+<script>
+ $(function(){
+        var reg = /^1[3|4|5|8][0-9]\d{8}$/;
+      if ( navigator . userAgent . match ( /(iPad | iPhone | iPod)/i)){
+                 $('#phonenum').css({'width':'78%','height':'26px'});
+        }
+     if ( navigator . userAgent . match ( / android /i)){
+         $('#phonenum').css({'width':'82.03125%','height':'35px'});
+     }
+    $('#phonenum').on("input", function () {
+        var phone = $('#phonenum').val();
+        if (reg.test(phone)) {
+
+            $('#grab').css({'background': '#F39700', 'cursor': 'auto', 'pointer-events': 'auto'});
+        }
+        else {
+            $('#grab').css('background', '#ccc');
+            $('#grab').css({'cursor': 'not-allowed', 'pointer-events': 'none'});
+        }
+    });
+     var phonecookie=getCookie('phonecookie');
+     if(phonecookie)
+     {
+            $("#phonenum").hide();
+            $("#grab").css({'margin-top':'45px','background': '#F39700', 'cursor': 'auto', 'pointer-events': 'auto'})
+     }
+    $('#grab').click(function () {
+        var phone = $('#phonenum').val();
+        if(phonecookie)
+        {
+            phone=phonecookie;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/promote/hbphone_post/',
+            data: 'hbphone=' +phone,
+            success: function (json) {
+                if (json.code == 0) {
+                    window.location='/promote/redpacket_info/';
+                     setCookie('phonecookie',phone)
+                     if(phonecookie)
+                     {
+                            removeCookie('phonecookie');
+                     }
+                    $('#phonenum').val('');
+                }
+                else if (json.code == 1) {
+                        full.show();
+                }
+                else{
+                          $('#grab').css('background', '#ccc');
+                }
+            }
+
+        })
+    });
+     function setCookie(name,value,iDay){
+    if(iDay){
+        var oDate=new Date();
+        oDate.setDate(oDate.getDate()+iDay);
+
+        document.cookie=name+'='+value+';path=/;expires='+oDate.toGMTString();
+    }else{
+        document.cookie=name+'='+value+';path=/';
+    }
+}
+//获取cookie
+function getCookie(name){
+    var arr=document.cookie.split('; ');
+
+    for(var i=0; i<arr.length; i++){
+        var arr2=arr[i].split('=');
+        //arr2[0]  abc
+        //arr2[1]  abc_value
+        if(arr2[0]==name){
+            return arr2[1];
+        }
+    }
+    return '';
+}
+//删除cookie
+function removeCookie(name){
+    setCookie(name,'asdfasfd',-100);
+}
+ });
+</script>
+{% load compress %}
+{% compress js %}
+   {% endcompress %}
+{% endblock %}

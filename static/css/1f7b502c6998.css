@@ -1,0 +1,32 @@
+body{background:url('/static/images/couponimg/coupon_bg.png?517ccc5b5914') left top;font-family:Helvetica,"STXihei",sans-serif;width:100%;height:100%;margin:0;padding:0;min-width:100%}
+.clearfix:after{display:block;content:"";clear:both}
+.clearfix{zoom:1}
+.fl{float:left}
+.fr{float:right}
+.hide{display:none}
+.coupon_warp{width:100%}
+.shandow{width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,0.6)}.shandow img{width:25.71875%;position:absolute;top:0;right:0}
+.shandow span{display:block;width:34.6875%;color:#fff;position:absolute;top:12%;right:14%;font-size:90%;line-height:30px}
+.logo{margin-left:28%;margin-top:7.491%;width:auto}.logo img{width:65%}
+.head_pic{margin-left:10.03125%;margin-top:-5px;width:auto}.head_pic img{width:86.06%}
+.parent .content{width:100%;height:100%;z-index:1;padding-top:8%;box-sizing:border-box}.parent .content input[type="text"]{display:block;border:none;border-radius:5px;box-shadow:none;background:#fff;outline:none;-webkit-appearance:none;margin:12.511% auto 7.2639%;padding-left:10px;font-size:1.2em}
+.parent .content a{display:block;text-align:center;text-decoration:none;width:85.59375%;height:35px;line-height:35px;background:#ccc;border-radius:5px;color:#fff;font-size:1.2em;font-family:"Microsoft YaHei",Arial,Helvetica,sans-serif;margin:0 auto 50px;cursor:not-allowed;pointer-events:none}
+.redPaper{width:100%;height:100%;padding-top:34px}.redPaper .again{display:block;color:#fff;width:100%;text-align:center;margin-bottom:9%}
+.redPaper h2{width:100px;margin:0 auto;text-align:center;margin-top:3%;color:#fff;height:auto}
+.redPaper p{color:#fff;width:100%;text-align:center;font-weight:normal;margin-top:7%;margin-bottom:7%}@media (min-width:321px){.redPaper p{font-size:.9em}}@media (max-width:320px){.redPaper p{font-size:.8em}}.redPaper p span{color:#215ba1;margin-left:10%}.redPaper p span a{text-decoration:none;color:#215ba1}
+.redPaper .long_look{width:100%;margin:0 auto;font-size:14px}
+.redPaper .submit{display:inline-block;width:51.666%;height:35px;color:#fff;text-align:center;text-decoration:none;background:#f29a00;border-radius:5px;margin-left:24%;line-height:35px;margin-bottom:11%}@media (max-width:414px){.redPaper .submit{font-size:1.2em}}@media (max-width:320px){.redPaper .submit{font-size:1.1em}}
+.redPaper .money_bg{width:45.66%;height:43px;background:#fff;box-shadow:0 4px 4px #888;margin:0 auto;margin-top:19px;margin-left:27.3%;float:left;text-align:center;line-height:10px}
+.redPaper .msg_bg{width:51.666%;min-height:100px;background:#276abc;margin:0 auto;margin-top:30px;text-align:center;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}.redPaper .msg_bg h5{display:block;float:left;margin-top:20px;width:100%;font-size:14px;text-align:center;text-indent:6px;color:#fff}@media (min-width:330px){.redPaper .msg_bg h5{font-size:16px}}
+.btn_shandow{width:80.25%;height:58.454%;background:rgba(0,0,0,0.14);border-radius:7px;margin-top:-65px;margin-left:10%}
+.cloudList{width:68.134%;height:auto;float:left;font-size:1em;color:#2769bb;margin-left:15.5%;margin-top:10.0581%;padding-bottom:5.0581%}.cloudList a{float:right;font-size:.8em;color:#059}
+.cloudList hr{border:1px solid #276abc;margin-top:1px}
+.cloudList ul li{list-style:none;float:left;margin-left:-40px;margin-top:-10px;color:#fff;border-bottom:1px solid #3582d6;margin-bottom:4%}
+.cloudList ul li .head{float:left;width:45px;height:45px;background:#090;border-radius:50%;margin-top:3%;margin-bottom:4%}@media (min-width:321px){.cloudList ul li .head{width:60px;height:60px}}
+.cloudList ul li .date{float:left;width:50%;height:20px;margin-left:3%;margin-top:8%;font-size:.9em}@media (max-width:320px){.cloudList ul li .date{width:45%;font-size:12px}}.cloudList ul li .date span{margin-top:0}
+.cloudList ul li .date p{float:left;font-size:13px;white-space:nowrap;margin-top:3%;color:#2769bb}
+.cloudList ul li .price{float:right;font-size:18px;margin-top:7.5%}@media (max-width:320px){.cloudList ul li .price{margin-top:6.5%}}
+.article{width:68.134%;height:auto;text-align:center;color:#2769bb;font-size:.8em;margin:7% auto;padding-bottom:5.0581%}.article span{font-weight:bold;font-size:16px}
+.article hr{border:1px solid #276abc}
+.article div p{text-align:left;margin-top:-2px}@media (min-width:321px){.article div p{font-size:16px;ine-height:40px}}@media (max-width:320px){.article div p{font-size:18px;ine-height:40px}}
+@media (max-width:414px){.article{font-size:14px}}@media (max-width:375px){.article{font-size:12px}}@media (max-width:320px){.article{font-size:10px}}

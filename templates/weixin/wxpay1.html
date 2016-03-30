@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <title>微信安全支付</title>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+    </br></br></br></br>
+    <div align="center">
+        <button style="width:210px; height:30px; background-color:#FE6714; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;" type="button" id='chooseWXPay' >支付订单</button>
+    </div>
+    <div>
+    {{jsApiParameters}}
+    </div>
+</body>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"> </script>
+<script>
+
+
+  {% autoescape off %}
+  var params = {{jsApiParameters}};
+  {% endautoescape %}
+	  
+// 	  alert(JSON.stringify(params));
+
+  wx.config({
+      debug: true,
+      appId: params.appId,
+      timestamp: params.timeStamp,
+      nonceStr: params.nonceStr,
+      signature: params.paySign,
+      jsApiList: [
+        'chooseWXPay'
+      ]
+  });
+  wx.ready(function () {
+	  document.querySelector('#chooseWXPay').onclick = function () {
+		    wx.chooseWXPay({
+		      timestamp: params.timeStamp,
+		      nonceStr: params.noncestr,
+		      package: params.package,
+		      signType:params.signType,
+		      paySign: params.paySign
+		    });
+		  };
+	  });
+  wx.error(function (res) {
+	  alert(res.errMsg);
+	});
+
+</script>
+</html>

@@ -1,0 +1,29 @@
+@charset "utf-8";
+@font-face{font-family:'QuicksandBook';src:url('/static/font/QuicksandBook.otf?a9a1e50dedc2');font-weight:normal;font-style:normal}body,ul,li,dl,dd,dt,ol,table,td,tr,h1,h2,h3,h4,h5,strong,div,a,span,input,em,p,img{padding:0;margin:0;list-style:none;border:0;font-style:normal;border:none}
+body{background:#fff;font-size:12px;font-family:"QuicksandBook","华文细黑",Arial,Helvetica,sans-serif}
+a:link,a:visited{color:#000;text-decoration:none}
+.prolist{padding:0 5px;overflow:hidden}
+.carcheck{float:left;overflow:hidden;margin:32px 10px 0 0}
+.proimg{width:79px;height:79px;display:block;float:left}
+.proimg img{width:100%;display:block;overflow:hidden;float:left}
+.proright{float:left;overflow:hidden;padding-left:5px}
+.protlt{width:40%;min-width:118px;font-size:14px;font-family:"QuicksandBook"}
+.modify{height:20px;display:block;overflow:hidden;background:url('/static/images/caricon2.jpg?cc654d335ef7') no-repeat 61px 1px;background-size:15px 15px;font-size:14px;position:absolute;right:0;padding-right:29px;bottom:0;margin-bottom:10px}
+.modify:link,.modify:visited{color:#1d50a2}
+.warpbottom{width:100%;overflow:hidden;position:fixed;bottom:0}
+.jxgg{height:40px;line-height:40px;background:#c9c9c9;text-align:center;font-size:16px;display:block;color:#000}
+.jxgg:link,.jxgg:visited{color:#fff}
+
+
+.product-wrap{margin-left: -5px; margin-right: -5px;min-width: 100%; padding: 12px 20px; font-size: 16px;}
+.product-wrap .col-4, .product-wrap .col-3, .product-wrap .col-2, .product-wrap .col-1{float:left;}
+.product-wrap .col-4, .product-wrap .col-3{line-height: 26px;}
+.product-wrap .col-1{width: 9%;}
+.product-wrap .col-2{width: 32%;}
+.product-wrap .col-3{width: 37%;}
+.product-wrap .col-4{width: 20%}
+.product-wrap .col-4.promoney{font-size: 16px;}
+.checkboxWrap{width: 18px; height: 18px; border: 1px solid #1D50A3; position: relative; display: inline-block; vertical-align: top;}
+.checkboxWrap input[type=checkbox]{visibility: hidden; width: 16px; height: 16px;}
+.checkboxWrap label{width: 12px; height: 12px; position: absolute; left: 2px; top: 2px;}
+.checkboxWrap input:checked + label{background: #1D50A3;}

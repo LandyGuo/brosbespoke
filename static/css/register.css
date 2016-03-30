@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+/*新用户注册页面*/
+.warpreg{padding:0 20px; overflow:hidden;}
+.info{width:100%; overflow:hidden;padding:25px 0;}
+.info li{ line-height:40px; overflow:hidden;}
+.infotext{width:100%;border-bottom:1px solid #DEDEDE;font-size:18px;color:#DEDEDE;padding-left:10px;padding-bottom:10px;}
+.info li.curbdb{border-bottom:1px solid #DEDEDE;}
+.infotext2{width:50%; float:left; overflow:hidden;font-size:18px;color:#DEDEDE;padding-left:10px;}
+/*获取验证码 按钮*/
+.huoqu{width:40%; line-height:30px;background:#1D50A2;color:#fff; text-align:center;font-size:18px; float:left;margin:2px 0;}
+.huoqu:link,.huoqu:visited{color:#fff;}
+/*性别*/
+.menspan{width:100%;display:block; overflow:hidden; float:left; text-align:center;font-size:18px;color:#BFBFBF;}
+.greeche{ float:left; overflow:hidden;margin-top:9px;margin-left:15px;}
+.Agree{float:left; line-height:30px;font-size:16px;color:#bfbfbf;}
+.qda{display:block; line-height:30px;background:#1D50A2;font-size:18px; text-align:center;margin:10px 0;}
+.qda:link,.qda:visited{color:#fff;}
+/*****************会员登录 页面*********************/
+.warpreg2{padding:50px 0;}
+.cgicon{width:100%; line-height:35px; overflow:hidden; text-align:center;font-size:18px;color:#bfbfbf;}
+.cgiconbg{background:url(../images/register/icon_1.png) no-repeat 97px center; background-size:16px 16px;}
+/**********验证码错误*************/
+.curbdb2{border:1px solid #d8271c;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius:3px; overflow:hidden;margin-top:5px;}
+.yzm{width:100%; line-height:30px;color:#ff0000; text-align:center; overflow:hidden;font-size:18px;}
+/******验证码倒计时*******/
+.huoqu2{width:40%; line-height:30px;background:#b5b5b5;color:#fff; text-align:center;font-size:14px; float:left;margin:2px 0; display:none;}
+.huoqu2:link,.huoqu2:visited{color:#fff;}
+/*********会员登录*********/
+.info2 li.curbdb{overflow:hidden;}
+.iconem{width:15px;height:16px; display:block; overflow:hidden; float:left;margin-top:15px;}
+.iconem img{width:100%; display:block; overflow:hidden; float:left;}
+.infotext3{ line-height:40px;}
+/*注册*/
+.qda2{background:#fff;border:1px solid #AAAAAA;color:#BFBFBF;}
+.qda2:link,.qda2:visited{color:#BFBFBF;}
+/*忘记密码*/
+.yzm2{color:#bfbfbf;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

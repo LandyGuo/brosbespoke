@@ -1,0 +1,270 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}个性化选择{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function changePrice(){
+    var priceText = $("span[class='jsmoney']").find(".ex-pri").text();
+    var price = parseInt(priceText);
+    var add_kuzi =   ($("#add_kuzi").is(':checked') ? 1 : 0);
+    var add_majia = ($("#add_majia").is(':checked') ? 1 : 0);
+    var add_bespoke = ($("#add_bespoke").is(':checked') ? 1 : 0);
+    var add_xiuzi = ($("#add_xiuzi").is(':checked') ? 1 : 0);
+    //获取父亲元素
+    var priceFloat = $(this).closest('.floatr').find(".ex-pri").text();
+    var priceadd = parseInt(priceFloat);
+    if($(this).is(':checked')){
+        price +=priceadd;
+    } else {
+        price -= priceadd;
+    }
+    $("span[class='jsmoney'] .ex-pri").html(price);
+}
+
+function showTips(txt, time, status) {
+    var htmlCon = '';
+    if (txt != '') {
+        if (status != 0 && status != undefined) {
+            htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#4AAF33;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="/static/images/gouw/ok.png" style="vertical-align: middle;margin-right:5px;" alt="OK，"/>' + txt + '</div>';
+        } else {
+            htmlCon = '<div class="tipsBox" style="width:220px;padding:10px;background-color:#D84C31;border-radius:4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;color:#fff;box-shadow:0 0 3px #ddd inset;-webkit-box-shadow: 0 0 3px #ddd inset;text-align:center;position:fixed;top:25%;left:50%;z-index:999999;margin-left:-120px;"><img src="/static/images/gouw/err.png"" style="vertical-align: middle;margin-right:5px;" alt="Error，"/>' + txt + '</div>';
+        }
+        $('body').prepend(htmlCon);
+        if (time == '' || time == undefined) {
+            time = 1500;
+        }
+        setTimeout(function () {
+            $('.tipsBox').remove();
+        }, time);
+    }
+}
+
+$(function(){
+	$(".lxstyles li").bind("click",function(){
+		var id = $(this).attr("id");
+		var ids = id.split("_");
+		var newImgId = ids[0]+"_img_"+ids[1];
+		$("div[id^="+ids[0]+"_img_]").hide();
+		$("li[id^="+ids[0]+"_]").each(function(){
+			$(this).removeClass("curbg");
+		});
+		$("div[id^="+ids[0]+"_img_]").hide();
+		$("#"+id).addClass("curbg");
+		$("#"+newImgId).show();
+	});
+    //price variation begin
+    //price variation begin
+
+    $("#add_bespoke").on("change", changePrice);
+    $("#add_kuzi").on("change", changePrice);
+    $("#add_majia").on("change", changePrice);
+
+    //price end
+
+    //price end
+
+    //add code here
+    $("a[class='jsbtn']").click(function(){
+        var priceText = $("span[class='jsmoney']").text()
+        var price = parseInt(priceText.substring(1, priceText.length));
+        var type = 'suit';
+        var add_kuzi,add_majia,add_bespoke,add_xiuzi,xiuzi;
+        var majia_lingxing = '';
+        var majia_kouxing = '';
+        add_kuzi =   ($("#add_kuzi").is(':checked') ? 1 : 0);
+        add_majia = ($("#add_majia").is(':checked') ? 1 : 0);
+        add_bespoke = ($("#add_bespoke").is(':checked') ? 1 : 0);
+        add_xiuzi = ($("#add_xiuzi").is(':checked') ? 1 : 0);
+
+        if($("#add_xiuzi").is(':checked')) {
+            xiuzi = $(":text[class='wztext pane3']").val();
+            if(!xiuzi) {
+                showTips('请填写绣字信息！');
+                return;
+            }
+        } else {
+            xiuzi = "";
+        }
+        if(add_majia==1)
+        {
+            if($("#gx_1").attr('class')=='curbg'){
+                majia_lingxing ="V领";
+            }
+            else if($("#gx_2").attr('class')=='curbg'){
+                majia_lingxing ="U领";
+            }
+            majia_kouxing =$("#kouxing li[class='curbg']").text();
+        }
+        //alert("majia_lingxing:"+majia_lingxing+" majia_kouxing:"+majia_kouxing);
+         //begin upload
+            $.post('/wap/personalization_select_post/', {
+                        type: 'suit',
+                        price:price,
+                        add_kuzi:add_kuzi ,
+                        add_majia:add_majia,
+                        add_bespoke:add_bespoke,
+                        add_xiuzi: add_xiuzi,
+                        xiuzi: xiuzi,
+                        majia_lingxing:majia_lingxing,
+                        majia_kouxing:majia_kouxing
+                    },
+                    function(returnedData){
+                            (returnedData.code == 0) && (window.location.href = '/wap/cart_add/');
+                            popUp(returnedData.msg);
+                        }
+            );
+         //end
+    });
+
+    // for qq x5
+    $(".checkboxWrap label").on("click", function (e) {
+        e.preventDefault();
+        var $elem = $(this).prev();
+        if($elem.is(":checked")) {
+            $elem.prop("checked", false);
+        } else {
+            $elem.prop("checked", true);
+        }
+
+        if($elem.hasClass("id3")){
+            if($(".id3").is(":checked")) {
+                $(".pane3").show();
+                $(".pane3").focus();
+            } else {
+                $(".pane3").hide();
+            }
+        }
+
+        if($elem.hasClass("id2")) {
+            if ($(".id2").is(":checked")) {
+                $(".boxn").show();
+            } else {
+                $(".boxn").hide();
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+    <div class="cus-s">
+        <span class="cus-s-c">第<span class="cus-s-n">3</span>步</span> 额外服务
+    </div>
+    <div class="warpstyles">
+    	<div class="besdiv">
+        	<div class="bespoke">
+            	<span class="smf">Bespoke</span><span class="floatr">&yen;<span class="ex-pri">{{bespoke_price}}</span>
+                    <div class="checkboxWrap">
+                        <input type="checkbox" id="add_bespoke">
+                        <label for="add_bespoke"></label>
+                    </div>
+                </span>
+            </div>
+            <p class="bestxt">区别于普通的MTM（Made To Measure），Bespoke是一种更精准的全手工定制服务。我们会先用替代面料制作胚样衣，上门为您实际试样和调整，之后再用您选择的高级面料制作成衣，为您提供最尊贵的定制享受</p>
+        </div>
+        <!--单加裤子-->
+        <div class="besdiv">
+        	<div class="bespoke">
+            	<span class="smf">单加裤子</span><span class="floatr">&yen;<span class="ex-pri">{{kuzi_price}}</span>
+                    <div class="checkboxWrap">
+                        <input type="checkbox" id="add_kuzi">
+                        <label for="add_kuzi"></label>
+                    </div>
+                </span>
+            </div>
+            <p class="bestxt">西裤更易磨损，如您经常穿则建议选择两条裤子。</p>
+        </div>
+        <!--单加马甲-->
+        <div class="besdiv">
+        	<div class="bespoke">
+            	<span class="smf">单加马甲</span><span class="floatr">&yen;<span class="ex-pri">{{majia_price}}</span>
+                    <div class="checkboxWrap">
+                        <input type="checkbox" id="add_majia" class="id2">
+                        <label for="add_majia"></label>
+                    </div>
+                </span>
+            </div>
+		<div class="boxn" style="display:none;">
+        	 <div class="warplx">
+                 {% if lingxing_list %}
+                        {% for lingxing in lingxing_list %}
+                            {% if forloop.first %}
+                <span class="lxtlt">领型</span>
+                <div class="lxdiv" id="gx_img_{{ forloop.counter }}"><img src="{{lingxing.image.url}}"></div>
+                {% else %}
+                <div class="lxdiv" id="gx_img_{{ forloop.counter }}" style="display:none;"><img src="{{lingxing.image.url}}"></div>
+                {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                <ul class="lxstyles">
+                    {% if lingxing_list %}
+                        {% for lingxing in lingxing_list %}
+                            {% if forloop.first %} 
+                    <li class="curbg" id="gx_{{ forloop.counter }}"><button>{{lingxing.name}}</button></li>
+                     {% else %}
+                    <li id="gx_{{ forloop.counter }}"><button>{{lingxing.name}}</button></li>
+                     {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="warplx" style="margin-bottom: 25px;">
+                {% if kouxing_list %}
+                        {% for kouxing in kouxing_list %}
+                            {% if forloop.first %}
+                <span class="lxtlt">扣型</span>
+                <div class="lxdiv" id="kd_img_{{ forloop.counter }}"><img src="{{kouxing.image.url}}"></div>
+                 {% else %}
+                <div class="lxdiv" id="kd_img_{{ forloop.counter }}" style="display:none"><img src="{{kouxing.image.url}}"></div>
+                {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                <ul class="lxstyles" id="kouxing">
+                    {% if kouxing_list %}
+                        {% for kouxing in kouxing_list %}
+                            {% if forloop.first %}
+                    <li class="curbg" id="kd_{{ forloop.counter }}"><button>{{kouxing.name}}</button></li>
+                    {% else %}
+                    <li id="kd_{{ forloop.counter }}"><button>{{kouxing.name}}</button></li>
+                  {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        </div>
+        <!--绣字-->
+        <div class="besdiv besdiv2">
+        	<div class="bespoke">
+            	<span>绣字</span><span class="floatr">&yen;<span class="ex-pri">{{xiuzi_price}}</span>
+                    <div class="checkboxWrap">
+                        <input type="checkbox" id="add_xiuzi" class="id3">
+                        <label for="add_xiuzi"></label>
+                    </div>
+                </span>
+            </div>
+            <p class="bestxt">绣上您心中最想表达的文字。</p>
+            <div class="wz-wrap">
+                <input type="text" class="wztext pane3" placeholder="请输入绣字内容" style="display:none;">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{{ block.super }}
+<div class="warpbottom">
+    <!--结算 开始-->
+    <div class="jiesuan">
+        <span class="jsmoney">&yen;<span class="ex-pri">{{product.price}}</span></span>
+        <a href="#" class="jsbtn">下一步</a>
+    </div>
+    <!--结算 结束-->
+</div>
+{% endblock %}

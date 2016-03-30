@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors wangfengquan (you@example.org)
+ * @date    2015-05-18 10:15:53
+ * @version $Id$
+ */
+/*款式选择*/
+.styleSelect{width: 1000px;margin: 0 auto;font-family:  "PingHei-Light","Arial","微软雅黑";}
+.styleSelect ul li{height: 162px;float: left;margin-right: 69px;margin-bottom: 67px;}
+.styleSelect ul li:nth-child(3n){margin-right: 0;}
+.styleSelect ul li img{width: 162px; height: 162px; float: left;margin-right: 13px;border:1px solid #ccc;}
+.styleSelect ul li .select{float: left;}
+.styleSelect ul li p{margin-bottom: 7px;margin-top: 17px;}
+.styleSelect ul li p:last-child{margin-bottom: 11px;}
+.styleSelect ul li .select select{width:110px;height:20px;background: #fff;border: 1px solid #000; outline: none; }
+.styleSelect ul li .select select option{color: #777;}
+.styleSelect ul li span{vertical-align: middle;font-size: 12px;color: #777;}
+.styleSelect ul li:last-child .select div p{font-weight: bold;font-style: italic;color:#777;}
+.styleSelect ul li:last-child .select div input{margin-bottom: 11px;vertical-align: top;}
+.nextStep{display: inline-block;width: 275px;height:34px;border:1px solid #000;text-align:center;line-height:34px;font-family: "华文雅黑";
+ font-size: 14px;margin-left:365px;margin-bottom:100px;}

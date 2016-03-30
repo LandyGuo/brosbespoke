@@ -1,0 +1,62 @@
+# coding:utf8
+from django.conf.urls import patterns, include, url 
+from django.views.generic.base import TemplateView
+
+import web
+
+urlpatterns = patterns('web.views',
+    url(r'^login_post/$',  'login_post', name="login_post"),
+    url(r'^register_post/$',  'register_post', name="register_post"),
+    url(r'^forget_password_post/$',  'forget_password_post', name="forget_password_post"),
+    url(r'^change_phone_post/$',  'change_phone_post', name="change_phone_post"),
+    url(r'^change_name_post/$',  'change_name_post', name="change_name_post"),
+    url(r'^change_sex_post/$',  'change_sex_post', name="change_sex_post"),
+    url(r'^home_post/$',  'home_post', name="home_post"),
+    url(r'^detail_post/$',  'detail_post', name="detail_post"),
+    url(r'^buy_post/$',  'buy_post', name="buy_post"),
+    url(r'^fabric_post/$',  'fabric_post', name="fabric_post"),
+    url(r'^cart_view_post/$',  'cart_view_post', name="cart_view_post"),
+    url(r'^cart_update_post/$',  'cart_update_post', name="cart_update_post"),
+    url(r'^test/(?P<product_id>\w+)/$',  'test', name="test"),
+    url(r'^test2/$',  'test2', name="test2"),
+    url(r'^test3/$',  'test3', name="test3"),
+    url(r'^test4/$',  'test4', name="test4"),
+    url(r'^test5/$',  'test5', name="test5"),
+    url(r'^test6/$',  'test6', name="test6"),
+    url(r'^test7/$',  'test7', name="test7"),
+    url(r'^test8/$',  'test8', name="test8"),
+    url(r'^test9/$',  'test9', name="test9"),
+    url(r'^test0/$',  'test0', name="test0"),
+    url(r'^test1/$',  'test1', name="test1"),
+    url(r'^test10/$',  'test10', name="test10"),
+    url(r'^journal_list/$',  'journal_list', name="journal_list"),
+    url(r'^journal/(?P<journal_id>\w+)/$',  'journal', name="journal"),
+    url(r'^send_sms_post/$',  'send_sms_post', name="send_sms_post"),
+    url(r'^reserve_measure_post/$',  'reserve_measure_post', name="reserve_measure_post"),
+    url(r'^orderList_post/$',  'orderList_post', name="orderList_post"),
+    url(r'^orderDetail_post/(?P<order_id>\w+)/$',   'orderDetail_post', name="orderDetail_post"),
+    url(r'^show_my_size_post/$',  'show_my_size_post', name="show_my_size_post"),
+    url(r'^address_list_post/$',  'address_list_post', name="address_list_post"),
+    url(r'^my_info_post/$',  'my_info_post', name="my_info_post"),
+    url(r'^address_add_post/$',  'address_add_post', name="address_add_post"),
+    url(r'^address_delete_post/$',  'address_delete_post', name="address_delete_post"),
+    url(r'^address_update_post/$',  'address_update_post', name="address_update_post"),
+    url(r'^address_default_post/$',  'address_default_post', name="address_default_post"),
+    url(r'^cart_delete_post/$',  'cart_delete_post', name="cart_delete_post"),
+    url(r'^modify_password_post/$',  'modify_password_post', name="modify_password_post"),
+    url(r'^style_post/$',  'style_post', name="style_post"),
+    url(r'^style_select_post/$',  'style_select_post', name="style_select_post"),
+    url(r'^check_size/$',  'check_size', name="check_size"),
+    url(r'^feedback_post/$',  'feedback_post', name="feedback_post"),
+    url(r'^footer_post/$',  'footer_post', name="footer_post"),
+    url(r'^logout_post/$',  'logout_post', name="logout_post"),
+    url(r'^check_phone/$',  'check_phone', name="check_phone"),
+    url(r'^poster/(?P<poster_id>\w+)/$', 'poster', name="poster"),
+    url(r'^focus/(?P<focus_id>\w+)/$', 'focus', name="focus"),
+    #产品列表
+    url(r'^productlist_post/$',  'productlist_post', name="productlist_post"),
+    #导航栏提交
+    url(r'^menu_post/$',  'menu_post', name="menu_post"),
+
+
+)

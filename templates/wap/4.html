@@ -1,0 +1,516 @@
+{% extends "wap/base/base1.html" %}
+
+{% block title %}我的尺寸{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+<link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+<style type="text/css">
+
+/*CSS重置代码*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, em, p, font, img, small, strong, center, dl, dt, dd, ol, ul, li, form, label, table, caption, tbody, tr, th, td {margin:0;padding:0;border:0;outline:0;font-size:12px;vertical-align:baseline} 
+ol, ul {list-style:none} :focus {outline:none; } 
+table {border-collapse:collapse;border-spacing: 0} 
+caption, th, td { text-align: left; font-weight: normal} 
+strong {font-weight:600} 
+a{font:12px Arial;text-decoration:none;color:#404040;cursor:pointer;} 
+a:hover{text-decoration:underline;color:#FF3300} 
+h1{font-size:16px;font-weight:600;color:#666} .left{float:left} .right{float:right} .clear{clear:both}
+
+
+
+.chart {
+  position: relative;
+  margin-top: 64px;
+  margin-bottom: 40px;
+}
+.chart-container{
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+.chart p{
+    position: absolute;
+    left: 50%;
+}
+
+.crossShoulder, .chestWidth, .waistWidth, .legLength, .hipWidth, .legWidth, .shangyichang, .xiuchang, .kuchang, .kuyao {
+  font-size: 20px;
+  color: #1d50a2;
+}
+
+.shoulder, .chest, .waist, .leg, .hip, .legLabel, .shangyichangLabel, .xiuchangLabel, .kuchangLabel, .kuyaoLabel {
+  font-size: 17px;
+}
+
+/*肩宽A*/
+.crossShoulder {
+  top: -40px;
+  margin-left: 7px;
+}
+.shoulder {
+  top: -20px;
+  margin-left: -1px;
+}
+/*肩宽B*/
+.chestWidth {
+  top: 38px;
+  margin-left: -130px;
+}
+.chest {
+  top: 40px;
+  margin-left: -106px;
+}
+/*肩宽C*/
+.waistWidth {
+  top: 128px;
+  margin-left: -130px;
+}
+.waist {
+  top: 130px;
+  margin-left: -105px;
+}
+/*肩宽D*/
+.legLength {
+  top: 210px;
+  margin-left: 7px;
+}
+.leg {
+  top: 193px;
+  margin-left: -1px;
+}
+/*肩宽E*/
+.hipWidth {
+  top: 130px;
+  margin-left: 133px;
+}
+.hip {
+  top: 133px;
+  margin-left: 98px;
+}
+/*肩宽F*/
+.legWidth {
+  margin-left: 134px;
+  top: 35px;
+}
+.legLabel {
+  margin-left: 97px;
+  top: 39px;
+}
+
+#chart-container1, #chart-container2 {
+  margin-left: 75px;
+  margin-bottom: 20px;
+}
+
+/*recomend graph*/
+/*上衣长*/
+.shangyichang {
+  top: -43px;
+  margin-left: 6px;
+}
+.shangyichangLabel {
+  top: -15px;
+  margin-left: 0px;
+}
+/*袖长*/
+.xiuchang {
+  top: 87px;
+  margin-left: -150px;
+}
+.xiuchangLabel {
+  top: 89px;
+  margin-left: -114px;
+}
+/*裤长*/
+.kuchang {
+  top: 220px;
+  margin-left: 4px;
+}
+.kuchangLabel {
+  top: 201px;
+  margin-left: -12px;
+}
+/*裤腰*/
+.kuyao {
+  top: 85px;
+  margin-left: 141px;
+}
+
+.kuyaoLabel {
+  top: 88px;
+  margin-left: 108px;
+}
+
+
+/*图说明文字*/
+.displayText {
+  font-size: 15px;
+  text-align: center;
+  margin-top: 65px;
+  margin-left:23px;
+  width: 314px;
+}
+
+}
+/*身材指数展示样式*/
+ul.indexStyle
+{
+    display: block;
+    margin-left: 50px;
+    margin-right: 50px;
+	margin-bottom:50px;
+}
+
+li:nth-last-child(1)
+{
+  margin-bottom:50px;
+}
+
+
+.indexStyle li {
+    list-style: none;
+    position: relative;
+    margin-left: 25px;
+}
+
+.indexTitle {
+  font-size: 15px;
+  width: auto;
+  height: auto;
+  margin-top: 30px;
+}
+
+.indexInfo {
+  font-size: 14px;
+  width: 50%;
+}
+
+
+.indexDetail {
+  position: absolute;
+  margin-top: -80px;
+  margin-left: 185px;
+  width: 104px;
+  height: 87px;
+  background-color: #c5c5c5;
+}
+
+.indexDetail p {
+  font-size: 37px;
+  text-align: center;
+  color: white;
+  margin-top: 0.51em;
+}
+
+
+
+
+/*footer*/
+.mensooter {
+    padding: 15px 0 25px;
+    overflow: hidden;
+    border-top: 1px solid #626262;
+    margin: 16px 17px 0;
+}
+
+.mensooter p {
+    width: 100%;
+    line-height: 1.5em;
+    font-size: 1.1em;
+    overflow: hidden;
+    text-align: center;
+    color: #000;
+}
+
+  </style>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript" src="/static/wap/js/d3.v3.js"></script>
+<script src="http://papermashup.com/demos/d3-radar-chart/radar-chart.js"></script>
+<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.8.3/jquery.js"></script>
+<script type="text/javascript">
+  /*根据性别以及身体的各个数据，计算在相应雷达图中的占比*/
+  function nomalizeValue(min,max,value)
+  {
+    if(value>=max)
+    {
+      return 1.0;
+    }
+    else if(value<=min)
+    {
+      return 0.0;
+    }
+    else
+    {
+      return (value-min)/(max-min);
+    }
+  }
+
+  function calRateInRadarChart(sex,xiongwei,yaowei,tunwei,jiankuan,biwei,tuiwei,kuyao,kuchang,shangyichang,xiouchang)
+  {
+    var xiongweiRate,yaoweiRate,tunweiRate,jiankuanRate,biweiRate,tuiweiRate,
+    kuyaoRate,kuchangRate,shangyichangRate,xiuchangRate;
+    if(sex=='男')
+    {
+      /*个人身材*/
+      xiongweiRate = nomalizeValue(65,130,xiongwei);
+      yaoweiRate = nomalizeValue(55,120,yaowei);
+      tunweiRate = nomalizeValue(70,130,tunwei);
+      jiankuanRate = nomalizeValue(35,55,jiankuan);
+      biweiRate = nomalizeValue(25,50,biwei);
+      tuiweiRate = nomalizeValue(40,75,tuiwei);
+      /*服装尺寸*/
+      kuyaoRate = nomalizeValue(65,120,kuyao);
+      kuchangRate = nomalizeValue(65,110,kuchang);
+      shangyichangRate = nomalizeValue(45,85,shangyichang);
+      xiuchangRate = nomalizeValue(40,75,xiouchang);
+    }
+    else
+    {
+      /*个人身材*/
+      xiongweiRate = nomalizeValue(50,110,xiongwei);
+      yaoweiRate = nomalizeValue(45,110,xiongwei);
+      tunweiRate = nomalizeValue(70,110,xiongwei);
+      jiankuanRate = nomalizeValue(30,50,xiongwei);
+      biweiRate = nomalizeValue(17,40,xiongwei);
+      tuiweiRate = nomalizeValue(40,60,xiongwei);
+      /*服装尺寸*/
+      kuyaoRate = nomalizeValue(60,110,xiongwei);
+      kuchangRate = nomalizeValue(70,110,xiongwei);
+      shangyichangRate = nomalizeValue(40,70,xiongwei);
+      xiuchangRate = nomalizeValue(40,65,xiongwei);
+    }
+    result = new Array(xiongweiRate,yaoweiRate,tunweiRate,jiankuanRate,biweiRate,tuiweiRate,
+    kuyaoRate,kuchangRate,shangyichangRate,xiuchangRate);
+    return result;
+  }
+
+  /*fill data in html*/
+  function fillDataInHtml(sex,xiongwei,yaowei,tunwei,jiankuan,biwei,tuiwei,kuyao,kuchang,shangyichang,xiouchang,
+    tizhong,shengao)
+  {
+   /*display detail number in the first chart*/
+    $(".crossShoulder").html(xiongwei);
+    $(".chestWidth").html(yaowei);
+    $(".waistWidth").html(tunwei);
+    $(".legLength").html(jiankuan);
+    $(".hipWidth").html(biwei);
+    $(".legWidth").html(tuiwei);
+   /*display detail number in the second chart*/
+    $(".shangyichang").html(kuyao);
+    $(".xiuchang").html(kuchang);
+    $(".kuchang").html(shangyichang);
+    $(".kuyao").html(xiouchang);
+    /*display BMI,jianshenbi,xiabanquanshenbi,yaotunbi number in the bottom*/
+    var BMI = tizhong/(shengao*shengao)*10000;
+    var jianshenbi = jiankuan/shengao;
+    var xiabanquanshenbi = kuchang/shengao;
+    var yaotunbi = yaowei/tunwei;
+    var arr  = new Array(BMI,jianshenbi,xiabanquanshenbi,yaotunbi);
+    $(".indexDetail>p").each(function(index){
+      //console.log(this);
+      $(this).html(arr[index].toFixed(2));
+    });
+  }
+  </script>
+
+{% endblock %}
+
+{% block body %}
+<div class="carwarp nobot">
+    <div class="header-fixed">
+        <h1 class="carlogo"><a href="#"><img src="/static/images/public/logo.jpg"></a></h1>
+        <a href="/wap/cart_view/">
+            {% if request.session.carts_number != '0' %}
+            <div class="carnum">
+                <span class="cnume">{{ request.session.carts_number }}</span>
+            </div>
+            {% else %}
+            <div class="carnum carnum-empty"></div>
+            {% endif %}
+        </a>
+    </div>
+</div>
+
+
+
+
+
+<!-- add code here-->
+
+<!-- personal graph-->
+   <div class="chart">
+      <div id="chart-container1"></div>
+      <!--TODO：数值从django模板标签中去取-->
+      <p  class="crossShoulder">10</p>
+      <p class="chestWidth">20</p>
+      <p class="waistWidth">30</p>
+      <p class="legLength">40</p>
+      <p class="hipWidth">50</p>
+      <p class="legWidth">60</p>
+
+      <!--文本标签-->
+      <p class="shoulder">胸围</p>
+      <p class="chest">腰围</p>
+      <p class="waist">臀围</p>
+      <p class="leg">肩宽</p>
+      <p class="hip" >臂围</p>
+      <p class="legLabel">腿围</p>
+  </div>
+<div class="displayText">上图为您的个人身材数据</div>
+
+<!-- recommend graph-->
+   <div class="chart">
+      <div id="chart-container2"></div>
+      <!--TODO：数值从django模板标签中去取-->
+      <p  class="shangyichang">10</p>
+      <p class="xiuchang">20</p>
+      <p class="kuchang">30</p>
+      <p class="kuyao">40</p>
+      <!--文本标签-->
+      <p class="shangyichangLabel">裤腰</p>
+      <p class="xiuchangLabel">裤长</p>
+      <p class="kuchangLabel">上衣长</p>
+      <p class="kuyaoLabel">袖长</p>
+  </div>
+<div class="displayText">上图为适合您的衣服尺寸</div>
+
+<div class="displayText">以下是有关您的身材指数：</div>
+
+ <ul class="indexStyle">
+  <!-- BMI-->
+   <li >
+     <div class="indexTitle"><b>BMI</b></div>
+     <div class="indexInfo">
+       <p>标准范围是18.5~24.99<br/>
+        如果不在这个范围内<br/>
+        那就是过瘦或过胖喽!</p>
+     </div>
+     <div class="indexDetail"><p>20</p><div>
+   </li>
+  <!-- 肩身比-->
+   <li >
+     <div class="indexTitle"><b>肩身比</b></div>
+     <div class="indexInfo">
+       <p>亚洲男性平均为0.26<br/>
+        亚洲女性平均为0.25<br/>
+        肩身比越大越是衣服架子!</p>
+     </div>
+     <div class="indexDetail"><p>0.27</p><div>
+   </li>
+    <!-- 下半身全身比-->
+   <li >
+     <div class="indexTitle"><b>下半身全身比</b></div>
+     <div class="indexInfo">
+       <p>亚洲人大都比例较小<br/>
+        如果幸运的超过了0.6<br/>
+        那么快感谢你的父母吧!</p>
+     </div>
+     <div class="indexDetail"><p>0.62</p><div>
+   </li>
+    <!-- 腰臀比-->
+   <li >
+     <div class="indexTitle"><b>腰臀比</b></div>
+     <div class="indexInfo">
+       <p>反应肥胖及心脏病的风险<br/>
+        师兄偷偷告诉你<br/>
+        性感的明星都保持在0.7哦!</p>
+     </div>
+     <div class="indexDetail"><p>0.7</p><div>
+   </li>
+
+ </ul>
+
+
+
+<div class="mensooter">
+
+
+
+    <p>400-699-7386</p>
+
+
+
+    <p class="smf">北京大学2010级创业团队</p>
+
+
+
+    <p class="smf">©北京岂曰无衣服装有限公司</p>
+
+</div>
+<script>
+    //TODO:get these values from the django templates
+//    var sex = {{userinfo.sex}} ;
+    /*display in the first chart*/
+    var xiongwei = parseInt({{userinfo.chest}});
+    var yaowei = parseInt({{userinfo.waist}});
+    var tunwei = parseInt({{userinfo.hip}});
+    var jiankuan = parseInt({{userinfo.shoulder}});
+    var biwei = parseInt({{userinfo.chougenfen}});
+    var tuiwei = parseInt({{userinfo.hengdang}});
+   /*display in the second chart*/
+   var kuyao = parseInt({{userinfo.kuyao}});
+   var kuchang  = parseInt({{userinfo.kuchang}});
+   var shangyichang = parseInt({{userinfo.back_cloth}});
+   var xiouchang = parseInt({{userinfo.sleeve_right}});
+    var tizhong = parseInt({{userinfo.weight}});
+    var shengao = parseInt({{userinfo.height}});
+
+    
+
+//  TODO:get sex
+//    var sex = {{userinfo.sex}} ;
+    var sex = '男';  
+    var displayArr = calRateInRadarChart(
+      sex,
+      xiongwei,
+      yaowei,
+      tunwei,
+      jiankuan,
+      biwei,
+      tuiwei,
+      kuyao,
+      kuchang,
+      shangyichang,
+      xiouchang);
+ //   console.log("DispalyArray:"+displayArr);
+    var d1 = [
+              [
+               {axis: "", value: displayArr[0]},
+               {axis: "", value: displayArr[1]},
+               {axis: "", value: displayArr[2]},
+               {axis: "", value: displayArr[3]},
+               {axis: "", value: displayArr[4]},
+               {axis: "", value: displayArr[5]}
+              ],
+            ];
+
+    var d2 = [
+              [
+               {axis: "", value: displayArr[6]},
+               {axis: "", value: displayArr[7]},
+               {axis: "", value: displayArr[8]},
+               {axis: "", value: displayArr[9]},
+              ],
+            ];
+
+    var mycfg = {
+        w: 200,
+        h: 200,
+        levels: 2,
+        radius: 3,
+        color:function(){return '#1d50a2';},
+        maxValue: 1,
+        axisText: false
+    };
+    RadarChart.draw("#chart-container1", d1,mycfg);
+    RadarChart.draw("#chart-container2", d2,mycfg);
+    fillDataInHtml(sex,xiongwei,yaowei,tunwei,jiankuan,biwei,tuiwei,kuyao,kuchang,shangyichang,xiouchang,
+    tizhong,shengao);
+</script>    
+
+   
+{% endblock %}

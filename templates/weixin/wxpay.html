@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+
+    <title>订单支付</title>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript">
+        //调用微信JS api 支付
+        function onBridgeReady()
+        {
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',
+                {% autoescape off %}
+                {{jsApiParameters}},
+                {% endautoescape %}
+                function(res){
+                    WeixinJSBridge.log(res.err_msg);
+                    //alert(res.err_code+res.err_desc+res.err_msg);
+                    (res.err_msg == 'get_brand_wcpay_request:ok') && (window.location.href = '/wap/buyorder_post');
+                    (res.err_msg == 'get_brand_wcpay_request:cancel') && (window.location.href = '/wap/buyorder_cancel_post');
+                }
+            );
+        }
+
+        function callpay()
+        {
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+                    document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                }
+            }else{
+                onBridgeReady();
+            }
+        }
+        window.load=callpay();
+    </script>
+</head>
+<body>
+    </br></br></br></br>
+    
+    <div>
+    </div>
+</body>
+</html>

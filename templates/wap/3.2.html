@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>西裤设计要求</title>
+    <link rel="stylesheet" href="/static/wap/css/my-custom-theme.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="/static/wap/css/style.css"/>
+    <script src="/static/wap/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/wap/js/jquery.mobile-1.4.5.min.js"></script>
+    <script>
+        function popUp(msg){
+            $('#Popup').css('padding','10px').text(msg).popup("open");
+        };
+        function next(){
+            $.post('/wap/style_select_post/', {type:'xiku',
+                        KuZheXiKu:$('#kuzhe_list .nav_active').text(),
+                        HouDouXiKu:$('#houdou_list .nav_active').text(),
+                        KuJiaoXiKu:$('#kujiao_list .nav_active').text(),
+                    },
+                    function(returnedData){
+
+                        (returnedData.code == 0) && (window.location.href = '/wap/personalization_select/suit');
+                        popUp(returnedData.msg);
+                    }
+            );
+        }
+    </script>
+</head>
+<body>
+
+    <div data-role="content">
+        <div class="step">
+            <div class="stepNumber">2</div>
+            <div class="stepContent">
+                <p class="stepTitle">款式选择</p>
+                <p class="stepDescription">请选择您所钟爱的款式</p>
+            </div>
+        </div>
+        <div class="demand">2.2西裤设计要求</div>
+        <ul class="demandWrap">
+
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">裤褶</div>
+                    <ul id='kuzhe_list' class="tab_nav">
+                    {% if kuzhe_list %}
+                        {% for kuzhe in kuzhe_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{kuzhe.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{kuzhe.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if kuzhe_list %}
+                        {% for kuzhe in kuzhe_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{kuzhe.image.url}}" alt="{{kuzhe.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{kuzhe.image.url}}" alt="{{kuzhe.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">后兜</div>
+                    <ul id='houdou_list' class="tab_nav">
+                    {% if houdou_list %}
+                        {% for houdou in houdou_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{houdou.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{houdou.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if houdou_list %}
+                        {% for houdou in houdou_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{houdou.image.url}}" alt="{{houdou.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{houdou.image.url}}" alt="{{houdou.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+            <li class="demandTab">
+                <div class="tab_left">
+                    <div class="tab_title">裤脚</div>
+                    <ul id='kujiao_list' class="tab_nav">
+                    {% if kujiao_list %}
+                        {% for kujiao in kujiao_list %}
+                            {% if forloop.first %} 
+                            <li><a href="" data-number="{{ forloop.counter0 }}" class="nav_active">{{kujiao.name}}</a></li>
+                            {% else %}
+                            <li><a href="" data-number="{{ forloop.counter0 }}" >{{kujiao.name}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    </ul>
+                </div>
+
+                <div class="tab_right">
+                    {% if kujiao_list %}
+                        {% for kujiao in kujiao_list %}
+                            {% if forloop.first %} 
+                            
+                            <div class="tab_active">
+                                <img src="{{kujiao.image.url}}" alt="{{kujiao.name}}"/>
+                            </div>
+                            {% else %}
+                            
+                            <div >
+                                <img src="{{kujiao.image.url}}" alt="{{kujiao.name}}"/>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="fixedWrap">
+        <p class="price">&yen;{{product.price}}</p>
+        <a class="booking" >下一步</a>
+    </div>
+
+
+    <!--面料信息弹出层-->
+    <div class="fixModal">
+        <div class="modalWrap">
+            <div class="">
+                <p class="modalTitle">面料信息</p>
+                <div class="operator">
+                    <a class="cancel" href="#" data-role="none" onclick="$('.fixModal').hide()">取消</a>
+                    <a class="sure" href="#" data-role="none">确认选择</a>
+                    <div class="clearBoth"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--默认选项提示框-->
+    <div class="fixModal fixDefault ">
+        <div class="modalWrap isDefault">
+            <div class="">
+                <p class="defaultSure">您确定采用默认选项吗?</p>
+                <div class="operator">
+                    <a class="cancel" href="javascript:;" data-role="none" onclick="$('.fixModal').hide()">不，我再看看</a>
+                    <a class="sure" href="javascript:;" data-role="none"  onclick="next()" >确定</a>
+                    <div class="clearBoth"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="popup" id="Popup"></div>
+
+<script>
+
+    $(function(){
+        var status = 0;
+        $('.tab_nav a').not('.multiNav a').click(function(){
+            status++;
+            var $this = $(this);
+            var i = parseInt($this.attr('data-number'));
+            $this.parents('.tab_nav').find('.nav_active').removeClass('nav_active');
+            $this.parents('.demandTab').find('.tab_active').removeClass('tab_active');
+            $this.addClass('nav_active').parents('.demandTab').find('.tab_right>div').eq(i).addClass('tab_active');
+        })
+        //多选
+        $('.multiNav a').click(function(){
+            status++;
+            var $this = $(this),
+                    i = parseInt($this.attr('data-number')),
+
+                    j = $('.multiNav .nav_active').length,
+                    isSelectd = $this.hasClass('nav_active');
+            if(!isSelectd){
+                $this.parents('.demandTab').find('.tab_active').removeClass('tab_active');
+                $this.addClass('nav_active').parents('.demandTab').find('.tab_right>div').eq(i).addClass('tab_active');
+            }else{
+                if(j != 1){
+                    $this.removeClass('nav_active');
+                    $this.parents('.demandTab').find('.tab_active').removeClass('tab_active');
+
+                    var m = parseInt($('.multiNav .nav_active').first().attr('data-number'));
+                    $('.multiTab>div').eq(m).addClass('tab_active');
+                }
+            }
+
+        })
+        //下一步
+
+
+        $('.booking').click(function(){
+
+            if(status){
+                next()
+            }else{
+                $(".fixDefault").show();
+            }
+
+        })
+    })
+</script>
+</body>
+</html>
